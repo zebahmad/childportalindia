@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<localRepository>C:/.m2/maven_generic</localRepository>
+        <!--
+	<servers>
+		<server>
+			<id>raptor.releases</id>
+			<username></username>
+			<password></password>
+		</server>
+		<server>
+			<id>raptor.snapshots</id>
+			<username></username>
+			<password></password>
+		</server>
+		<server>
+			<id>snapshots</id>
+			<username></username>
+			<password></password>
+		</server>
+	</servers>
+        -->
+
+<!-- 	<pluginGroups>
+		<pluginGroup>org.mortbay.jetty</pluginGroup>
+                <pluginGroup>com.ebay.raptor.build</pluginGroup>
+		<pluginGroup>org.codehaus.mojo</pluginGroup>
+		<pluginGroup>org.sonatype.maven.plugins</pluginGroup>
+	</pluginGroups> -->
+</settings>
