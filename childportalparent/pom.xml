@@ -5,8 +5,8 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-  	<module>../childportalui</module>
-  	<module>../childportallib</module>
-  	<module>../childportalservices</module>
+  	<module>childportallib</module>
+  	<module>childportalservices</module>
+  	<module>childportalui</module>
   </modules>
 </project>
