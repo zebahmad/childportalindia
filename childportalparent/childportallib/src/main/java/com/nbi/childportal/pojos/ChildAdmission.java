@@ -4,12 +4,15 @@
 package com.nbi.childportal.pojos;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -51,13 +54,13 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "SCHOOLING_YEAR")
 	private String schoolingYear;
 	
-	/*@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "CREATED_ON")
 	private Date createdOn;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "LAST_UPDATED_ON")
-	private Date updatedOn;*/
+	private Date updatedOn;
 	
 	@Column(name = "CREATED_BY")
 	private String createdBy;
@@ -68,8 +71,8 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "COMMENTS")
 	private String comments;
 	
-/*	@Column(name = "AUDIT_COMMENTS")
-	private String[] auditComments;*/
+	@Column(name = "AUDIT_COMMENTS")
+	private String auditComments;
 	
 	
 	public Long getId() {
@@ -109,12 +112,12 @@ public class ChildAdmission implements Serializable {
 	public String getCurrentStatus() {
 		return currentStatus;
 	}
+	public EnrollmentStatus getEnrollmentCurrentStatus() {
+		return EnrollmentStatus.valueOf(currentStatus);
+	}
 	public void setCurrentStatus(String currentStatus) {
 		this.currentStatus = currentStatus;
 	}
-/*	public void setCurrentStatus(EnrollmentStatus currentStatus) {
-		this.currentStatus = currentStatus;
-	}*/
 	
 	public String getSchoolingYear() {
 		return schoolingYear;
@@ -123,7 +126,7 @@ public class ChildAdmission implements Serializable {
 		this.schoolingYear = schoolingYear;
 	}
 	
-	/*public Date getCreatedOn() {
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 	public void setCreatedOn(Date createdOn) {
@@ -135,7 +138,7 @@ public class ChildAdmission implements Serializable {
 	}
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
-	}*/
+	}
 	
 	public String getCreatedBy() {
 		return createdBy;
@@ -158,15 +161,16 @@ public class ChildAdmission implements Serializable {
 		this.comments = comments;
 	}
 	
-	/*public String[] getAuditComments() {
-		return auditComments;
+	public String[] getAuditCommentsArray() {
+		if(auditComments!=null){
+			return auditComments.split(";");
+		}
+		return null;
 	}
-	public void setAuditComments(String[] auditComments) {
-		this.auditComments = auditComments;
+	public String getAuditComments() {
+			return auditComments;
 	}
 	public void setAuditComments(String auditComments) {
-		if(auditComments!=null && auditComments.length()>0){
-			this.auditComments = auditComments.split(";");
-		}
-	}*/
+		this.auditComments = auditComments;
+	}
 }

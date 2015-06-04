@@ -3,6 +3,7 @@
  */
 package com.nbi.chlidportal.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -44,6 +45,7 @@ public class ChildAdmissionDao {
 	}
 
 	public void saveChildAdmission(ChildAdmission childAdmission){
+		childAdmission.setUpdatedOn(new Date());
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(childAdmission);
