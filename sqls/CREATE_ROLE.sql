@@ -1,0 +1,7 @@
+create table ROLE(
+	USER_ROLE_ID VARCHAR(20) PRIMARY KEY,
+	AADHAR_NO VARCHAR(100) NOT NULL,
+	ROLE VARCHAR(100) NOT NULL
+)
+
+-- tYPES OF ROLE: Child, Ngo, SchoolAdmin, SocialAuditor
