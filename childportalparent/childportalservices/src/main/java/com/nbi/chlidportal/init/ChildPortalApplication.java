@@ -9,6 +9,7 @@ import javax.ws.rs.core.Application;
 import com.nbi.chlidportal.resources.AdmissionResource;
 import com.nbi.chlidportal.resources.SchoolResource;
 import com.nbi.chlidportal.resources.UserResource;
+import com.nbi.chlidportal.resources.UserRoleResource;
 
 @ApplicationPath("")
 public class ChildPortalApplication extends Application
@@ -20,6 +21,7 @@ public class ChildPortalApplication extends Application
         // ADD YOUR RESTFUL RESOURCES HERE
         this.singletons.add(new AdmissionResource());
         this.singletons.add(new UserResource());
+        this.singletons.add(new UserRoleResource());
         this.singletons.add(new SchoolResource());
     }
  
