@@ -6,6 +6,7 @@
    <session-factory>
    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+   <property name="packagesToScan">com.nbi.childportal.pojos</property>
 
    <!-- Assume test is the database name -->
    <!-- <property name="hibernate.connection.url">jdbc:mysql://ec2-52-10-67-187.us-west-2.compute.amazonaws.com:3306/hackathon1</property>
@@ -17,6 +18,7 @@
 
    <!-- List of XML mapping files -->
    <!-- <mapping resource="ChildAdmission.hbm.xml"/> -->
+   <mapping class="com.nbi.childportal.pojos.ChildAdmission"/>  
 
 </session-factory>
 </hibernate-configuration>

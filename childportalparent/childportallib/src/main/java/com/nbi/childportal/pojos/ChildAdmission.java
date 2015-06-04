@@ -4,15 +4,15 @@
 package com.nbi.childportal.pojos;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,32 +22,62 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table( name = "CHILD_SCHOOL_ADMISSION" )
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name="admission")
 public class ChildAdmission implements Serializable {
 
 	private static final long serialVersionUID = 8791034597240638012L;
-	private Long id;
-	private String aadharNo;
-	private String schoolId;
-	private String admissionNo;
-	private String standard;
-	private EnrollmentStatus currentStatus;
-	private String schoolingYear;
-	private Date createdOn;
-	private Date updatedOn;
-	private String createdBy;
-	private String lastUpdatedBy;
-	private String comments;
-	private String[] auditComments;
-	
 	
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
-	public Long getId() {
-	    return id;
-	}
-	
+	private Long id;
+
 	@Column(name = "AADHAR_NO")
+	private String aadharNo;
+	
+	@Column(name = "SCHOOL_ID")	
+	private String schoolId;
+	
+	@Column(name = "ADMISSION_NO")
+	private String admissionNo;
+	
+	@Column(name = "STANDARD")
+	private String standard;
+	
+	@Column(name = "CURRENT_STATUS")
+	private String currentStatus;
+	
+	@Column(name = "SCHOOLING_YEAR")
+	private String schoolingYear;
+	
+	/*@Temporal(TemporalType.DATE)
+	@Column(name = "CREATED_ON")
+	private Date createdOn;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "LAST_UPDATED_ON")
+	private Date updatedOn;*/
+	
+	@Column(name = "CREATED_BY")
+	private String createdBy;
+	
+	@Column(name = "LAST_UPDATED_BY")
+	private String lastUpdatedBy;
+	
+	@Column(name = "COMMENTS")
+	private String comments;
+	
+/*	@Column(name = "AUDIT_COMMENTS")
+	private String[] auditComments;*/
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getAadharNo() {
 		return aadharNo;
 	}
@@ -55,7 +85,6 @@ public class ChildAdmission implements Serializable {
 		this.aadharNo = aadharNo;
 	}
 	
-	@Column(name = "SCHOOL_ID")
 	public String getSchoolId() {
 		return schoolId;
 	}
@@ -63,7 +92,6 @@ public class ChildAdmission implements Serializable {
 		this.schoolId = schoolId;
 	}
 	
-	@Column(name = "ADMISSION_NO")
 	public String getAdmissionNo() {
 		return admissionNo;
 	}
@@ -71,7 +99,6 @@ public class ChildAdmission implements Serializable {
 		this.admissionNo = admissionNo;
 	}
 	
-	@Column(name = "STANDARD")
 	public String getStandard() {
 		return standard;
 	}
@@ -79,18 +106,16 @@ public class ChildAdmission implements Serializable {
 		this.standard = standard;
 	}
 	
-	@Column(name = "CURRENT_STATUS")
-	public EnrollmentStatus getCurrentStatus() {
+	public String getCurrentStatus() {
 		return currentStatus;
 	}
 	public void setCurrentStatus(String currentStatus) {
-		this.currentStatus = EnrollmentStatus.valueOf(currentStatus);
-	}
-	public void setCurrentStatus(EnrollmentStatus currentStatus) {
 		this.currentStatus = currentStatus;
 	}
+/*	public void setCurrentStatus(EnrollmentStatus currentStatus) {
+		this.currentStatus = currentStatus;
+	}*/
 	
-	@Column(name = "SCHOOLING_YEAR")
 	public String getSchoolingYear() {
 		return schoolingYear;
 	}
@@ -98,24 +123,20 @@ public class ChildAdmission implements Serializable {
 		this.schoolingYear = schoolingYear;
 	}
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "CREATED_ON")
-	public Date getCreatedOn() {
+	/*public Date getCreatedOn() {
 		return createdOn;
 	}
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 	
-	@Column(name = "LAST_UPDATED_ON")
 	public Date getUpdatedOn() {
 		return updatedOn;
 	}
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
-	}
+	}*/
 	
-	@Column(name = "CREATED_BY")
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -123,7 +144,6 @@ public class ChildAdmission implements Serializable {
 		this.createdBy = createdBy;
 	}
 	
-	@Column(name = "LAST_UPDATED_BY")
 	public String getLastUpdatedBy() {
 		return lastUpdatedBy;
 	}
@@ -131,7 +151,6 @@ public class ChildAdmission implements Serializable {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 	
-	@Column(name = "COMMENTS")
 	public String getComments() {
 		return comments;
 	}
@@ -139,8 +158,7 @@ public class ChildAdmission implements Serializable {
 		this.comments = comments;
 	}
 	
-	@Column(name = "AUDIT_COMMENTS")
-	public String[] getAuditComments() {
+	/*public String[] getAuditComments() {
 		return auditComments;
 	}
 	public void setAuditComments(String[] auditComments) {
@@ -150,5 +168,5 @@ public class ChildAdmission implements Serializable {
 		if(auditComments!=null && auditComments.length()>0){
 			this.auditComments = auditComments.split(";");
 		}
-	}
+	}*/
 }

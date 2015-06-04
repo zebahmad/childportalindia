@@ -55,8 +55,9 @@ public class ChildAdmissionDao {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		List<ChildAdmission> result = session.createQuery( 
-				"from CHILD_SCHOOL_ADMISSION adm"
-				+ " WHERE adm.AADHAR_NO = '"+child.getAadharNo()+"'")
+				"from ChildAdmission"
+				//+ " WHERE adm.AADHAR_NO = '"+child.getAadharNo()+"'"
+				)
 				.list();
 		session.getTransaction().commit();
 		session.close();
