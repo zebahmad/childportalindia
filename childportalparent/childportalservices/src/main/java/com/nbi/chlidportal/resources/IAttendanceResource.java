@@ -9,7 +9,7 @@ import com.nbi.childportal.pojos.ChildAttendance;
  * @author zahmad
  *
  */
-public interface ISchoolAttendanceRecordResource {
+public interface IAttendanceResource {
 
 	public ChildAttendance getSchoolAttendanceRecord(String studentName, String standard);
 	public void createSchoolAttendanceRecord(ChildAttendance attendanceRecord);

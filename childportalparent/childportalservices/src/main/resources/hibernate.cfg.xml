@@ -19,6 +19,7 @@
    <!-- List of XML mapping files -->
    <!-- <mapping resource="ChildAdmission.hbm.xml"/> -->
    <mapping class="com.nbi.childportal.pojos.ChildAdmission"/>  
+   <mapping class="com.nbi.childportal.pojos.User"/>  
 
 </session-factory>
 </hibernate-configuration>

@@ -74,6 +74,9 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "AUDIT_COMMENTS")
 	private String auditComments;
 	
+	@Column(name = "ENROLLED_BY")
+	private String enrolledBy;
+	
 	
 	public Long getId() {
 		return id;
@@ -172,5 +175,11 @@ public class ChildAdmission implements Serializable {
 	}
 	public void setAuditComments(String auditComments) {
 		this.auditComments = auditComments;
+	}
+	public String getEnrolledBy() {
+		return enrolledBy;
+	}
+	public void setEnrolledBy(String enrolledBy) {
+		this.enrolledBy = enrolledBy;
 	}
 }

@@ -10,7 +10,7 @@ import com.nbi.childportal.pojos.StatusResponse;
  * @author zahmad
  *
  */
-public interface ISchoolAdmissionRecordResource {
+public interface IAdmissionResource {
 
 	public ChildAdmission getSchoolAdmissionRecord(String studentName) throws Exception;
 	public StatusResponse createSchoolAdmissionRecord(ChildAdmission childAdmission) throws Exception;

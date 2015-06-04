@@ -16,20 +16,19 @@ import javax.ws.rs.Produces;
 
 import com.nbi.childportal.common.AppLogger;
 import com.nbi.childportal.pojos.ChildAdmission;
-import com.nbi.childportal.pojos.ChildAttendance;
 import com.nbi.childportal.pojos.StatusResponse;
-import com.nbi.chlidportal.dao.ChildAdmissionDao;
+import com.nbi.chlidportal.dao.AdmissionDao;
 
 /**
  * @author zahmad
  *
  */
-@Path("/school")
-public class SchoolAdmissionRecordResource 
-		implements ISchoolAdmissionRecordResource, ISchoolAttendanceRecordResource
+@Path("/admission")
+public class AdmissionResource 
+		implements IAdmissionResource
 	{
 
-	private AppLogger logger = new AppLogger(SchoolAdmissionRecordResource.class.getCanonicalName());
+	private AppLogger logger = new AppLogger(AdmissionResource.class.getCanonicalName());
 	
 	/**
 	 * ADMISSION RECORDS
@@ -37,14 +36,14 @@ public class SchoolAdmissionRecordResource
 	 */
 	
 	@GET
-	@Path("/admission/{studentAadhar}")
+	@Path("/{studentAadhar}")
 	@Produces("application/json")
 	@Consumes("application/json")
 	public ChildAdmission getSchoolAdmissionRecord(@PathParam("studentAadhar") String studentAadhar) throws Exception {
-		ChildAdmissionDao admissionDao;
+		AdmissionDao admissionDao;
 		List<ChildAdmission> childAdmission = null;
 		try {
-			admissionDao = ChildAdmissionDao.getInstance();
+			admissionDao = AdmissionDao.getInstance();
 			ChildAdmission child = new ChildAdmission();
 			child.setAadharNo(studentAadhar);
 			childAdmission = admissionDao.getChildAdmission(child );
@@ -60,7 +59,7 @@ public class SchoolAdmissionRecordResource
 
 	
 	@PUT
-	@Path("/admission")
+	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
 	public StatusResponse updateSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) throws Exception {
@@ -77,7 +76,7 @@ public class SchoolAdmissionRecordResource
 	}
 
 	@POST
-	@Path("/admission")
+	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
 	public StatusResponse createSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) {
@@ -87,9 +86,9 @@ public class SchoolAdmissionRecordResource
 	
 	private StatusResponse save(ChildAdmission childAdmissionRecord) {
 		StatusResponse response = new StatusResponse();
-		ChildAdmissionDao admissionDao =null;
+		AdmissionDao admissionDao =null;
 		try {
-			admissionDao =ChildAdmissionDao.getInstance();
+			admissionDao =AdmissionDao.getInstance();
 			admissionDao.saveChildAdmission(childAdmissionRecord);
 			
 			response.setSuccess(true);
@@ -110,37 +109,6 @@ public class SchoolAdmissionRecordResource
 		
 		return originalChildAdmissionRecord;
 	}
-	
-	
-	/**
-	 * ATTENDANCE RECORDS
-	 */
-
-	@GET
-	@Path("/attendance/{studentAadhar}/{standard}")
-	@Produces("application/json")
-	@Consumes("application/json")
-	public ChildAttendance getSchoolAttendanceRecord(String studentAadhar, String standard) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@POST
-	@Path("/attendance")
-	@Produces("application/json")
-	@Consumes("application/json")
-	public void createSchoolAttendanceRecord(ChildAttendance attendanceRecord) {
-		// TODO Auto-generated method stub
-	}
-
-	@PUT
-	@Path("/attendance")
-	@Produces("application/json")
-	@Consumes("application/json")
-	public void updateSchoolAttendanceRecord(ChildAttendance attendanceRecord) {
-		// TODO Auto-generated method stub
-	}
-
 	
 	
 }
