@@ -9,10 +9,10 @@ package com.nbi.childportal.pojos;
  */
 public enum RoleEnum {
 
-	student,
-	schoolAdmin,
-	schoolAdminNGO,
-	socialAuditor
+	CHILD,
+	SCHOOL_ADMIN,
+	SCHOOL_ADMIN_NGO,
+	SOCIAL_AUDITOR
 
 }
 
