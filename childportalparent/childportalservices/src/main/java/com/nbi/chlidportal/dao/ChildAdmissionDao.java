@@ -3,11 +3,14 @@
  */
 package com.nbi.chlidportal.dao;
 
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 
 import com.nbi.childportal.pojos.ChildAdmission;
 
@@ -44,9 +47,10 @@ public class ChildAdmissionDao {
 	}
 
 	public void saveChildAdmission(ChildAdmission childAdmission){
+		childAdmission.setUpdatedOn(new Date());
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(childAdmission);
+		session.saveOrUpdate(childAdmission);
 		session.getTransaction().commit();
 		session.close();
 	}
@@ -54,11 +58,11 @@ public class ChildAdmissionDao {
 	public List<ChildAdmission> getChildAdmission(ChildAdmission child){
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		List<ChildAdmission> result = session.createQuery( 
-				"from ChildAdmission"
-				//+ " WHERE adm.AADHAR_NO = '"+child.getAadharNo()+"'"
-				)
-				.list();
+		
+		Criteria criteria = session.createCriteria(ChildAdmission.class);
+		criteria.add(Restrictions.eq("aadharNo", child.getAadharNo()));
+		List<ChildAdmission> result = criteria.list();
+
 		session.getTransaction().commit();
 		session.close();
 		

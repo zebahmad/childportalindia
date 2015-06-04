@@ -3,6 +3,7 @@
  */
 package com.nbi.chlidportal.resources;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,6 +17,7 @@ import javax.ws.rs.Produces;
 import com.nbi.childportal.common.AppLogger;
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.ChildAttendance;
+import com.nbi.childportal.pojos.StatusResponse;
 import com.nbi.chlidportal.dao.ChildAdmissionDao;
 
 /**
@@ -56,20 +58,57 @@ public class SchoolAdmissionRecordResource
 		return childAdmission.get(0);
 	}
 
-	@POST
-	@Path("/admission")
-	@Produces("application/json")
-	@Consumes("application/json")
-	public void createSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) {
-		// TODO Auto-generated method stub
-	}
-
+	
 	@PUT
 	@Path("/admission")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public void updateSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) {
-		// TODO Auto-generated method stub
+	public StatusResponse updateSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) throws Exception {
+		ChildAdmission existingChildAdmissionRecord = null;
+		try {
+			existingChildAdmissionRecord = getSchoolAdmissionRecord(childAdmissionRecord.getAadharNo());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Could not retrieve given admission record for update");
+		}
+		
+		childAdmissionRecord = updateFieldsFromOriginalAdmissionRecord(existingChildAdmissionRecord, childAdmissionRecord);
+		return save(childAdmissionRecord);
+	}
+
+	@POST
+	@Path("/admission")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public StatusResponse createSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) {
+		childAdmissionRecord.setCreatedOn(new Date());
+		return save(childAdmissionRecord);
+	}
+	
+	private StatusResponse save(ChildAdmission childAdmissionRecord) {
+		StatusResponse response = new StatusResponse();
+		ChildAdmissionDao admissionDao =null;
+		try {
+			admissionDao =ChildAdmissionDao.getInstance();
+			admissionDao.saveChildAdmission(childAdmissionRecord);
+			
+			response.setSuccess(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setError(e.getMessage());
+		}
+		return response;
+		
+	}
+	
+	private ChildAdmission updateFieldsFromOriginalAdmissionRecord(ChildAdmission originalChildAdmissionRecord, ChildAdmission newChildAdmissionRecord) {
+		originalChildAdmissionRecord.setAuditComments(newChildAdmissionRecord.getAuditComments());
+		originalChildAdmissionRecord.setComments(newChildAdmissionRecord.getComments());
+		originalChildAdmissionRecord.setCurrentStatus(newChildAdmissionRecord.getCurrentStatus());
+		originalChildAdmissionRecord.setLastUpdatedBy(newChildAdmissionRecord.getLastUpdatedBy());
+		originalChildAdmissionRecord.setUpdatedOn(new Date());
+		
+		return originalChildAdmissionRecord;
 	}
 	
 	
