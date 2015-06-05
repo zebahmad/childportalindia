@@ -24,7 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
  *
  */
 @Entity
-@Table( name = "CHILD_SCHOOL_ADMISSION" )
+@Table( name = "ADMISSION" )
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="admission")
 public class ChildAdmission implements Serializable {
