@@ -1,7 +1,9 @@
-create table ROLE(
-	USER_ROLE_ID VARCHAR(20) PRIMARY KEY,
-	AADHAR_NO VARCHAR(100) NOT NULL,
-	ROLE VARCHAR(100) NOT NULL
-)
+delimiter $$
 
--- tYPES OF ROLE: Child, Ngo, SchoolAdmin, SocialAuditor
+CREATE TABLE `role` (
+  `USER_ROLE_ID` varchar(20) NOT NULL,
+  `AADHAR_NO` varchar(100) NOT NULL,
+  `ROLE` varchar(100) NOT NULL,
+  PRIMARY KEY (`USER_ROLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+

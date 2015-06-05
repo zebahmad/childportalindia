@@ -10,20 +10,20 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import com.nbi.childportal.pojos.School;
+import com.nbi.childportal.pojos.Organization;
 
 /**
  * @author zahmad
  *
  */
-public class SchoolDao {
-	private static SchoolDao singleton;
+public class OrgDao {
+	private static OrgDao singleton;
 
-	private SchoolDao(){
+	private OrgDao(){
 
 	}
 
-	public static SchoolDao getInstance(){
+	public static OrgDao getInstance(){
 		if(singleton==null){
 			setUp();
 		}
@@ -32,26 +32,26 @@ public class SchoolDao {
 
 	protected static synchronized void setUp(){
 		if(singleton==null){
-			singleton = new SchoolDao();
+			singleton = new OrgDao();
 		}
 	}
 
-	public void saveSchool(School school) throws HibernateException, Exception{
+	public void saveOrg(Organization org) throws HibernateException, Exception{
 		Session session = HibernateSession.getSessionFactory().openSession();
 		session.beginTransaction();
-		session.saveOrUpdate(school);
+		session.saveOrUpdate(org);
 		session.getTransaction().commit();
 		session.close();
 	}
 
-	public List<School> getSchool(School school) throws HibernateException, Exception{
+	public List<Organization> getOrg(Organization org) throws HibernateException, Exception{
 		//TODO: Exception handling for db
 		Session session = HibernateSession.getSessionFactory().openSession();
 		session.beginTransaction();
 
-		Criteria criteria = session.createCriteria(School.class);
-		addCriteria(school, criteria);
-		List<School> result = criteria.list();
+		Criteria criteria = session.createCriteria(Organization.class);
+		criteria = addCriteria(org, criteria);
+		List<Organization> result = criteria.list();
 
 		session.getTransaction().commit();
 		session.close();
@@ -59,9 +59,9 @@ public class SchoolDao {
 		return result;
 	}
 
-	private Criteria addCriteria(School school, Criteria criteria) {
-		if(school.getSchoolId()!=null){
-			criteria.add(Restrictions.eq("schoolId", school.getSchoolId()));
+	private Criteria addCriteria(Organization org, Criteria criteria) {
+		if(org.getOrgId()!=null){
+			criteria.add(Restrictions.eq("orgId", org.getOrgId()));
 		}
 		return criteria;
 	}

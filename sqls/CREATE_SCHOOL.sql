@@ -1,8 +1,0 @@
-create table SCHOOL(
-	SCHOOL_ID varchar(20) NOT NULL PRIMARY KEY,
-	SCHOOL_CODE varchar(20) NOT NULL,
-	SCHOOL_NAME varchar(30) NOT NULL,
-	ADDRESS varchar(100) NOT NULL,
-	DISTRICT varchar(20) NOT NULL,
-	STATE varchar(20) NOT NULL
-) 

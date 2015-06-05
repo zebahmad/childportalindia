@@ -16,20 +16,23 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @Entity
-@Table( name = "SCHOOL" )
+@Table( name = "ORGANIZATION" )
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name="school")
-public class School {
+@XmlRootElement(name="org")
+public class Organization {
 	
 	@Id
-	@Column(name = "SCHOOL_ID")
-	private String schoolId;
+	@Column(name = "ORG_ID")
+	private String orgId;
+
+	@Column(name = "ORG_TYPE")
+	private String orgType;	
 	
-	@Column(name = "SCHOOL_CODE")
-	private String schoolCode;
+	@Column(name = "ORG_CODE")
+	private String orgCode;
 	
-	@Column(name = "SCHOOL_NAME")
-	private String name;
+	@Column(name = "ORG_NAME")
+	private String orgName;
 	
 	@Column(name = "ADDRESS")
 	private String address;
@@ -42,23 +45,35 @@ public class School {
 	
 	
 	
-	public String getSchoolId() {
-		return schoolId;
+	public String getOrgId() {
+		return orgId;
 	}
-	public void setSchoolId(String schoolId) {
-		this.schoolId = schoolId;
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
 	}
-	public String getSchoolCode() {
-		return schoolCode;
+	public String getOrgType() {
+		return orgType;
 	}
-	public void setSchoolCode(String schoolCode) {
-		this.schoolCode = schoolCode;
+	public OrgTypeEnum getOrgTypeEnum() {
+		return OrgTypeEnum.valueOf(orgType);
+	}
+	public void setOrgType(String orgType) {
+		this.orgType = orgType;
+	}
+	public void setOrgTypeEnum(OrgTypeEnum orgType) {
+		this.orgType = orgType.toString();
+	}
+	public String getOrgCode() {
+		return orgCode;
+	}
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
 	}
 	public String getName() {
-		return name;
+		return orgName;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.orgName = name;
 	}
 	public String getAddress() {
 		return address;

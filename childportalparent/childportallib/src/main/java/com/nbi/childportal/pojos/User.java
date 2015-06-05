@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @Entity
-@Table( name = "CHILD_PORTAL_USER" )
+@Table( name = "PERSON" )
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="user")
 public class User {
