@@ -9,6 +9,7 @@ CREATE TABLE `person` (
   `GENDER` varchar(1) NOT NULL,
   `DOB` datetime NOT NULL,
   `ADDRESS` varchar(100) DEFAULT NULL,
+  `STATE` varchar(45) NOT NULL,
   `DISTRICT` varchar(30) DEFAULT NULL,
   `MOBILE` varchar(20) DEFAULT NULL,
   `EMAIL` varchar(50) DEFAULT NULL,

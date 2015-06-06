@@ -77,6 +77,10 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "ENROLLED_BY")
 	private String enrolledBy;
 	
+	@Column(name = "ENROLLMENT_DATE")
+	private Date enrolmentDate;
+	
+	
 	
 	public Long getId() {
 		return id;
@@ -181,5 +185,11 @@ public class ChildAdmission implements Serializable {
 	}
 	public void setEnrolledBy(String enrolledBy) {
 		this.enrolledBy = enrolledBy;
+	}
+	public Date getEnrolmentDate() {
+		return enrolmentDate;
+	}
+	public void setEnrolmentDate(Date enrolmentDate) {
+		this.enrolmentDate = enrolmentDate;
 	}
 }
