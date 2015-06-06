@@ -1,0 +1,20 @@
+delimiter $$
+
+CREATE TABLE `admission` (
+  `ID` bigint(20) NOT NULL,
+  `AADHAR_NO` varchar(100) NOT NULL,
+  `SCHOOL_ID` varchar(100) NOT NULL,
+  `ADMISSION_NO` varchar(20) NOT NULL,
+  `STANDARD` varchar(20) NOT NULL,
+  `CURRENT_STATUS` varchar(20) NOT NULL,
+  `SCHOOLING_YEAR` varchar(20) NOT NULL,
+  `CREATED_ON` datetime NOT NULL,
+  `LAST_UPDATED_ON` datetime NOT NULL,
+  `CREATED_BY` varchar(100) NOT NULL,
+  `LAST_UPDATED_BY` varchar(100) NOT NULL,
+  `COMMENTS` varchar(200) DEFAULT NULL,
+  `AUDIT_COMMENTS` varchar(1000) NOT NULL,
+  `ENROLLED_BY` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+

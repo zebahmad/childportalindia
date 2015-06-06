@@ -94,7 +94,11 @@ public class AdmissionResource
 			response.setSuccess(true);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.setError(e.getMessage());
+			String error = e.getMessage();
+			if(e.getCause()!=null){
+				error = error+e.getCause().getMessage();
+			}
+			response.setError(error);
 		}
 		return response;
 		
