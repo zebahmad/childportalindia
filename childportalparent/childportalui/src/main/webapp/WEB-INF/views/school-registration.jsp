@@ -113,21 +113,21 @@
           <form role="form"> 
             
             <div class="form-group"> 
-              <label>School Code</label> <input type="text" required placeholder="Enter school code" class="form-control">
+              <label>School Code</label> <input type="text" id="sch_code" placeholder="Enter school code" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>School Name</label> <input type="text" required placeholder="Enter school name" class="form-control">
+              <label>School Name</label> <input type="text" id="sch_name" placeholder="Enter school name" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>Address</label> <input type="text" required placeholder="Enter school address" class="form-control">
+              <label>Address</label> <input type="text" id="sch_address" placeholder="Enter school address" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>District</label> <input type="text" required placeholder="Enter school district" class="form-control">
+              <label>District</label> <input type="text" id="sch_district" placeholder="Enter school district" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>State</label> <input type="text" required placeholder="Enter school state" class="form-control">
+              <label>State</label> <input type="text" id="sch_state" placeholder="Enter school state" class="form-control">
             </div> 
-                <button type="submit" class="btn btn-primary register_school">Register</button>
+                <button type="button" class="btn btn-primary register_school">Register</button>
              
             </form>
           

@@ -337,7 +337,7 @@
 	<script type="text/javascript" src="js/bootstrap.datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="js/behaviour/general.js"></script>
   <script src="js/jquery.ui/jquery-ui.js" type="text/javascript"></script>
-  <script src="js/student-registration.js" type="text/javascript"></script>
+  <script src="js/student-details-update.js" type="text/javascript"></script>
   <script type="text/javascript"
 		src="js/jquery.gritter/js/jquery.gritter.js"></script>
   <script type="text/javascript">
