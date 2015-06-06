@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="images/favicon.png">
 
-    <title>Clean Zone</title>
+    <title>Child Portal</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Raleway:100' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
@@ -30,6 +30,9 @@
 	<link rel="stylesheet" type="text/css" href="js/jquery.select2/select2.css" />
 	<link rel="stylesheet" type="text/css" href="js/bootstrap.slider/css/slider.css" />
 	<link rel="stylesheet" type="text/css" href="js/intro.js/introjs.css" />
+	<link rel="stylesheet" type="text/css"
+	href="js/jquery.datatables/bootstrap-adapter/css/datatables.css" />
+	
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet" />
 
@@ -43,7 +46,7 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="fa fa-gear"></span>
         </button>
-        <a class="navbar-brand" href="#"><span>Clean Zone</span></a>
+        <a class="navbar-brand" href="#"><span>Child Portal</span></a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -113,84 +116,157 @@
 
 			<div class="row dash-cols">
 			
-				<div class="col-sm-6 col-md-6">
+				<div class="col-md-12" id="enrolled">
 					<div class="block">
 						<div class="header no-border">
-							<h2>Sales</h2>
+							<h2>ENROLLED STUDENTS</h2>
 						</div>
-						<div class="content blue-chart"  data-step="3" data-intro="<strong>Unique Styled Plugins</strong> <br/> We put love in every detail to give a great user experience!.">
-							<div id="site_statistics" style="height:180px;"></div>
+						<div class="content"  data-step="3" data-intro="<strong>Unique Styled Plugins</strong> <br/> We put love in every detail to give a great user experience!.">
+							<div id="enrolled_students" style="height:180px;"></div>
 						</div>
 						<div class="content">
 							<div class="stat-data">
 								<div class="stat-blue">
 									<h2>1,254</h2>
-									<span>Total Sales</span>
+									<span>Total admissions</span>
 								</div>
 							</div>
 							<div class="stat-data">
 								<div class="stat-number">
 									<div><h2>83</h2></div>
-									<div>Total hits<br /><span>(Daily)</span></div>
+									<div>registered students last month</div>
 								</div>
 								<div class="stat-number">
 									<div><h2>57</h2></div>
-									<div>Views<br /><span>(Daily)</span></div>
+									<div>registered students last year</div>
+								</div>
+							</div>
+							<div class="clear"></div>
+							 
+						</div>
+					</div>
+					<div class="form-group">
+				               <div class="col-sm-2">
+			                <label class="control-label">State</label>
+			                
+			                  <select class="form-control" id="en_state">
+			                    <option value=""></option>
+			                    <option value="TN">Tamil Nadu</option>
+			                    <option value="KA">Karnataka</option>
+			                    <option value="AP">Andhra Pradesh</option>
+			                  </select>									
+			                </div>
+			                <div class="col-sm-2">
+			                <label class="control-label">District</label>
+			                
+			                  <select class="form-control" id="en_district">
+			                    <option value=""></option>
+			                    <option value="Kancheepuram">Kancheepuram</option>
+			                    <option value="Chromepet">Chengalpet</option>
+			                    <option value="Tumkur">Tumkur</option>
+			                  </select>									
+			                </div>
+			                <div class="col-sm-2">
+			                <label class="control-label">School</label>
+			                
+			                  <select class="form-control" id="en_school">
+			                    <option value=""></option>
+			                    <option value="chettinad">Chettinad Vidhyashram</option>
+			                    <option value="chinmaya">Chinmaya Vidyalaya</option>
+			                    <option value="sankara">Sankara Vidyalaya</option>
+			                  </select>									
+			                </div>
+			                <div class="col-sm-2">
+			                <label class="control-label">NGO</label>
+			                
+			                  <select class="form-control" id="en_ngo">
+			                    <option value=""></option>
+			                    <option value="needbaseindia">Need Base India</option>
+			                    <option value="helpachild">Help a child</option>
+			                    <option value="teachindia">Teach India</option>
+			                  </select>									
+			                </div>
+			                <br>
+			               <div class="col-sm-2">
+			               <button id="refreshchart1" class="btn btn-primary refreshchart1">Load chart</button>
+			                </div>
+			               </div>
+					      								
+			        </div>
+				</div>	
+				
+				<div class="col-md-12" id="dropouts">
+					<div class="block">
+						<div class="header no-border">
+							<h2>CHILDREN OUT OF SCHOOL</h2>
+						</div>
+						<div class="content"  data-step="3" data-intro="<strong>Unique Styled Plugins</strong> <br/> We put love in every detail to give a great user experience!.">
+							<div id="dropout_students" style="height:180px;"></div>
+						</div>
+						<div class="content">
+							<div class="stat-data">
+								<div class="stat-blue">
+									<h2>1,254</h2>
+									<span>Total children out of school</span>
+								</div>
+							</div>
+							<div class="stat-data">
+								<div class="stat-number">
+									<div><h2>83</h2></div>
+									<div>dropouts last month</div>
+								</div>
+								<div class="stat-number">
+									<div><h2>57</h2></div>
+									<div>dropouts last year</div>
 								</div>
 							</div>
 							<div class="clear"></div>
 						</div>
 					</div>
-				</div>	
-				
-				<div class="col-sm-6 col-md-6">
-					<div class="block">
-						<div class="header no-border">
-							<h2>Monitor</h2>
-						</div>
-						<div class="content red-chart">
-							<div id="site_statistics2" style="height:152px;"></div>
-						</div>
-						<div class="content no-padding">
-							<table class="red">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th class="right"><span>25%</span>C.P.U</th>
-										<th class="right"><span>29%</span>Memory</th>
-										<th class="right"><span>16%</span>Disc</th>
-									</tr>
-								</thead>
-								<tbody class="no-border-x">
-									<tr>
-										<td style="width:40%;"><i class="fa fa-sitemap"></i> Server load</td>
-										<td class="text-right">0,2%</td>
-										<td class="text-right">13,2 MB</td>
-										<td class="text-right">0,1 MB/s</td>
-									</tr>
-									<tr>
-										<td><i class="fa fa-tasks"></i> Apps</td>
-										<td class="text-right">0,2%</td>
-										<td class="text-right">13,2 MB</td>
-										<td class="text-right">0,1 MB/s</td>
-									</tr>
-									<tr>
-										<td><i class="fa fa-signal"></i> Process</td>
-										<td class="text-right">0,2%</td>
-										<td class="text-right">13,2 MB</td>
-										<td class="text-right">0,1 MB/s</td>
-									</tr>
-									<tr>
-										<td><i class="fa fa-bolt"></i> Wamp Server</td>
-										<td class="text-right">0,2%</td>
-										<td class="text-right">13,2 MB</td>
-										<td class="text-right">0,1 MB/s</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+							<div class="form-group">
+				               <div class="col-sm-3">
+			                <label class="control-label">State</label>
+			                
+			                  <select class="form-control" id="dr_state">
+			                    <option value=""></option>
+			                    <option value="TN">Tamil Nadu</option>
+			                    <option value="KA">Karnataka</option>
+			                    <option value="AP">Andhra Pradesh</option>
+			                  </select>									
+			                </div>
+			                <div class="col-sm-3">
+			                <label class="control-label">District</label>
+			                
+			                  <select class="form-control" id="dr_district">
+			                    <option value=""></option>
+			                    <option value="Kancheepuram">Kancheepuram</option>
+			                    <option value="Chromepet">Chengalpet</option>
+			                    <option value="Tumkur">Tumkur</option>
+			                  </select>									
+			                </div>
+			                <div class="col-sm-3">
+			                <label class="control-label">School</label>
+			                
+			                  <select class="form-control" id="dr_school">
+			                    <option value=""></option>
+			                    <option value="chettinad">Chettinad Vidhyashram</option>
+			                    <option value="chinmaya">Chinmaya Vidyalaya</option>
+			                    <option value="sankara">Sankara Vidyalaya</option>
+			                  </select>									
+			                </div>
+			                <br>
+			               <div class="col-sm-3">
+			               <button id="refreshchart2" class="btn btn-primary refreshchart2">Load chart</button>
+			                </div>
+			               </div><br>
+						<table id="chart2_details" cellpadding="0" cellspacing="0" border="0" class="table table-bordered"></table>
 					</div>
-				</div>
+					<div class="col-md-12" id="ngos">
+						<div class="header no-border">
+							<h2>Registered NGOs</h2>
+						</div>
+						<table id="ngos_table" cellpadding="0" cellspacing="0" border="0" class="table table-bordered"></table>
+					</div>
 			</div>
 			
 			
@@ -220,9 +296,15 @@
   <script src="js/jquery.select2/select2.min.js" type="text/javascript"></script>
   <script src="js/skycons/skycons.js" type="text/javascript"></script>
   <script src="js/bootstrap.slider/js/bootstrap-slider.js" type="text/javascript"></script>
+  <script type="text/javascript"
+		src="js/jquery.datatables/jquery.datatables.min.js"></script>
+	<script type="text/javascript"
+		src="js/jquery.datatables/bootstrap-adapter/js/datatables.js"></script>
   <script src="js/intro.js/intro.js" type="text/javascript"></script>
   <script src="js/adhaar.js" type="text/javascript"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+  <script src="js/highcharts.js"></script>
+<script src="js/exporting.js"></script>
+<script src="js/hackathon_home.js"></script>
 
 
   <!-- Bootstrap core JavaScript
@@ -232,7 +314,9 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
-        App.dashBoard();        
+        App.dashBoard();     
+        App.charts();
+        App.dataTables();
       });
     </script>
     <script src="js/behaviour/voice-commands.js"></script>

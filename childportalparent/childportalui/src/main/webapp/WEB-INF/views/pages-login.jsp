@@ -7,7 +7,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>Clean Zone</title>
+	<title>Child Portal</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Raleway:300,200,100' rel='stylesheet' type='text/css'>
 
@@ -28,7 +28,7 @@
 	<div class="middle-login">
 		<div class="block-flat">
 			<div class="header">							
-				<h3 class="text-center"><img class="logo-img" src="images/logo.png" alt="logo"/>Clean Zone</h3>
+				<h3 class="text-center"><img class="logo-img" src="images/logo.png" alt="logo"/>Child Portal</h3>
 			</div>
 			<div>
 				<form style="margin-bottom: 0px !important;" class="form-horizontal" action="index.html">
@@ -38,7 +38,7 @@
 								<div class="col-sm-12">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="fa fa-user"></i></span>
-										<input type="text" placeholder="Username" id="username" class="form-control">
+										<input type="text" placeholder="Aadhar Id" id="aadharid" class="form-control">
 									</div>
 								</div>
 							</div>
@@ -46,14 +46,13 @@
 								<div class="col-sm-12">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-										<input type="password" placeholder="Password" id="password" class="form-control">
+										<input type="text" placeholder="Name" id="name" class="form-control">
 									</div>
 								</div>
 							</div>
 							
 					</div>
 					<div class="foot">
-						<button class="btn btn-default" data-dismiss="modal" type="button">Register</button>
 						<button class="btn btn-primary" data-dismiss="modal" type="submit">Log me in</button>
 					</div>
 				</form>
