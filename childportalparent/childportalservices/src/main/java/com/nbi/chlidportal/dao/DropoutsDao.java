@@ -13,6 +13,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
+import org.hibernate.type.StringType;
 
 import com.nbi.childportal.pojos.User;
 import com.nbi.childportal.pojos.reports.GroupingFilter;
@@ -83,7 +84,10 @@ public class DropoutsDao {
 				 + " order by statYear, statMonth desc");
 
 		sqlQuery.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-        List data = sqlQuery.addScalar("statYear", IntegerType.INSTANCE).addScalar("statMonth", IntegerType.INSTANCE).addScalar("count", LongType.INSTANCE).list();
+        List data = sqlQuery.addScalar("statYear", IntegerType.INSTANCE).addScalar("statMonth", IntegerType.INSTANCE)
+        		.addScalar("state", StringType.INSTANCE)
+        		.addScalar("district", StringType.INSTANCE)
+        		.addScalar("count", LongType.INSTANCE).list();
 
         Map<String, Statistic> districtStats = new HashMap<String, Statistic>();
         Map<String, Statistic> stateStats = new HashMap<String, Statistic>();
@@ -106,7 +110,7 @@ public class DropoutsDao {
 					statistic = new Statistic();
 				}
 				statistic.addStatPoint(statPoint);
-				districtStats.put("district", statistic);
+				districtStats.put((String)row.get("district"), statistic);
 				break;
 			case state:
 				statistic = stateStats.get(row.get("state"));
@@ -114,7 +118,7 @@ public class DropoutsDao {
 					statistic = new Statistic();
 				}
 				statistic.addStatPoint(statPoint);
-				stateStats.put("state", statistic);
+				stateStats.put((String)row.get("state"), statistic);
 				break;
 			default:
 				statistic = totalStats.get("nationwide");
