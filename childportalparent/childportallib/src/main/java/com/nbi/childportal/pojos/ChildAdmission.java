@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,8 +41,9 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "AADHAR_NO")
 	private String aadharNo;
 	
-	@Column(name = "SCHOOL_ID")	
-	private String schoolId;
+	@ManyToOne	
+	@JoinColumn(name="ORG_ID")
+	private Organization school;
 	
 	@Column(name = "ADMISSION_NO")
 	private String admissionNo;
@@ -95,11 +98,11 @@ public class ChildAdmission implements Serializable {
 		this.aadharNo = aadharNo;
 	}
 	
-	public String getSchoolId() {
-		return schoolId;
+	public Organization getSchool() {
+		return school;
 	}
-	public void setSchoolId(String schoolId) {
-		this.schoolId = schoolId;
+	public void setSchool(Organization school) {
+		this.school = school;
 	}
 	
 	public String getAdmissionNo() {

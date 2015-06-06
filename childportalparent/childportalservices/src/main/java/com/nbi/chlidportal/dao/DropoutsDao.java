@@ -3,7 +3,6 @@
  */
 package com.nbi.chlidportal.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,12 +12,9 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
-import org.hibernate.type.StringType;
 
 import com.nbi.childportal.pojos.User;
-import com.nbi.childportal.pojos.reports.GroupingFilter;
 import com.nbi.childportal.pojos.reports.StatPoint;
-import com.nbi.childportal.pojos.reports.StatType;
 import com.nbi.childportal.pojos.reports.Statistic;
 
 /**
@@ -46,103 +42,58 @@ public class DropoutsDao {
 		}
 	}
 
-	public Map<String, Statistic> getDropoutStats(GroupingFilter groupingFilter,StatType statType) throws HibernateException, Exception{
+	public Statistic getDropoutStats(String districtName, String state) throws HibernateException, Exception{
 		//TODO: Exception handling for db
 		Session session = HibernateSession.getSessionFactory().openSession();
 		session.beginTransaction();
 		
+		StringBuilder andClause = new StringBuilder("");
+		addAndClause(andClause, "outOfSchoolChild.district", districtName);
+		addAndClause(andClause, "outOfSchoolChild.state", state);
+		
 		SQLQuery sqlQuery = session.createSQLQuery(
-				/*"select "
-						+ "outOfSchoolChild.state as state," 
-						+ "outOfSchoolChild.district as district,"
-						+ "count(*) as count"
-				+ " where outOfSchoolChild.aadhar_no not in" 
-				+ " (select child.aadhar_no from person child, admission enrolledChild"
-				+ "where child.aadhar_no = enrolledChild.aadhar_no)"
-				+ " group by outOfSchoolChild.state, outOfSchoolChild.district");*/
-				
 				"select"
-				 	+ " stats.yearValue as statYear,"
-				 	+ " stats.monthValue as statMonth,"
-				 	+ " outOfSchoolChild.state as state," 
-				 	+ " outOfSchoolChild.district as district,"
-				 	+ " count(*) as count"
-				 + " from person outOfSchoolChild, stat_date_keys stats"
-				 + " where concat(outOfSchoolChild.aadhar_no, '_'+stats.monthValue+'_'+stats.yearValue)" 
-				 	+ " not in"
-				 	+ " (select concat("
-				 					+ " child.aadhar_no, '_'," 
-				 					+ " month(enrolledChild.enrollment_date), '_'," 
-				 					+ " year(enrolledChild.enrollment_date)"
-				 					+ " )"
-				 		+ " from person child, admission enrolledChild"
-				 		+ " where child.aadhar_no = enrolledChild.aadhar_no"
-				 		+ " group by enrolledChild.enrollment_date, year(enrolledChild.enrollment_date)"
-				 		+ " )"
-				 + " AND YEAR(outOfSchoolChild.dob)+5<=stats.yearValue"
-				 + " group by outOfSchoolChild.state, outOfSchoolChild.district, concat(outOfSchoolChild.aadhar_no, '_'+stats.monthValue+'_'+stats.yearValue)" 
-				 + " order by statYear, statMonth desc");
+						+" stats.yearValue as year,"
+						+" stats.monthValue as month,"
+						+" count(*) as count"
+					+" from person outOfSchoolChild, stat_date_keys stats"
+					+" WHERE YEAR(outOfSchoolChild.dob)+5<=stats.yearValue"
+					+" AND outOfSchoolChild.aadhar_no not in"
+					+" ("
+						+" select enrolledChild.aadhar_no"
+						+" from report_enrollment enrolledChild"
+						+" where enrolledChild.aadhar_no = outOfSchoolChild.aadhar_no"
+						+" and enrolledChild.year = year"
+						+" and enrolledChild.month = month"
+					+" )"
+					+andClause
+					+" group by stats.yearValue, stats.monthValue");
 
+		sqlQuery.addScalar("year", IntegerType.INSTANCE).addScalar("month", IntegerType.INSTANCE).addScalar("count", LongType.INSTANCE);
 		sqlQuery.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-        List data = sqlQuery.addScalar("statYear", IntegerType.INSTANCE).addScalar("statMonth", IntegerType.INSTANCE)
-        		.addScalar("state", StringType.INSTANCE)
-        		.addScalar("district", StringType.INSTANCE)
-        		.addScalar("count", LongType.INSTANCE).list();
-
-        Map<String, Statistic> districtStats = new HashMap<String, Statistic>();
-        Map<String, Statistic> stateStats = new HashMap<String, Statistic>();
-        Map<String, Statistic> totalStats = new HashMap<String, Statistic>();
-        for(Object object : data)
+		
+		List data = sqlQuery.list();
+		Statistic stat = new Statistic();
+		for(Object object : data)
         {
         	Map row = (Map)object;
         	StatPoint statPoint = new StatPoint();
-        	if(row.get("statYear")!=null && row.get("statMonth")!=null){
-        		statPoint.setYear((Integer)row.get("statYear"));
-        		statPoint.setMonth((Integer)row.get("statMonth"));
+        	if(row.get("year")!=null && row.get("month")!=null){
+        		statPoint.setYear((Integer)row.get("year"));
+        		statPoint.setMonth((Integer)row.get("month"));
         		statPoint.setCount((Long)row.get("count"));
+        		stat.addStatPoint(statPoint);
         	}
-			
-			Statistic statistic = null;
-			switch(groupingFilter){
-			case district:
-				statistic = districtStats.get(row.get("district"));
-				if(statistic==null){
-					statistic = new Statistic();
-				}
-				statistic.addStatPoint(statPoint);
-				districtStats.put((String)row.get("district"), statistic);
-				break;
-			case state:
-				statistic = stateStats.get(row.get("state"));
-				if(statistic==null){
-					statistic = new Statistic();
-				}
-				statistic.addStatPoint(statPoint);
-				stateStats.put((String)row.get("state"), statistic);
-				break;
-			default:
-				statistic = totalStats.get("nationwide");
-				if(statistic==null){
-					statistic = new Statistic();
-				}
-				statistic.addStatPoint(statPoint);
-				totalStats.put("nationwide", statistic);
-				break;
-			
-			}
         }
-		
 		session.getTransaction().commit();
 		session.close();
 		
-		switch(groupingFilter){
-		case district:
-			return districtStats;
-		case state:
-			return stateStats;
-		default:
-			return totalStats;
-		
+		return stat;
+	}
+	
+	private void addAndClause(StringBuilder whereClause, String key, String value) {
+		if(value!=null && !"".equalsIgnoreCase(value)){
+				whereClause.append("and "+key+"='" + value+"'");
 		}
 	}
 

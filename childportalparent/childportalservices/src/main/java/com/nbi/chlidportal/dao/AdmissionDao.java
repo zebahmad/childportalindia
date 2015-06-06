@@ -4,18 +4,19 @@
 package com.nbi.chlidportal.dao;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.IntegerType;
-import org.hibernate.type.Type;
+import org.hibernate.type.LongType;
 
 import com.nbi.childportal.pojos.ChildAdmission;
+import com.nbi.childportal.pojos.EnrollmentReport;
 import com.nbi.childportal.pojos.reports.StatPoint;
 import com.nbi.childportal.pojos.reports.Statistic;
 
@@ -68,43 +69,52 @@ public class AdmissionDao {
 		return result;
 	}
 	
-	public Statistic getChildAdmissionStats(ChildAdmission child) throws HibernateException, Exception{
-		//TODO: Exception handling for db
+	public Statistic getEnrollmentStats(EnrollmentReport child) throws Exception{
 		Session session = HibernateSession.getSessionFactory().openSession();
 		session.beginTransaction();
 		
-		Criteria criteria = session.createCriteria(ChildAdmission.class, "admission");
-		criteria.setProjection(
-					Projections.projectionList()
-						.add(Projections.sqlGroupProjection(
-								"year(enrollment_date) as enrolledYear, month(enrollment_date) as enrolledMonth, count(*) as count", 
-								"year(enrollment_date), month(enrollment_date)", 
-								new String[]{"enrolledYear","enrolledMonth","count"}, 
-								(org.hibernate.type.Type[]) new Type[]{IntegerType.INSTANCE, IntegerType.INSTANCE}))
-						//.add(Projections.groupProperty("year(enrollment_date)"))
-						//.add(Projections.groupProperty("month(enrollment_date)"))
-						.add((Projections.rowCount()))
-		);
-		criteria = addCriteria(child, criteria);
-		List<Object[]> result = criteria.list();
-		Statistic stats = new Statistic();
-		if(result!=null){
-			Iterator<Object[]> iter = result.iterator();
-			while(iter.hasNext()){
-				StatPoint statPoint = new StatPoint();
-				Object[] next = iter.next();
-				statPoint.setYear((Integer)next[0]);
-				statPoint.setMonth((Integer)next[1]);
-				statPoint.setCount((Long)next[2]);
-				stats.addStatPoint(statPoint);
-			}
-		}
+		StringBuilder whereClause = new StringBuilder("");
+		addWhereClause(whereClause, "district", child.getDistrict());
+		addWhereClause(whereClause, "state", child.getState());
+		addWhereClause(whereClause, "enrolled_by", child.getEnrolledBy());
 		
-
+		SQLQuery sqlQuery = session.createSQLQuery(
+				"SELECT year, month, count(*) as count"
+				+ " FROM report_enrollment "
+				+ whereClause
+				+ " group by year, month");	
+		sqlQuery.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+		sqlQuery.addScalar("year", IntegerType.INSTANCE).addScalar("month", IntegerType.INSTANCE).addScalar("count", LongType.INSTANCE);
+		
+		List data = sqlQuery.list();
+		Statistic stat = new Statistic();
+		for(Object object : data)
+        {
+        	Map row = (Map)object;
+        	StatPoint statPoint = new StatPoint();
+        	if(row.get("year")!=null && row.get("month")!=null){
+        		statPoint.setYear((Integer)row.get("year"));
+        		statPoint.setMonth((Integer)row.get("month"));
+        		statPoint.setCount((Long)row.get("count"));
+        		stat.addStatPoint(statPoint);
+        	}
+        }
+		
 		session.getTransaction().commit();
 		session.close();
 		
-		return stats;
+		return stat;
+	}
+	
+	private void addWhereClause(StringBuilder whereClause, String key, String value) {
+		if(value!=null && !"".equalsIgnoreCase(value)){
+			if(whereClause.length()>0){
+				whereClause.append("and "+key+"='" + value+"'");
+			}else{
+				whereClause.append("where "+key+"='" + value+"'");				
+			}
+			
+		}
 	}
 
 	private Criteria addCriteria(ChildAdmission child, Criteria criteria) {

@@ -4,16 +4,14 @@
 package com.nbi.chlidportal.resources;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.nbi.childportal.pojos.User;
-import com.nbi.childportal.pojos.reports.GroupingFilter;
 import com.nbi.childportal.pojos.reports.StatType;
 import com.nbi.childportal.pojos.reports.Statistic;
 import com.nbi.chlidportal.dao.DropoutsDao;
@@ -25,18 +23,35 @@ import com.nbi.chlidportal.dao.DropoutsDao;
 @Path("/dropouts")
 public class DropoutResource implements IDropoutsResource {
 
-	
-	@PUT
-	@Path("/stats/{groupingFilter}/{statType}")
+	@GET
+	@Path("/stats/{statType}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Map<String, Statistic> getDropoutStats(@PathParam("groupingFilter") GroupingFilter groupingFilter,@PathParam("statType") StatType statType) 
+	public Statistic getNationWideDropoutStats(@PathParam("statType") StatType statType) 
 				throws Exception {
-		return DropoutsDao.getInstance().getDropoutStats(groupingFilter, statType);
+		return DropoutsDao.getInstance().getDropoutStats(null,null);
+	}
+	
+	@GET
+	@Path("/stats/state/{state}/{statType}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Statistic getStateDropoutStats(@PathParam("state") String state,@PathParam("statType") StatType statType) 
+				throws Exception {
+		return DropoutsDao.getInstance().getDropoutStats(null,state);
+	}
+	
+	@GET
+	@Path("/stats/state/{state}/district/{district}/{statType}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Statistic getDistrictDropoutStats(@PathParam("state")String state, @PathParam("district") String district,@PathParam("statType") StatType statType) 
+				throws Exception {
+		return DropoutsDao.getInstance().getDropoutStats(district,state);
 	}
 
 	
-	@PUT
+	@GET
 	@Path("/list/{schoolingYear}/state/{state}")
 	@Produces("application/json")
 	@Consumes("application/json")
@@ -44,11 +59,11 @@ public class DropoutResource implements IDropoutsResource {
 		return DropoutsDao.getInstance().getDropoutList(null, state, schoolingYear);
 	}
 	
-	@PUT
-	@Path("/list/{schoolingYear}/district/{districtName}")
+	@GET
+	@Path("/list/{schoolingYear}/state/{state}/district/{districtName}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public List<User> getDistrictDropoutList(@PathParam("districtName")String districtName, @PathParam("schoolingYear")String schoolingYear) throws Exception {
+	public List<User> getDistrictDropoutList(@PathParam("state")String state, @PathParam("districtName")String districtName, @PathParam("schoolingYear")String schoolingYear) throws Exception {
 		return DropoutsDao.getInstance().getDropoutList(districtName, null, schoolingYear);
 	}
 
