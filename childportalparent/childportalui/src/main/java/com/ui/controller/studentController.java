@@ -15,7 +15,7 @@ public class studentController {
 	@RequestMapping(value = "StudentDetailsUpdate", method = RequestMethod.GET)
 	public ModelAndView studentDetailsUpdate(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		ModelAndView m=new ModelAndView("/student_admission");
+		ModelAndView m=new ModelAndView("/student-details-update");
 		return m;
 	}
 }

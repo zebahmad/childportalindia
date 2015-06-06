@@ -4896,7 +4896,7 @@ button::-moz-focus-inner {
   text-indent: inherit;
 }
 .gritter-close:after {
-  content: '×';
+  content: 'x';
   position: absolute;
   color: #FFF;
   left: 10px;
@@ -4936,7 +4936,7 @@ button::-moz-focus-inner {
   text-indent: inherit;
 }
 .gritter-item-wrapper.clean .gritter-close:after {
-  content: '×';
+  content: 'x';
   position: absolute;
   color: #FFF;
   top: 50%;

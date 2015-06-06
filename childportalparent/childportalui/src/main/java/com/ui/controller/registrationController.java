@@ -15,19 +15,19 @@ public class registrationController {
 	@RequestMapping(value = "StudentRegistration", method = RequestMethod.GET)
 	public ModelAndView studentRegistration(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		ModelAndView m=new ModelAndView("/student_admission");
+		ModelAndView m=new ModelAndView("/student-registration");
 		return m;
 	}
 	@RequestMapping(value = "SchoolRegistration", method = RequestMethod.GET)
 	public ModelAndView schoolRegistration(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		ModelAndView m=new ModelAndView("/student_admission");
+		ModelAndView m=new ModelAndView("/school-registration");
 		return m;
 	}
 	@RequestMapping(value = "NGORegistration", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		ModelAndView m=new ModelAndView("/student_admission");
+		ModelAndView m=new ModelAndView("/NGO-registration");
 		return m;
 	}
 }
