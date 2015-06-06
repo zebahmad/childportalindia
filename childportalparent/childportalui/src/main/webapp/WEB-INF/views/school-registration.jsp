@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="images/favicon.png">
 
-    <title>Clean Zone</title>
+    <title>Child Portal</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Raleway:300,200,100' rel='stylesheet' type='text/css'>
 
@@ -51,7 +51,7 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="fa fa-gear"></span>
       </button>
-      <a class="navbar-brand" href="#"><span>Clean Zone</span></a>
+      <a class="navbar-brand" href="#"><span>Child Portal</span></a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -113,21 +113,21 @@
           <form role="form"> 
             
             <div class="form-group"> 
-              <label>School Code</label> <input type="text" required placeholder="Enter school code" class="form-control">
+              <label>School Code</label> <input type="text" id="sch_code" placeholder="Enter school code" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>School Name</label> <input type="text" required placeholder="Enter school name" class="form-control">
+              <label>School Name</label> <input type="text" id="sch_name" placeholder="Enter school name" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>Address</label> <input type="text" required placeholder="Enter school address" class="form-control">
+              <label>Address</label> <input type="text" id="sch_address" placeholder="Enter school address" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>District</label> <input type="text" required placeholder="Enter school district" class="form-control">
+              <label>District</label> <input type="text" id="sch_district" placeholder="Enter school district" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>State</label> <input type="text" required placeholder="Enter school state" class="form-control">
+              <label>State</label> <input type="text" id="sch_state" placeholder="Enter school state" class="form-control">
             </div> 
-                <button type="submit" class="btn btn-primary register_school">Register</button>
+                <button type="button" class="btn btn-primary register_school">Register</button>
              
             </form>
           

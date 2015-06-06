@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="images/favicon.png">
 
-    <title>Clean Zone</title>
+    <title>Child Portal</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:300,200,100' rel='stylesheet' type='text/css'>
 
@@ -43,7 +43,7 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="fa fa-gear"></span>
       </button>
-      <a class="navbar-brand" href="#"><span>Clean Zone</span></a>
+      <a class="navbar-brand" href="#"><span>Child Portal</span></a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -99,9 +99,9 @@
         <div class="block-wizard">
           <div id="wizard1" class="wizard wizard-ux">
             <ul class="steps">
-              <li data-target="#step1" class="active">Step 1<span class="chevron"></span></li>
-              <li data-target="#step2">Step 2<span class="chevron"></span></li>
-              <li data-target="#step3">Step 3<span class="chevron"></span></li>
+              <li data-target="#step1" class="active" id="step11">Step 1<span class="chevron"></span></li>
+              <li data-target="#step2" id="step12">Step 2<span class="chevron"></span></li>
+              <li data-target="#step3" id="step13">Step 3<span class="chevron"></span></li>
             </ul>
             <!--  <div class="actions">
               <button type="button" class="btn btn-xs btn-prev btn-default"> <i class="icon-arrow-left"></i>Prev</button>
@@ -131,14 +131,6 @@
                   </div>
                 </div>	
                <div class="form-group">
-	               <div class="col-sm-3">
-	                	<label class="control-label">Match Strategy</label>
-	                <br><br>
-	                  <input type="radio" name="match" id="sdt_match" class="icheck" style="display:inline;"> Exact match 
-	                  <input type="radio" name="match" id="sdt_match" class="icheck" style="display:inline;"> Partial match 
-	                  <input type="radio" name="match" id="sdt_match" class="icheck" style="display:inline;"> fuzzy match
-	                	
-	                </div>
 	              <div class="col-sm-3">
 	                  <label class="control-label">Phone Number</label>
 	                    <input type="text" class="form-control" id="sdt_phno" placeholder="Enter your phone number">
@@ -148,6 +140,11 @@
                   
                     <input type="email" class="form-control" id="sdt_email" placeholder="Enter your email id">
                  </div>
+                 <div class="col-sm-3">
+                  <label class="control-label">Age</label>
+                  
+                    <input type="text" class="form-control" id="sdt_age" placeholder="Enter your age">
+                  </div>
                 </div>
                 <div class="form-group">
                  <div class="col-sm-3">
@@ -168,17 +165,13 @@
                 <label class="control-label"> Date Of Birth </label>
                 
                   <div class="input-group date datetime col-md-5 col-xs-7" data-min-view="2" data-date-format="yyyy-mm-dd">
-                    <input class="form-control" size="25" id="sdt_dob" required type="text" value="">
+                    <input class="form-control" size="25" id="sdt_dob" type="text" value="">
                     <span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                   </div>					
                 </div>
               	</div>
                 <div class="form-group">
-                <div class="col-sm-3">
-                  <label class="control-label">Age</label>
-                  
-                    <input type="text" class="form-control" id="sdt_age" placeholder="Enter your age">
-                  </div>
+                
                 </div>	
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
@@ -254,8 +247,8 @@
               <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
                    <button data-wizard="#wizard1" class="btn btn-default wizard-previous"><i class="fa fa-caret-left"></i> Previous</button>
-                    <button class="btn btn-primary sdt_authenticate" id="sdt_authenticate">Authenticate</button>
-                    <button data-wizard="#wizard1" id="sdt_step2next" class="btn btn-primary wizard-next">Next Step <i class="fa fa-caret-right"></i></button>
+                    <button type="button" class="btn btn-primary sdt_authenticate" id="sdt_authenticate">Authenticate</button>
+                    <button type="button" data-wizard="#wizard1" id="sdt_step2next" class="btn btn-primary wizard-next step2next">Next Step <i class="fa fa-caret-right"></i></button>
                   </div>
                 </div>
                 </div>  
@@ -263,7 +256,7 @@
               <div class="step-pane" id="step3">
                 <div class="form-group no-padding">
                   <div class="col-sm-7">
-                    <h3 class="hthin">Personal Identity</h3>
+                    <h3 class="hthin">Admission Details</h3>
                   </div>
                 </div>
                 <div class="form-group">
@@ -301,31 +294,27 @@
                 </div>	
                <div class="form-group">
 	               <div class="col-sm-3">
-	                  <label class="control-label">Current Status</label>
-	                    <input type="text" class="form-control" id="sdt_currentstatus" placeholder="">
-                  </div>
+                <label class="control-label">Current Status</label>
+                
+                  <select class="form-control" id="sdt_currentstatus">
+                    <option value="ENROLLED">Enrolled</option>
+                    <option value="PASSED">Passed</option>
+                    <option value="FAILED">Failed</option>
+                    <option value="TRANSFERRED">Transferred</option>
+                  </select>									
+                </div>
 	              <div class="col-sm-3">
 	                  <label class="control-label">Schooling Year</label>
 	                    <input type="text" class="form-control" id="sdt_schyear" placeholder="Enter the schooling year">
                   </div>
-                  <div class="col-sm-3">
-                <label class="control-label"> Created On </label>
-                
-                    <input class="form-control" size="25" id="sdt_createdon" readonly="readonly" required type="text" value="">
-                </div>
-                </div>
-                
-                <div class="form-group">
-                <div class="col-sm-3">
+                   <div class="col-sm-3">
                 <label class="control-label">Created By</label>
                   
                     <input type="text" class="form-control" id="sdt_createdby" readonly="readonly" placeholder="">
                  </div>
-                 <div class="col-sm-3">
-                  <label class="control-label">Age</label>
-                  
-                    <input type="text" class="form-control" id="sdt_age" placeholder="Enter your age">
-                  </div>
+                </div>
+                
+                <div class="form-group">
                   <div class="col-sm-3">
                   <label class="control-label">Comments</label>
                   <textarea rows="4" cols="50" id="sdt_comments">
@@ -334,7 +323,7 @@
                 
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
-                    <button id="sdt_submit" class="btn btn-primary sdt_submit">Submit</button>
+                    <button type="button" id="sdt_submit" class="btn btn-primary sdt_submit">Submit</button>
                   </div>
                 </div>	
                 </div>

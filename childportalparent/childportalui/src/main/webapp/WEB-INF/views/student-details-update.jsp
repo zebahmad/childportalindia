@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="images/favicon.png">
 
-    <title>Clean Zone</title>
+    <title>Child Portal</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:300,200,100' rel='stylesheet' type='text/css'>
 
@@ -43,7 +43,7 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="fa fa-gear"></span>
       </button>
-      <a class="navbar-brand" href="#"><span>Clean Zone</span></a>
+      <a class="navbar-brand" href="#"><span>Child Portal</span></a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -276,27 +276,29 @@
                 </div>	
                <div class="form-group">
 	               <div class="col-sm-3">
-	                  <label class="control-label">Current Status</label>
-	                    <input type="text" class="form-control" id="sdt_currentstatus" placeholder="">
-                  </div>
+                <label class="control-label">Current Status</label>
+                
+                  <select class="form-control" id="sdt_currentstatus">
+                    <option value="ENROLLED">Enrolled</option>
+                    <option value="PASSED">Passed</option>
+                    <option value="FAILED">Failed</option>
+                    <option value="TRANSFERRED">Transferred</option>
+                  </select>									
+                </div>
 	              <div class="col-sm-3">
 	                  <label class="control-label">Schooling Year</label>
 	                    <input type="text" class="form-control" id="sdt_schyear" readonly="readonly" placeholder="">
                   </div>
                   <div class="col-sm-3">
-                <label class="control-label"> Created On </label>
-                
-                    <input class="form-control" size="25" id="sdt_createdon" readonly="readonly" type="text" value="">
-                </div>
-                </div>
-                
-                <div class="form-group">
-                <div class="col-sm-3">
                 <label class="control-label">Created By</label>
                   
                     <input type="text" class="form-control" id="sdt_createdby" readonly="readonly" placeholder="">
                  </div>
                  
+                </div>
+                
+                <div class="form-group">
+                
                   <div class="col-sm-3">
                   <label class="control-label">Comments</label>
                   <textarea rows="4" cols="50" id="sdt_comments">
@@ -335,7 +337,7 @@
 	<script type="text/javascript" src="js/bootstrap.datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="js/behaviour/general.js"></script>
   <script src="js/jquery.ui/jquery-ui.js" type="text/javascript"></script>
-  <script src="js/student-registration.js" type="text/javascript"></script>
+  <script src="js/student-details-update.js" type="text/javascript"></script>
   <script type="text/javascript"
 		src="js/jquery.gritter/js/jquery.gritter.js"></script>
   <script type="text/javascript">
