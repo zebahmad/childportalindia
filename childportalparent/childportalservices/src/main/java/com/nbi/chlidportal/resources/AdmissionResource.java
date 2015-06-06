@@ -17,6 +17,8 @@ import javax.ws.rs.Produces;
 import com.nbi.childportal.common.AppLogger;
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.StatusResponse;
+import com.nbi.childportal.pojos.reports.StatType;
+import com.nbi.childportal.pojos.reports.Statistic;
 import com.nbi.chlidportal.dao.AdmissionDao;
 
 /**
@@ -82,6 +84,17 @@ public class AdmissionResource
 	public StatusResponse createSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) {
 		childAdmissionRecord.setCreatedOn(new Date());
 		return save(childAdmissionRecord);
+	}
+	
+	
+	@PUT
+	@Path("/stats")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Statistic getSchoolAdmissionStats(ChildAdmission childAdmissionRecord, StatType statType) throws Exception {
+		AdmissionDao admissionDao;
+		admissionDao = AdmissionDao.getInstance();
+		return admissionDao.getChildAdmissionStats(childAdmissionRecord);
 	}
 	
 	private StatusResponse save(ChildAdmission childAdmissionRecord) {

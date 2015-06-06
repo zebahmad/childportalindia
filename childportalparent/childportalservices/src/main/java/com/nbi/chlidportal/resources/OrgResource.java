@@ -32,10 +32,9 @@ public class OrgResource implements IOrgResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public Organization getOrg(@PathParam("orgId") String orgId) throws Exception {
-		OrgDao orgDao = OrgDao.getInstance();
 		Organization org = new Organization();
 		org.setOrgId(orgId);
-		List<Organization> orgResult = orgDao.getOrg(org);
+		List<Organization> orgResult = OrgDao.getInstance().getOrg(org);
 		if(orgResult!=null && orgResult.size()>0){
 			return orgResult.get(0);
 		}
@@ -56,6 +55,14 @@ public class OrgResource implements IOrgResource {
 	@Consumes("application/json")
 	public StatusResponse updateOrg(Organization org) throws Exception {
 		return saveOrg(org);
+	}
+	
+	@PUT
+	@Path("/search")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public List<Organization> searchOrg(Organization org) throws Exception {
+		return OrgDao.getInstance().getOrg(org);
 	}
 	
 	private StatusResponse saveOrg(Organization org) throws HibernateException, Exception {
