@@ -36,13 +36,18 @@ public class ChildAdmission implements Serializable {
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
-	private Long id;
+	@Column(name = "ADMISSION_ID")
+	private Long admissionId;
 
 	@Column(name = "AADHAR_NO")
 	private String aadharNo;
 	
-	@ManyToOne	
-	@JoinColumn(name="ORG_ID")
+	@ManyToOne	(targetEntity = User.class)
+	@JoinColumn(name="USER_ID", referencedColumnName="USER_ID")
+	private User child;
+	
+	@ManyToOne(targetEntity = Organization.class)
+	@JoinColumn(name="SCHOOL_ID", referencedColumnName="ORG_ID")
 	private Organization school;
 	
 	@Column(name = "ADMISSION_NO")
@@ -86,10 +91,10 @@ public class ChildAdmission implements Serializable {
 	
 	
 	public Long getId() {
-		return id;
+		return admissionId;
 	}
 	public void setId(Long id) {
-		this.id = id;
+		this.admissionId = id;
 	}
 	public String getAadharNo() {
 		return aadharNo;
@@ -97,7 +102,12 @@ public class ChildAdmission implements Serializable {
 	public void setAadharNo(String aadharNo) {
 		this.aadharNo = aadharNo;
 	}
-	
+	public User getChild() {
+		return child;
+	}
+	public void setChild(User child) {
+		this.child = child;
+	}
 	public Organization getSchool() {
 		return school;
 	}
