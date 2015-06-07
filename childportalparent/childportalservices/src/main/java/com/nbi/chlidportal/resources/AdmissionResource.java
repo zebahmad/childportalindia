@@ -3,6 +3,7 @@
  */
 package com.nbi.chlidportal.resources;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,12 @@ import javax.ws.rs.Produces;
 
 import com.nbi.childportal.common.AppLogger;
 import com.nbi.childportal.pojos.ChildAdmission;
+import com.nbi.childportal.pojos.EnrollmentReport;
 import com.nbi.childportal.pojos.StatusResponse;
+import com.nbi.childportal.pojos.reports.StatType;
+import com.nbi.childportal.pojos.reports.Statistic;
 import com.nbi.chlidportal.dao.AdmissionDao;
+import com.nbi.chlidportal.dao.ReportEnrollmentDao;
 
 /**
  * @author zahmad
@@ -72,16 +77,68 @@ public class AdmissionResource
 		}
 		
 		childAdmissionRecord = updateFieldsFromOriginalAdmissionRecord(existingChildAdmissionRecord, childAdmissionRecord);
-		return save(childAdmissionRecord);
+		StatusResponse response = save(childAdmissionRecord);
+		updateEnrollmentReport(childAdmissionRecord);
+		
+		return response;
 	}
+
 
 	@POST
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public StatusResponse createSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) {
+	public StatusResponse createSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) throws Exception {
 		childAdmissionRecord.setCreatedOn(new Date());
-		return save(childAdmissionRecord);
+		StatusResponse response = save(childAdmissionRecord);
+		updateEnrollmentReport(childAdmissionRecord);
+		return response;
+	}
+	
+	
+	@GET
+	@Path("/stats/enrolledBy/{enrolledBy}/{statType}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Statistic getSchoolAdmissionStats(@PathParam("enrolledBy") String enrolledBy, @PathParam("statType") StatType statType) throws Exception {
+		AdmissionDao reportDao = AdmissionDao.getInstance();
+		EnrollmentReport criteria = new EnrollmentReport();
+		criteria.setDistrict(null);
+		criteria.setState(null);
+		if(enrolledBy!=null && !"".equalsIgnoreCase(enrolledBy) && !"any".equalsIgnoreCase(enrolledBy)){
+			criteria.setEnrolledBy(enrolledBy);
+		}
+		return reportDao.getEnrollmentStats(criteria);
+	}
+
+	@GET
+	@Path("/stats/state/{state}/enrolledBy/{enrolledBy}/{statType}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Statistic getStateSchoolAdmissionStats(@PathParam("state") String state,@PathParam("enrolledBy") String enrolledBy,  @PathParam("statType") StatType statType) throws Exception {
+		AdmissionDao reportDao = AdmissionDao.getInstance();
+		EnrollmentReport criteria = new EnrollmentReport();
+		criteria.setDistrict(null);
+		criteria.setState(state);
+		if(enrolledBy!=null && !"".equalsIgnoreCase(enrolledBy) && !"any".equalsIgnoreCase(enrolledBy)){
+			criteria.setEnrolledBy(enrolledBy);
+		}
+		return reportDao.getEnrollmentStats(criteria);
+	}
+	
+	@GET
+	@Path("/stats/state/{state}/district/{district}/enrolledBy/{enrolledBy}/{statType}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Statistic getDistrictSchoolAdmissionStats(@PathParam("state") String state, @PathParam("district") String district, @PathParam("enrolledBy") String enrolledBy, @PathParam("statType") StatType statType) throws Exception {
+		AdmissionDao reportDao = AdmissionDao.getInstance();
+		EnrollmentReport criteria = new EnrollmentReport();
+		criteria.setDistrict(district);
+		criteria.setState(state);
+		if(enrolledBy!=null && !"".equalsIgnoreCase(enrolledBy) && !"any".equalsIgnoreCase(enrolledBy)){
+			criteria.setEnrolledBy(enrolledBy);
+		}
+		return reportDao.getEnrollmentStats(criteria);
 	}
 	
 	private StatusResponse save(ChildAdmission childAdmissionRecord) {
@@ -112,6 +169,26 @@ public class AdmissionResource
 		originalChildAdmissionRecord.setUpdatedOn(new Date());
 		
 		return originalChildAdmissionRecord;
+	}
+	
+	private void updateEnrollmentReport(ChildAdmission childAdmissionRecord) throws Exception {
+		
+		int enrollmentMonth = childAdmissionRecord.getEnrolmentDate().getYear();
+		
+		List<EnrollmentReport> enrollmentReports = new ArrayList<EnrollmentReport>();
+		while(enrollmentMonth < 12){
+			EnrollmentReport enrollmentReport = new EnrollmentReport();
+			enrollmentReport.setAadharNo(childAdmissionRecord.getAadharNo());
+			enrollmentReport.setDistrict(childAdmissionRecord.getSchool().getDistrict());
+			enrollmentReport.setState(childAdmissionRecord.getSchool().getState());
+			enrollmentReport.setYear(String.valueOf(childAdmissionRecord.getEnrolmentDate().getYear()));
+			enrollmentReport.setYear(String.valueOf(enrollmentMonth));
+			
+			enrollmentReports.add(enrollmentReport);
+			enrollmentMonth++;
+		}
+		
+		ReportEnrollmentDao.getInstance().saveEnrollmentReports(enrollmentReports);
 	}
 	
 	

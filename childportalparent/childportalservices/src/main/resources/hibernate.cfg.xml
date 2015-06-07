@@ -22,6 +22,7 @@
    <mapping class="com.nbi.childportal.pojos.User"/>  
    <mapping class="com.nbi.childportal.pojos.UserRole"/>  
    <mapping class="com.nbi.childportal.pojos.Organization"/>  
+   <mapping class="com.nbi.childportal.pojos.EnrollmentReport"/>  
 
 </session-factory>
 </hibernate-configuration>

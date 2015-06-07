@@ -9,7 +9,7 @@ package com.nbi.childportal.pojos.reports;
  */
 public enum StatType {
 	
-	COUNT,
-	PERCENTAGE
+	count,
+	percentage
 
 }

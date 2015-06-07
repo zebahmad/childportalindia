@@ -9,8 +9,7 @@ package com.nbi.childportal.pojos.reports;
  */
 public enum GroupingFilter {
 	
-	SCHOOL,
-	DISTRICT,
-	STATE
+	district,
+	state
 
 }

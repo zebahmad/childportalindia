@@ -63,6 +63,15 @@ public class OrgDao {
 		if(org.getOrgId()!=null){
 			criteria.add(Restrictions.eq("orgId", org.getOrgId()));
 		}
+		if(org.getOrgType()!=null){
+			criteria.add(Restrictions.eq("orgType", org.getOrgType()));
+		}
+		if(org.getState()!=null){
+			criteria.add(Restrictions.eq("state", org.getState()));
+		}
+		if(org.getDistrict()!=null){
+			criteria.add(Restrictions.eq("district", org.getDistrict()));
+		}
 		return criteria;
 	}
 

@@ -7,6 +7,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import com.nbi.chlidportal.resources.AdmissionResource;
+import com.nbi.chlidportal.resources.DropoutResource;
 import com.nbi.chlidportal.resources.OrgResource;
 import com.nbi.chlidportal.resources.UserResource;
 import com.nbi.chlidportal.resources.UserRoleResource;
@@ -23,6 +24,7 @@ public class ChildPortalApplication extends Application
         this.singletons.add(new UserResource());
         this.singletons.add(new UserRoleResource());
         this.singletons.add(new OrgResource());
+        this.singletons.add(new DropoutResource());
     }
  
     public Set<Class<?>> getClasses()

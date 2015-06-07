@@ -3,9 +3,12 @@
  */
 package com.nbi.childportal.pojos;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -43,8 +46,6 @@ public class Organization {
 	@Column(name = "STATE")
 	private String state;
 	
-	
-	
 	public String getOrgId() {
 		return orgId;
 	}
@@ -69,11 +70,11 @@ public class Organization {
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
 	}
-	public String getName() {
+	public String getOrgName() {
 		return orgName;
 	}
-	public void setName(String name) {
-		this.orgName = name;
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
 	}
 	public String getAddress() {
 		return address;
@@ -93,6 +94,5 @@ public class Organization {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
 
 }
