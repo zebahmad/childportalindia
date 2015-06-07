@@ -25,9 +25,15 @@ public class registrationController {
 		return m;
 	}
 	@RequestMapping(value = "NGORegistration", method = RequestMethod.GET)
-	public ModelAndView index(HttpServletRequest request,
+	public ModelAndView ngoRegistration(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		ModelAndView m=new ModelAndView("/NGO-registration");
+		return m;
+	}
+	@RequestMapping(value = "UserRegistration", method = RequestMethod.GET)
+	public ModelAndView userRegistration(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		ModelAndView m=new ModelAndView("/user-registration");
 		return m;
 	}
 }

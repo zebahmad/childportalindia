@@ -5,8 +5,9 @@
  * 
  */
 $(document).ready(function() {
-		$(document).on('click', '.register_ngo', function() {
-			$(".register_ngo").prop("disabled",true);
+		$(document).on('click', '.register_user', function() {
+			//alert("School registration");
+			$(".register_user").prop("disabled",true);
 			var target = document.getElementById('abcd');
 			var opts = {
 					  lines: 13, // The number of lines to draw
@@ -26,16 +27,20 @@ $(document).ready(function() {
 					  top: '50%', // Top position relative to parent
 					  left: '50%' // Left position relative to parent
 					};
-			var spinner = new Spinner(opts).spin(target);
-			//alert("School registration");
-			var code=document.getElementById("ngo_code").value;
-			var name=document.getElementById("ngo_name").value;
-			var address=document.getElementById("ngo_address").value;
-			var district=document.getElementById("ngo_district").value;
-			var state=document.getElementById("ngo_state").value;
 			
-			var call_url="/childportalservices/org";
-			var data2='{"org":{"orgType":"NGO","orgCode":"'+code+'","orgName":"'+name+'","state":"'+state+'","address":"'+address+'","district":"'+district+'"}}';
+	        var user_aadhar=document.getElementById("user_aadhar").value;
+			var first_name=document.getElementById("first_name").value;
+			var last_name=document.getElementById("last_name").value;
+			var father_name=document.getElementById("father_name").value;
+			var mother_name=document.getElementById("mother_name").value;
+			var gender=document.getElementById("gender").value;
+			var dob=document.getElementById("dob").value;
+			var address=document.getElementById("address").value;
+			var district=document.getElementById("district").value;
+			var spinner = new Spinner(opts).spin(target);
+			//alert(code+name+address+district+state);
+			var call_url="/childportalservices/user";
+			var data2='{"user":{"aadharNo":"'+user_aadhar+'","firstName":"'+first_name+'","lastName":"'+last_name+'","fatherName":"'+father_name+'","motherName":"'+mother_name+'","gender":"'+gender+'","dob":"'+dob+'","address":"'+address+'","district":"'+district+'"}}';
 			$.ajax({
 				type: "POST",
 				contentType: "application/json",
@@ -51,11 +56,11 @@ $(document).ready(function() {
 					$.gritter.add({
 						
 				        title: 'Status',
-				        text: "NGO registered successfully!",
+				        text: "User registered successfully!",
 				        class_name: 'primary',
 				        sticky: true
 				      });
-						$(".register_ngo").prop("disabled",false);
+						$(".register_user").prop("disabled",false);
 						spinner.stop();
 					}
 					else{
@@ -63,11 +68,11 @@ $(document).ready(function() {
 						$.gritter.add({
 							
 					        title: 'Status',
-					        text: "NGO registration failed!",
+					        text: "User registration failed!",
 					        class_name: 'danger',
 					        sticky: true
 					      });
-							$(".register_ngo").prop("disabled",false);
+							$(".register_user").prop("disabled",false);
 							spinner.stop();
 					}
 				}

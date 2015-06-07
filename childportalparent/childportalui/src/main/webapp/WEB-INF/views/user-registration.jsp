@@ -76,10 +76,10 @@
             <ul class="cl-vnavigation">
               <li><a href="#"><i class="fa fa-list-alt"></i><span>Registration</span></a>
                 <ul class="sub-menu">
-					<li class="active"><a href="SchoolRegistration">School Registration</a></li>
+					<li><a href="SchoolRegistration">School Registration</a></li>
                   <li><a href="StudentRegistration">Student Registration</a></li>
                   <li><a href="NGORegistration">NGO Registration</a></li>
-                  <li><a href="UserRegistration">User Registration</a></li>
+                  <li class="active"><a href="UserRegistration">User Registration</a></li>
                 </ul>
               </li>
               <li><a href="#"><i class="fa fa-list-alt"></i><span>Updation</span></a>
@@ -100,35 +100,56 @@
  
   <div class="container-fluid" id="pcont">
     <div class="page-head">
-      <h2>School Registration</h2>
+      <h2>User Registration</h2>
     </div>
     <div class="cl-mcont">
     <div class="row">
       <div class="col-sm-6 col-md-6">
         <div class="block-flat">
           <div class="header">							
-            <h3>Register a school</h3>
+            <h3>Register a user</h3>
           </div>
           <div class="content">
-		<div id="abcd">
+          <div id="abcd">
+
           <form role="form"> 
-            
             <div class="form-group"> 
-              <label>School Code</label> <input type="text" id="sch_code" placeholder="Enter school code" class="form-control">
+              <label>Aadhar ID</label> <input type="text" id="user_aadhar" placeholder="Enter Aadhar ID" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>School Name</label> <input type="text" id="sch_name" placeholder="Enter school name" class="form-control">
+              <label>First Name</label> <input type="text" id="first_name" placeholder="Enter first name" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>Address</label> <input type="text" id="sch_address" placeholder="Enter school address" class="form-control">
+              <label>Last Name</label> <input type="text" id="last_name" placeholder="Enter last name" class="form-control">
             </div> 
 			<div class="form-group"> 
-              <label>District</label> <input type="text" id="sch_district" placeholder="Enter school district" class="form-control">
-            </div> 
+              <label>Father's Name</label> <input type="text" id="father_name" placeholder="Enter Father's name" class="form-control">
+            </div>
+            <div class="form-group"> 
+              <label>Mother's Name</label> <input type="text" id="mother_name" placeholder="Enter Mother's name" class="form-control">
+            </div>
+           
+            
+            <div class="form-group">
+            	<label class="control-label">Gender</label><br><br>
+                 <input type="radio" name="gender" value="male" class="icheck" id="gender" style="display:inline;"> Male</label> 
+                 <input type="radio" name="gender" value="female" class="icheck" id="gender" style="display:inline;"> Female </label> 
+             </div>  
+             <div class="form-group">
+                <label class="control-label"> Date Of Birth </label>
+                
+                  <div class="input-group date datetime col-md-5 col-xs-7" data-min-view="2" data-date-format="yyyy-mm-dd">
+                    <input class="form-control" size="25" id="dob" type="text" value="">
+                    <span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                  </div>					
+             </div> 
 			<div class="form-group"> 
-              <label>State</label> <input type="text" id="sch_state" placeholder="Enter school state" class="form-control">
+              <label>Address</label> <input type="text" id="address" placeholder="Enter address" class="form-control">
             </div> 
-                <button type="button" class="btn btn-primary register_school">Register</button>
+            <div class="form-group"> 
+              <label>District</label> <input type="text" id="district" placeholder="Enter district" class="form-control">
+            </div>
+                <button type="button" class="btn btn-primary register_user">Register</button>
              
             </form>
           </div>
@@ -155,7 +176,7 @@
 	<script type="text/javascript" src="js/jquery.icheck/icheck.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.daterangepicker/moment.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.daterangepicker/daterangepicker.js"></script>
-  <script type="text/javascript" src="js/school-registration.js"></script>
+  <script type="text/javascript" src="js/user-registration.js"></script>
   <script type="text/javascript"
 		src="js/jquery.gritter/js/jquery.gritter.js"></script>
   <script type="text/javascript">

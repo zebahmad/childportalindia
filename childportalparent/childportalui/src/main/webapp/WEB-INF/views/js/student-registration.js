@@ -9,7 +9,7 @@
  */
 $(document).ready(function() {
 	$(".step2next").prop("disabled",true);
-		$(document).on('click', '.sdt_submit', function() {
+		$(document).on('click', '.sdt_submit', function() { 
 			var aadharid=document.getElementById("sdt_aadhar").value;
 			var name=document.getElementById("sdt_name").value;
 			var localname=document.getElementById("sdt_localname").value;
@@ -36,13 +36,63 @@ $(document).ready(function() {
 			var createdby=document.getElementById("sdt_createdby").value;
 			var comments=document.getElementById("sdt_comments").value;
 			//alert("School registration");
-			$.gritter.add({
+			var data2='{"admission": {"aadharNo": "'+aadharid+'","schoolId": "'+schid'","admissionNo": "'+admnno+'","standard": '+std+',"currentStatus": "'+currentstatus+'","schoolingYear": "'+schyear+'","createdBy": "'+createdby+'","comments": "'+comments+'"}}';
+			var call_url="/childportalservices/childportalservices/admission";
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
 				
-		        title: 'Status',
-		        text: "Student registered successfully!",
-		        class_name: 'primary',
-		        sticky: true
-		      });
+				headers: {
+					"Authorization" : "APP urn:ebay-marketplace-consumerid:95fc8531-0191-4509-a1d9-793d04b53749",
+					"Accept" : "application/json"
+				},
+				data: data2,
+				url: call_url,
+				complete : function(data){
+					if (data.status == 200){
+						$.gritter.add({
+							
+					        title: 'Status',
+					        text: "Student registered successfully!",
+					        class_name: 'primary',
+					        sticky: true
+					      });
+							$(".sdt_submit").prop("disabled",false);
+					}
+					else{
+						$.gritter.add({
+							
+					        title: 'Status',
+					        text: "Student registration failed!",
+					        class_name: 'danger',
+					        sticky: true
+					      });
+							$(".sdt_submit").prop("disabled",false);
+					}
+				}
+			});
+			var call_url="/childportalservices/user";
+			var data2='{"user":{"aadharNo":"'+aadharid+'","firstName":"'+name+'","gender":"'+gender+'","dob":"'+dob+'","address":"'+address+'","district":"'+district+'"}}';
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				
+				headers: {
+					"Authorization" : "APP urn:ebay-marketplace-consumerid:95fc8531-0191-4509-a1d9-793d04b53749",
+					"Accept" : "application/json"
+				},
+				data: data2,
+				url: call_url,
+				complete : function(data){
+					if (data.status == 200){
+					
+					}
+					else{
+						alert("Response code"+data.status);
+						
+					}
+				}
+			});
 		});
 		$(document).on('click', '.sdt_authenticate', function() {
 			var aadharid=document.getElementById("sdt_aadhar").value;
