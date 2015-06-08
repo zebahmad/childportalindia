@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  *
  */
 @Entity
-@Table( name = "ADMISSION" )
+@Table( name = "REPORT_ENROLLMENT" )
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="enrollmentReport")
 public class EnrollmentReport {
@@ -27,6 +27,7 @@ public class EnrollmentReport {
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "AADHAR_NO")

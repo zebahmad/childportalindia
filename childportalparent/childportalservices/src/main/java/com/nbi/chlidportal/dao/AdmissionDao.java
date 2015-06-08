@@ -46,13 +46,21 @@ public class AdmissionDao {
 		}
 	}
 
-	public void saveChildAdmission(ChildAdmission childAdmission) throws HibernateException, Exception{
+	public List<ChildAdmission> saveChildAdmission(ChildAdmission childAdmission) throws HibernateException, Exception{
 		childAdmission.setUpdatedOn(new Date());
 		Session session = HibernateSession.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.merge(childAdmission);
+		//session.getTransaction().commit();
+		
+		Criteria criteria = session.createCriteria(ChildAdmission.class, "admission");
+		addCriteria(childAdmission, criteria);
+		List<ChildAdmission> result = criteria.list();
+
 		session.getTransaction().commit();
+		
 		session.close();
+		return result;
 	}
 	
 	public List<ChildAdmission> getChildAdmission(ChildAdmission child) throws HibernateException, Exception{
@@ -120,8 +128,11 @@ public class AdmissionDao {
 	}
 
 	private Criteria addCriteria(ChildAdmission child, Criteria criteria) {
+		if(child.getId()!=null){
+			criteria.add(Restrictions.eq("admission.admissionId", child.getId()));
+		}
 		if(child.getAdmissionNo()!=null){
-			criteria.add(Restrictions.eq("admission.admissionId", child.getAdmissionNo()));
+			criteria.add(Restrictions.eq("admission.admissionNo", child.getAdmissionNo()));
 		}
 		if(child.getChild()!=null && child.getChild().getAadharNo()!=null && !"".equalsIgnoreCase(child.getChild().getAadharNo())){
 			criteria.createAlias("admission.child", "child");

@@ -7,14 +7,15 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  * @author zahmad
@@ -22,8 +23,6 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table( name = "ORGANIZATION" )
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name="org")
 public class Organization {
 	
 	@Id
@@ -32,9 +31,9 @@ public class Organization {
 	@Column(name = "ORG_ID")
 	private Long orgId;
 
-	/*@OneToMany(fetch=FetchType.LAZY, mappedBy="school")	
-	@NotFound(action=NotFoundAction.IGNORE)*/
-	//private Set<ChildAdmission> enrolledChildren;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="school")	
+	@NotFound(action=NotFoundAction.IGNORE)
+	private Set<ChildAdmission> enrolledChildren;
 
 	@Column(name = "ORG_TYPE")
 	private String orgType;	
@@ -59,6 +58,12 @@ public class Organization {
 	}
 	public void setOrgId(Long orgId) {
 		this.orgId = orgId;
+	}
+	public Set<ChildAdmission> getEnrolledChildren() {
+		return enrolledChildren;
+	}
+	public void setEnrolledChildren(Set<ChildAdmission> enrolledChildren) {
+		this.enrolledChildren = enrolledChildren;
 	}
 	public String getOrgType() {
 		return orgType;

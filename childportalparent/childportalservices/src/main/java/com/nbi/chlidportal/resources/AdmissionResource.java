@@ -4,6 +4,7 @@
 package com.nbi.chlidportal.resources;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -19,10 +20,10 @@ import com.nbi.childportal.common.AppLogger;
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.EnrollmentReport;
 import com.nbi.childportal.pojos.StatusResponse;
-import com.nbi.childportal.pojos.User;
 import com.nbi.childportal.pojos.reports.StatType;
 import com.nbi.childportal.pojos.reports.Statistic;
 import com.nbi.childportal.pojos.rest.ChildAdmissionTo;
+import com.nbi.childportal.pojos.rest.UserTo;
 import com.nbi.chlidportal.dao.AdmissionDao;
 import com.nbi.chlidportal.dao.ReportEnrollmentDao;
 
@@ -61,7 +62,7 @@ public class AdmissionResource
 			logger.logException(e);
 			throw e;
 		}
-		return ChildAdmissionTo.getChildAdmissionTo(childAdmission).get(0);
+		return ChildAdmissionTo.getChildAdmissionToList(childAdmission).get(0);
 	}
 	
 	@GET
@@ -74,7 +75,7 @@ public class AdmissionResource
 		try {
 			admissionDao = AdmissionDao.getInstance();
 			ChildAdmissionTo childAdmission = new ChildAdmissionTo();
-			User child = new User();
+			UserTo child = new UserTo();
 			child.setAadharNo(aadharNo);
 			childAdmission.setChild(child);
 			childAdmissionList = admissionDao.getChildAdmission(childAdmission.getChildAdmission() );
@@ -85,7 +86,7 @@ public class AdmissionResource
 			logger.logException(e);
 			throw e;
 		}
-		return ChildAdmissionTo.getChildAdmissionTo(childAdmissionList);
+		return ChildAdmissionTo.getChildAdmissionToList(childAdmissionList);
 	}
 
 	
@@ -172,7 +173,8 @@ public class AdmissionResource
 		AdmissionDao admissionDao =null;
 		try {
 			admissionDao =AdmissionDao.getInstance();
-			admissionDao.saveChildAdmission(childAdmissionRecord.getChildAdmission());
+			List<ChildAdmission> updatedSaveChildAdmission = admissionDao.saveChildAdmission(childAdmissionRecord.getChildAdmission());
+			ChildAdmissionTo.getUpdatedChildAdmissionTo(childAdmissionRecord, updatedSaveChildAdmission.get(0));
 			
 			response.setSuccess(true);
 		} catch (Exception e) {
@@ -199,16 +201,22 @@ public class AdmissionResource
 	
 	private void updateEnrollmentReport(ChildAdmissionTo childAdmissionRecord) throws Exception {
 		
-		int enrollmentMonth = childAdmissionRecord.getEnrolmentDate().getYear();
+		//childAdmissionRecord = getSchoolAdmissionRecord(childAdmissionRecord.getId());
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(childAdmissionRecord.getEnrolmentDate());
+		int enrollmentMonth = calendar.get(Calendar.MONTH);
+		int enrollmentYear = calendar.get(Calendar.YEAR);
 		
 		List<EnrollmentReport> enrollmentReports = new ArrayList<EnrollmentReport>();
 		while(enrollmentMonth < 12){
 			EnrollmentReport enrollmentReport = new EnrollmentReport();
-			enrollmentReport.setAadharNo(childAdmissionRecord.getChild().getAadharNo());
-			enrollmentReport.setDistrict(childAdmissionRecord.getSchool().getDistrict());
-			enrollmentReport.setState(childAdmissionRecord.getSchool().getState());
-			enrollmentReport.setYear(String.valueOf(childAdmissionRecord.getEnrolmentDate().getYear()));
-			enrollmentReport.setYear(String.valueOf(enrollmentMonth));
+			enrollmentReport.setAadharNo(childAdmissionRecord.getChildTo().getAadharNo());
+			enrollmentReport.setDistrict(childAdmissionRecord.getSchoolTo().getDistrict());
+			enrollmentReport.setState(childAdmissionRecord.getSchoolTo().getState());
+			enrollmentReport.setYear(String.valueOf(enrollmentYear));
+			enrollmentReport.setMonth(String.valueOf(enrollmentMonth));
+			enrollmentReport.setEnrolledBy(childAdmissionRecord.getEnrolledBy());
 			
 			enrollmentReports.add(enrollmentReport);
 			enrollmentMonth++;
