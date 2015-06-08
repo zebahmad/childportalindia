@@ -3,6 +3,7 @@
  */
 package com.nbi.chlidportal.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,7 @@ public class AdmissionDao {
 		
 		List data = sqlQuery.list();
 		Statistic stat = new Statistic();
+		stat.setStatPoint(new ArrayList<StatPoint>());
 		for(Object object : data)
         {
         	Map row = (Map)object;

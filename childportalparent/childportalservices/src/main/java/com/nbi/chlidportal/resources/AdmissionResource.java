@@ -22,6 +22,7 @@ import com.nbi.childportal.pojos.StatusResponse;
 import com.nbi.childportal.pojos.User;
 import com.nbi.childportal.pojos.reports.StatType;
 import com.nbi.childportal.pojos.reports.Statistic;
+import com.nbi.childportal.pojos.rest.ChildAdmissionTo;
 import com.nbi.chlidportal.dao.AdmissionDao;
 import com.nbi.chlidportal.dao.ReportEnrollmentDao;
 
@@ -45,14 +46,14 @@ public class AdmissionResource
 	@Path("/{admissionId}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public ChildAdmission getSchoolAdmissionRecord(@PathParam("admissionId")  Long admissionId) throws Exception {
+	public ChildAdmissionTo getSchoolAdmissionRecord(@PathParam("admissionId")  Long admissionId) throws Exception {
 		AdmissionDao admissionDao;
 		List<ChildAdmission> childAdmission = null;
 		try {
 			admissionDao = AdmissionDao.getInstance();
-			ChildAdmission child = new ChildAdmission();
+			ChildAdmissionTo child = new ChildAdmissionTo();
 			child.setId(admissionId);
-			childAdmission = admissionDao.getChildAdmission(child );
+			childAdmission = admissionDao.getChildAdmission(child.getChildAdmission());
 			if(childAdmission==null){
 				return null;
 			}
@@ -60,23 +61,23 @@ public class AdmissionResource
 			logger.logException(e);
 			throw e;
 		}
-		return childAdmission.get(0);
+		return ChildAdmissionTo.getChildAdmissionTo(childAdmission).get(0);
 	}
 	
 	@GET
 	@Path("/{aadharNo}/all")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public List<ChildAdmission> getAllSchoolAdmissionRecords(@PathParam("aadharNo") String aadharNo) throws Exception {
+	public List<ChildAdmissionTo> getAllSchoolAdmissionRecords(@PathParam("aadharNo") String aadharNo) throws Exception {
 		AdmissionDao admissionDao;
 		List<ChildAdmission> childAdmissionList = null;
 		try {
 			admissionDao = AdmissionDao.getInstance();
-			ChildAdmission childAdmission = new ChildAdmission();
+			ChildAdmissionTo childAdmission = new ChildAdmissionTo();
 			User child = new User();
 			child.setAadharNo(aadharNo);
 			childAdmission.setChild(child);
-			childAdmissionList = admissionDao.getChildAdmission(childAdmission );
+			childAdmissionList = admissionDao.getChildAdmission(childAdmission.getChildAdmission() );
 			if(childAdmission==null){
 				return null;
 			}
@@ -84,7 +85,7 @@ public class AdmissionResource
 			logger.logException(e);
 			throw e;
 		}
-		return childAdmissionList;
+		return ChildAdmissionTo.getChildAdmissionTo(childAdmissionList);
 	}
 
 	
@@ -92,8 +93,8 @@ public class AdmissionResource
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public StatusResponse updateSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) throws Exception {
-		ChildAdmission existingChildAdmissionRecord = null;
+	public StatusResponse updateSchoolAdmissionRecord(ChildAdmissionTo childAdmissionRecord) throws Exception {
+		ChildAdmissionTo existingChildAdmissionRecord = null;
 		try {
 			existingChildAdmissionRecord = getSchoolAdmissionRecord(childAdmissionRecord.getId());
 		} catch (Exception e) {
@@ -113,7 +114,7 @@ public class AdmissionResource
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public StatusResponse createSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) throws Exception {
+	public StatusResponse createSchoolAdmissionRecord(ChildAdmissionTo childAdmissionRecord) throws Exception {
 		childAdmissionRecord.setCreatedOn(new Date());
 		StatusResponse response = save(childAdmissionRecord);
 		updateEnrollmentReport(childAdmissionRecord);
@@ -166,12 +167,12 @@ public class AdmissionResource
 		return reportDao.getEnrollmentStats(criteria);
 	}
 	
-	private StatusResponse save(ChildAdmission childAdmissionRecord) {
+	private StatusResponse save(ChildAdmissionTo childAdmissionRecord) {
 		StatusResponse response = new StatusResponse();
 		AdmissionDao admissionDao =null;
 		try {
 			admissionDao =AdmissionDao.getInstance();
-			admissionDao.saveChildAdmission(childAdmissionRecord);
+			admissionDao.saveChildAdmission(childAdmissionRecord.getChildAdmission());
 			
 			response.setSuccess(true);
 		} catch (Exception e) {
@@ -186,7 +187,7 @@ public class AdmissionResource
 		
 	}
 	
-	private ChildAdmission updateFieldsFromOriginalAdmissionRecord(ChildAdmission originalChildAdmissionRecord, ChildAdmission newChildAdmissionRecord) {
+	private ChildAdmissionTo updateFieldsFromOriginalAdmissionRecord(ChildAdmissionTo originalChildAdmissionRecord, ChildAdmissionTo newChildAdmissionRecord) {
 		originalChildAdmissionRecord.setAuditComments(newChildAdmissionRecord.getAuditComments());
 		originalChildAdmissionRecord.setComments(newChildAdmissionRecord.getComments());
 		originalChildAdmissionRecord.setCurrentStatus(newChildAdmissionRecord.getCurrentStatus());
@@ -196,7 +197,7 @@ public class AdmissionResource
 		return originalChildAdmissionRecord;
 	}
 	
-	private void updateEnrollmentReport(ChildAdmission childAdmissionRecord) throws Exception {
+	private void updateEnrollmentReport(ChildAdmissionTo childAdmissionRecord) throws Exception {
 		
 		int enrollmentMonth = childAdmissionRecord.getEnrolmentDate().getYear();
 		

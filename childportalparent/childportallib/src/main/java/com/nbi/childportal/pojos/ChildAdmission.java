@@ -87,7 +87,6 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "ENROLLED_BY")
 	private String enrolledBy;
 	
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	@Column(name = "ENROLLMENT_DATE")
 	private Date enrolmentDate;
 	

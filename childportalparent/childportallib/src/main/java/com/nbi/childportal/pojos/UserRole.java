@@ -28,8 +28,8 @@ public class UserRole {
 	@Column(name = "AADHAR_NO")
 	private String aadharNo;
 	
-	@Column(name = "ROLE")
-	private String role;
+/*	@Column(name = "ROLE")
+	private String role;*/
 	
 	public String getAadharNo() {
 		return aadharNo;
@@ -37,7 +37,7 @@ public class UserRole {
 	public void setAadharNo(String aadharNo) {
 		this.aadharNo = aadharNo;
 	}
-	public RoleEnum getRoleEnum() {
+/*	public RoleEnum getRoleEnum() {
 		return RoleEnum.valueOf(role);
 	}
 	
@@ -46,7 +46,7 @@ public class UserRole {
 	}
 	public void setRole(String role) {
 		this.role = role;
-	}
+	}*/
 	
 	
 }
