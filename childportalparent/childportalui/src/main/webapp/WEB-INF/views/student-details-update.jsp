@@ -71,6 +71,7 @@
 					<li><a href="SchoolRegistration">School Registration</a></li>
                   <li><a href="StudentRegistration">Student Registration</a></li>
                   <li><a href="NGORegistration">NGO Registration</a></li>
+                  <li><a href="UserRegistration">User Registration</a></li>
                 </ul>
               </li>
               <li><a href="#"><i class="fa fa-list-alt"></i><span>Updation</span></a>
@@ -296,15 +297,25 @@
                  </div>
                  
                 </div>
-                
                 <div class="form-group">
                 
                   <div class="col-sm-3">
-                  <label class="control-label">Comments</label>
+                  <label class="control-label">Existing Comments</label>
+                  <textarea readonly="readonly" rows="4" cols="50" id="sdt_ecomments">
+				</textarea></div>
+				 <div class="col-sm-3">
+                  <label class="control-label">Existing Social Audit Comments</label>
+                  <textarea readonly="readonly" rows="4" cols="50" id="sdt_esocialcomments">
+				</textarea></div>
+              	</div>
+                <div class="form-group">
+                
+                  <div class="col-sm-3">
+                  <label class="control-label">Add Comments</label>
                   <textarea rows="4" cols="50" id="sdt_comments">
 				</textarea></div>
 				 <div class="col-sm-3">
-                  <label class="control-label">Social Audit Comments</label>
+                  <label class="control-label">Add Social Audit Comments</label>
                   <textarea rows="4" cols="50" id="sdt_socialcomments">
 				</textarea></div>
               	</div>

@@ -79,6 +79,7 @@
 					<li><a href="SchoolRegistration">School Registration</a></li>
                   <li><a href="StudentRegistration">Student Registration</a></li>
                   <li class="active"><a href="NGORegistration">NGO Registration</a></li>
+                  <li><a href="UserRegistration">User Registration</a></li>
                 </ul>
               </li>
               <li><a href="#"><i class="fa fa-list-alt"></i><span>Updation</span></a>
@@ -109,8 +110,9 @@
             <h3>Register a NGO</h3>
           </div>
           <div class="content">
-
+		<div id="abcd">
           <form role="form"> 
+          
             <div class="form-group"> 
               <label>NGO Code</label> <input type="text" id="ngo_code" placeholder="Enter NGO code" class="form-control">
             </div> 
@@ -129,7 +131,7 @@
                 <button type="button" class="btn btn-primary register_ngo">Register</button>
              
             </form>
-          
+         </div> 
           </div>
         </div>				
       </div>

@@ -74,6 +74,7 @@
 					<li><a href="SchoolRegistration">School Registration</a></li>
                   <li><a href="StudentRegistration">Student Registration</a></li>
                   <li><a href="NGORegistration">NGO Registration</a></li>
+                  <li><a href="UserRegistration">User Registration</a></li>
                 </ul>
               </li>
               <li><a href="#"><i class="fa fa-list-alt"></i><span>Updation</span></a>
@@ -149,42 +150,12 @@
 				               <div class="col-sm-2">
 			                <label class="control-label">State</label>
 			                
-			                  <select class="form-control" id="en_state">
-			                    <option value=""></option>
-			                    <option value="TN">Tamil Nadu</option>
-			                    <option value="KA">Karnataka</option>
-			                    <option value="AP">Andhra Pradesh</option>
-			                  </select>									
+			                  <input type="text" id="en_state" placeholder="Enter state" class="form-control">								
 			                </div>
 			                <div class="col-sm-2">
 			                <label class="control-label">District</label>
 			                
-			                  <select class="form-control" id="en_district">
-			                    <option value=""></option>
-			                    <option value="Kancheepuram">Kancheepuram</option>
-			                    <option value="Chromepet">Chengalpet</option>
-			                    <option value="Tumkur">Tumkur</option>
-			                  </select>									
-			                </div>
-			                <div class="col-sm-2">
-			                <label class="control-label">School</label>
-			                
-			                  <select class="form-control" id="en_school">
-			                    <option value=""></option>
-			                    <option value="chettinad">Chettinad Vidhyashram</option>
-			                    <option value="chinmaya">Chinmaya Vidyalaya</option>
-			                    <option value="sankara">Sankara Vidyalaya</option>
-			                  </select>									
-			                </div>
-			                <div class="col-sm-2">
-			                <label class="control-label">NGO</label>
-			                
-			                  <select class="form-control" id="en_ngo">
-			                    <option value=""></option>
-			                    <option value="needbaseindia">Need Base India</option>
-			                    <option value="helpachild">Help a child</option>
-			                    <option value="teachindia">Teach India</option>
-			                  </select>									
+			                  <input type="text" id="en_district" placeholder="Enter district" class="form-control">								
 			                </div>
 			                <br>
 			               <div class="col-sm-2">
@@ -227,36 +198,21 @@
 				               <div class="col-sm-3">
 			                <label class="control-label">State</label>
 			                
-			                  <select class="form-control" id="dr_state">
-			                    <option value=""></option>
-			                    <option value="TN">Tamil Nadu</option>
-			                    <option value="KA">Karnataka</option>
-			                    <option value="AP">Andhra Pradesh</option>
-			                  </select>									
+			                  <input type="text" id="dr_state" placeholder="Enter state" class="form-control">								
 			                </div>
 			                <div class="col-sm-3">
 			                <label class="control-label">District</label>
 			                
-			                  <select class="form-control" id="dr_district">
-			                    <option value=""></option>
-			                    <option value="Kancheepuram">Kancheepuram</option>
-			                    <option value="Chromepet">Chengalpet</option>
-			                    <option value="Tumkur">Tumkur</option>
-			                  </select>									
+			                  <input type="text" id="dr_district" placeholder="Enter district" class="form-control">								
 			                </div>
 			                <div class="col-sm-3">
-			                <label class="control-label">School</label>
+			                <label class="control-label">Year</label>
 			                
-			                  <select class="form-control" id="dr_school">
-			                    <option value=""></option>
-			                    <option value="chettinad">Chettinad Vidhyashram</option>
-			                    <option value="chinmaya">Chinmaya Vidyalaya</option>
-			                    <option value="sankara">Sankara Vidyalaya</option>
-			                  </select>									
+			                  <input type="text" id="dr_year" placeholder="Enter year" class="form-control">								
 			                </div>
 			                <br>
 			               <div class="col-sm-3">
-			               <button id="refreshchart2" class="btn btn-primary refreshchart2">Load chart</button>
+			               <button id="refreshchart2" class="btn btn-primary refreshchart2">Load chart and get details</button>
 			                </div>
 			               </div><br>
 						<table id="chart2_details" cellpadding="0" cellspacing="0" border="0" class="table table-bordered"></table>
@@ -266,6 +222,12 @@
 							<h2>Registered NGOs</h2>
 						</div>
 						<table id="ngos_table" cellpadding="0" cellspacing="0" border="0" class="table table-bordered"></table>
+					</div>
+					<div class="col-md-12" id="schools">
+						<div class="header no-border">
+							<h2>Registered Schools</h2>
+						</div>
+						<table id="school_table" cellpadding="0" cellspacing="0" border="0" class="table table-bordered"></table>
 					</div>
 			</div>
 			

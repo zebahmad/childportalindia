@@ -71,6 +71,7 @@
 					<li><a href="SchoolRegistration">School Registration</a></li>
                   <li class="active"><a href="StudentRegistration">Student Registration</a></li>
                   <li><a href="NGORegistration">NGO Registration</a></li>
+                  <li><a href="UserRegistration">User Registration</a></li>
                 </ul>
               </li>
               <li><a href="#"><i class="fa fa-list-alt"></i><span>Updation</span></a>
@@ -149,8 +150,8 @@
                 <div class="form-group">
                  <div class="col-sm-3">
                 <label class="control-label">Gender</label><br><br>
-                 <input type="radio" name="gender" class="icheck" id="sdt_gender" style="display:inline;"> Male</label> 
-                 <input type="radio" name="gender" class="icheck" id="sdt_gender" style="display:inline;"> Female </label> 
+                 <input type="radio" name="gender" class="icheck" value="male" id="sdt_gender" style="display:inline;"> Male</label> 
+                 <input type="radio" name="gender" class="icheck" value="female" id="sdt_gender" style="display:inline;"> Female </label> 
                 </div>
              	<div class="col-sm-3">
                 <label class="control-label">DOB Type</label>
