@@ -19,6 +19,7 @@ import com.nbi.childportal.common.AppLogger;
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.EnrollmentReport;
 import com.nbi.childportal.pojos.StatusResponse;
+import com.nbi.childportal.pojos.User;
 import com.nbi.childportal.pojos.reports.StatType;
 import com.nbi.childportal.pojos.reports.Statistic;
 import com.nbi.chlidportal.dao.AdmissionDao;
@@ -41,16 +42,16 @@ public class AdmissionResource
 	 */
 	
 	@GET
-	@Path("/{studentAadhar}")
+	@Path("/{admissionId}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public ChildAdmission getSchoolAdmissionRecord(@PathParam("studentAadhar") String studentAadhar) throws Exception {
+	public ChildAdmission getSchoolAdmissionRecord(@PathParam("admissionId")  Long admissionId) throws Exception {
 		AdmissionDao admissionDao;
 		List<ChildAdmission> childAdmission = null;
 		try {
 			admissionDao = AdmissionDao.getInstance();
 			ChildAdmission child = new ChildAdmission();
-			child.setAadharNo(studentAadhar);
+			child.setId(admissionId);
 			childAdmission = admissionDao.getChildAdmission(child );
 			if(childAdmission==null){
 				return null;
@@ -61,6 +62,30 @@ public class AdmissionResource
 		}
 		return childAdmission.get(0);
 	}
+	
+	@GET
+	@Path("/{aadharNo}/all")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public List<ChildAdmission> getAllSchoolAdmissionRecords(@PathParam("aadharNo") String aadharNo) throws Exception {
+		AdmissionDao admissionDao;
+		List<ChildAdmission> childAdmissionList = null;
+		try {
+			admissionDao = AdmissionDao.getInstance();
+			ChildAdmission childAdmission = new ChildAdmission();
+			User child = new User();
+			child.setAadharNo(aadharNo);
+			childAdmission.setChild(child);
+			childAdmissionList = admissionDao.getChildAdmission(childAdmission );
+			if(childAdmission==null){
+				return null;
+			}
+		} catch (Exception e) {
+			logger.logException(e);
+			throw e;
+		}
+		return childAdmissionList;
+	}
 
 	
 	@PUT
@@ -70,7 +95,7 @@ public class AdmissionResource
 	public StatusResponse updateSchoolAdmissionRecord(ChildAdmission childAdmissionRecord) throws Exception {
 		ChildAdmission existingChildAdmissionRecord = null;
 		try {
-			existingChildAdmissionRecord = getSchoolAdmissionRecord(childAdmissionRecord.getAadharNo());
+			existingChildAdmissionRecord = getSchoolAdmissionRecord(childAdmissionRecord.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Could not retrieve given admission record for update");
@@ -178,7 +203,7 @@ public class AdmissionResource
 		List<EnrollmentReport> enrollmentReports = new ArrayList<EnrollmentReport>();
 		while(enrollmentMonth < 12){
 			EnrollmentReport enrollmentReport = new EnrollmentReport();
-			enrollmentReport.setAadharNo(childAdmissionRecord.getAadharNo());
+			enrollmentReport.setAadharNo(childAdmissionRecord.getChild().getAadharNo());
 			enrollmentReport.setDistrict(childAdmissionRecord.getSchool().getDistrict());
 			enrollmentReport.setState(childAdmissionRecord.getSchool().getState());
 			enrollmentReport.setYear(String.valueOf(childAdmissionRecord.getEnrolmentDate().getYear()));

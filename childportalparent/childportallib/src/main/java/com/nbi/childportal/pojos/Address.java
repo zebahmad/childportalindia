@@ -30,9 +30,9 @@ public class Address {
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "ADDRESS_ID")
-	private String addressId;
+	private Long addressId;
 	
-	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="ADDRESS_ID")
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="address")
 	private User user;
 	
 	@Column(name = "CARE_OF")
@@ -56,7 +56,7 @@ public class Address {
 	@Column(name = "STREET")
 	private String street;
 
-	@Column(name = "POSTOFFICE")
+	@Column(name = "POST_OFFICE")
 	private String po;
 
 	@Column(name = "STATE")
@@ -65,11 +65,11 @@ public class Address {
 	@Column(name = "PIN_CODE")
 	private String pinCode;
 	
-	public String getId() {
+	public Long getId() {
 		return addressId;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.addressId = id;
 	}
 

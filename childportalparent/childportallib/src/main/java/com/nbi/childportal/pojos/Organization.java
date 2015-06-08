@@ -34,9 +34,9 @@ public class Organization {
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "ORG_ID")
-	private String orgId;
+	private Long orgId;
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="SCHOOL_ID")	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="school")	
 	@NotFound(action=NotFoundAction.IGNORE)
 	private Set<ChildAdmission> enrolledChildren;
 
@@ -58,10 +58,10 @@ public class Organization {
 	@Column(name = "STATE")
 	private String state;
 	
-	public String getOrgId() {
+	public Long getOrgId() {
 		return orgId;
 	}
-	public void setOrgId(String orgId) {
+	public void setOrgId(Long orgId) {
 		this.orgId = orgId;
 	}
 	public String getOrgType() {

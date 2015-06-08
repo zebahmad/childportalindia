@@ -15,9 +15,9 @@
    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ChildPortal</property>
    <property name="hibernate.connection.username">root</property>
    <property name="hibernate.connection.password">password</property>
+   <property name="show_sql">true</property>
 
    <!-- List of XML mapping files -->
-   <!-- <mapping resource="ChildAdmission.hbm.xml"/> -->
    <mapping class="com.nbi.childportal.pojos.ChildAdmission"/>  
    <mapping class="com.nbi.childportal.pojos.User"/>  
    <mapping class="com.nbi.childportal.pojos.UserRole"/>  

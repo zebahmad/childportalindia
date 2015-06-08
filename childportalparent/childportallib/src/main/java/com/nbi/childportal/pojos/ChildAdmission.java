@@ -6,6 +6,7 @@ package com.nbi.childportal.pojos;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +19,11 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  * @author zahmad
@@ -39,15 +43,13 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "ADMISSION_ID")
 	private Long admissionId;
 
-	@Column(name = "AADHAR_NO")
-	private String aadharNo;
-	
-	@ManyToOne	(targetEntity = User.class)
+	@ManyToOne	(targetEntity = User.class, cascade = {CascadeType.ALL})
 	@JoinColumn(name="USER_ID", referencedColumnName="USER_ID")
 	private User child;
 	
 	@ManyToOne(targetEntity = Organization.class)
 	@JoinColumn(name="SCHOOL_ID", referencedColumnName="ORG_ID")
+	@NotFound(action=NotFoundAction.EXCEPTION)
 	private Organization school;
 	
 	@Column(name = "ADMISSION_NO")
@@ -85,6 +87,7 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "ENROLLED_BY")
 	private String enrolledBy;
 	
+	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	@Column(name = "ENROLLMENT_DATE")
 	private Date enrolmentDate;
 	
@@ -95,12 +98,6 @@ public class ChildAdmission implements Serializable {
 	}
 	public void setId(Long id) {
 		this.admissionId = id;
-	}
-	public String getAadharNo() {
-		return aadharNo;
-	}
-	public void setAadharNo(String aadharNo) {
-		this.aadharNo = aadharNo;
 	}
 	public User getChild() {
 		return child;

@@ -40,13 +40,13 @@ public class User {
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "USER_ID")
-	private String userId;
+	private Long userId;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL}, targetEntity = Address.class)	
 	@JoinColumn(name="ADDRESS_ID", referencedColumnName="ADDRESS_ID")
 	private Address address;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="USER_ID")	
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="child")	
 	@NotFound(action=NotFoundAction.IGNORE)
 	private Set<ChildAdmission> admission;
 	
@@ -83,11 +83,11 @@ public class User {
 
 	
 	
-	public String getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

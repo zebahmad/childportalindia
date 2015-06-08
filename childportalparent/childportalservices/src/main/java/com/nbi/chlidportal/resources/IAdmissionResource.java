@@ -3,6 +3,8 @@
  */
 package com.nbi.chlidportal.resources;
 
+import java.util.List;
+
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.StatusResponse;
 import com.nbi.childportal.pojos.reports.StatType;
@@ -14,7 +16,8 @@ import com.nbi.childportal.pojos.reports.Statistic;
  */
 public interface IAdmissionResource {
 
-	public ChildAdmission getSchoolAdmissionRecord(String studentName) throws Exception;
+	public ChildAdmission getSchoolAdmissionRecord(Long admissionId) throws Exception;
+	public List<ChildAdmission> getAllSchoolAdmissionRecords(String aadharNo) throws Exception;
 	public StatusResponse createSchoolAdmissionRecord(ChildAdmission childAdmission) throws Exception;
 	public StatusResponse updateSchoolAdmissionRecord(ChildAdmission childAdmission) throws Exception;
 	
