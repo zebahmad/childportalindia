@@ -58,7 +58,6 @@ if(('webkitSpeechRecognition' in window)){
         case "login": location.href = "pages-login.html?listen=on"; break;
         case "404 page": location.href = "pages-404.html?listen=on"; break;
         case "500 page": location.href = "pages-500.html?listen=on"; break;
-        case "500 page": location.href = "pages-500.html?listen=on"; break;
         default:
           $.gritter.add({title: "Error",text: "Could not find: <strong>" + datos + "</strong> page, Please try again.",image: 'images/mic-icon.png',class_name: 'clean',time: ''});  
         break;
