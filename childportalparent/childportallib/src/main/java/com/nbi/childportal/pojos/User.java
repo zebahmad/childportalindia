@@ -18,9 +18,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
@@ -32,8 +29,6 @@ import org.hibernate.annotations.NotFoundAction;
  */
 @Entity
 @Table( name = "PERSON" )
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name="user")
 public class User {
 	
 	@Id

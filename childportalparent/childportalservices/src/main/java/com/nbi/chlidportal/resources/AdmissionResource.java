@@ -19,10 +19,10 @@ import com.nbi.childportal.common.AppLogger;
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.EnrollmentReport;
 import com.nbi.childportal.pojos.StatusResponse;
-import com.nbi.childportal.pojos.User;
 import com.nbi.childportal.pojos.reports.StatType;
 import com.nbi.childportal.pojos.reports.Statistic;
 import com.nbi.childportal.pojos.rest.ChildAdmissionTo;
+import com.nbi.childportal.pojos.rest.UserTo;
 import com.nbi.chlidportal.dao.AdmissionDao;
 import com.nbi.chlidportal.dao.ReportEnrollmentDao;
 
@@ -74,7 +74,7 @@ public class AdmissionResource
 		try {
 			admissionDao = AdmissionDao.getInstance();
 			ChildAdmissionTo childAdmission = new ChildAdmissionTo();
-			User child = new User();
+			UserTo child = new UserTo();
 			child.setAadharNo(aadharNo);
 			childAdmission.setChild(child);
 			childAdmissionList = admissionDao.getChildAdmission(childAdmission.getChildAdmission() );
@@ -204,7 +204,7 @@ public class AdmissionResource
 		List<EnrollmentReport> enrollmentReports = new ArrayList<EnrollmentReport>();
 		while(enrollmentMonth < 12){
 			EnrollmentReport enrollmentReport = new EnrollmentReport();
-			enrollmentReport.setAadharNo(childAdmissionRecord.getChild().getAadharNo());
+			enrollmentReport.setAadharNo(childAdmissionRecord.getChildTo().getAadharNo());
 			enrollmentReport.setDistrict(childAdmissionRecord.getSchool().getDistrict());
 			enrollmentReport.setState(childAdmissionRecord.getSchool().getState());
 			enrollmentReport.setYear(String.valueOf(childAdmissionRecord.getEnrolmentDate().getYear()));

@@ -18,8 +18,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
@@ -32,7 +30,6 @@ import org.hibernate.annotations.NotFoundAction;
 @Entity
 @Table( name = "ADMISSION" )
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name="admission")
 public class ChildAdmission implements Serializable {
 
 	private static final long serialVersionUID = 8791034597240638012L;
@@ -48,8 +45,7 @@ public class ChildAdmission implements Serializable {
 	private User child;
 	
 	@ManyToOne(targetEntity = Organization.class)
-	@JoinColumn(name="SCHOOL_ID", referencedColumnName="ORG_ID")
-	@NotFound(action=NotFoundAction.EXCEPTION)
+	@JoinColumn(name="ORG_ID", nullable=false)
 	private Organization school;
 	
 	@Column(name = "ADMISSION_NO")

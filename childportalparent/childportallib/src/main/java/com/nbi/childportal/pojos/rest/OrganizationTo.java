@@ -1,69 +1,44 @@
 /**istrstrictist
  * 
  */
-package com.nbi.childportal.pojos;
+package com.nbi.childportal.pojos.rest;
 
-import java.util.Set;
+import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+import com.nbi.childportal.pojos.OrgTypeEnum;
+import com.nbi.childportal.pojos.Organization;
 
 /**
  * @author zahmad
  *
  */
-@Entity
-@Table( name = "ORGANIZATION" )
-public class Organization {
+@XmlRootElement(name="org")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class OrganizationTo  extends BaseTo implements Serializable {
 	
-	@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
-	@Column(name = "ORG_ID")
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8680114011921208530L;
 	private Long orgId;
-
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="school")	
-	@NotFound(action=NotFoundAction.IGNORE)
-	private Set<ChildAdmission> enrolledChildren;
-
-	@Column(name = "ORG_TYPE")
 	private String orgType;	
-	
-	@Column(name = "ORG_CODE")
 	private String orgCode;
-	
-	@Column(name = "ORG_NAME")
 	private String orgName;
-	
-	@Column(name = "ADDRESS")
 	private String address;
-	
-	@Column(name = "DISTRICT")
 	private String district;
-	
-	@Column(name = "STATE")
 	private String state;
+
+
 	
 	public Long getOrgId() {
 		return orgId;
 	}
 	public void setOrgId(Long orgId) {
 		this.orgId = orgId;
-	}
-	public Set<ChildAdmission> getEnrolledChildren() {
-		return enrolledChildren;
-	}
-	public void setEnrolledChildren(Set<ChildAdmission> enrolledChildren) {
-		this.enrolledChildren = enrolledChildren;
 	}
 	public String getOrgType() {
 		return orgType;
@@ -106,6 +81,20 @@ public class Organization {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	public Organization getOrg() throws Exception {
+		Organization org = new Organization();
+
+		setFieldValue(org, "orgId", orgId);
+		setFieldValue(org, "orgType", orgType);
+		setFieldValue(org, "orgCode", orgCode);
+		setFieldValue(org, "orgName", orgName);
+		setFieldValue(org, "address", address);
+		setFieldValue(org, "district", district);
+		setFieldValue(org, "state", state);
+
+		return org;
 	}
 
 }
