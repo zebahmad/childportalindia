@@ -3,6 +3,7 @@
  */
 package com.nbi.chlidportal.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class AdmissionDao {
 		childAdmission.setUpdatedOn(new Date());
 		Session session = HibernateSession.getSessionFactory().openSession();
 		session.beginTransaction();
-		session.saveOrUpdate(childAdmission);
+		session.merge(childAdmission);
 		session.getTransaction().commit();
 		session.close();
 	}
@@ -59,7 +60,7 @@ public class AdmissionDao {
 		Session session = HibernateSession.getSessionFactory().openSession();
 		session.beginTransaction();
 		
-		Criteria criteria = session.createCriteria(ChildAdmission.class);
+		Criteria criteria = session.createCriteria(ChildAdmission.class, "admission");
 		addCriteria(child, criteria);
 		List<ChildAdmission> result = criteria.list();
 
@@ -88,6 +89,7 @@ public class AdmissionDao {
 		
 		List data = sqlQuery.list();
 		Statistic stat = new Statistic();
+		stat.setStatPoint(new ArrayList<StatPoint>());
 		for(Object object : data)
         {
         	Map row = (Map)object;
@@ -118,8 +120,12 @@ public class AdmissionDao {
 	}
 
 	private Criteria addCriteria(ChildAdmission child, Criteria criteria) {
-		if(child.getAadharNo()!=null){
-			criteria.add(Restrictions.eq("aadharNo", child.getAadharNo()));
+		if(child.getAdmissionNo()!=null){
+			criteria.add(Restrictions.eq("admission.admissionId", child.getAdmissionNo()));
+		}
+		if(child.getChild()!=null && child.getChild().getAadharNo()!=null && !"".equalsIgnoreCase(child.getChild().getAadharNo())){
+			criteria.createAlias("admission.child", "child");
+			criteria.add(Restrictions.eq("child.aadharNo", child.getChild().getAadharNo()));
 		}
 		return criteria;
 	}

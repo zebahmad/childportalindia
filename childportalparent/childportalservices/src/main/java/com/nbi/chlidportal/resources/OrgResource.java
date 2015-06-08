@@ -33,7 +33,7 @@ public class OrgResource implements IOrgResource {
 	@Consumes("application/json")
 	public Organization getOrg(@PathParam("orgId") String orgId) throws Exception {
 		Organization org = new Organization();
-		org.setOrgId(orgId);
+		org.setOrgId(Long.parseLong(orgId));
 		List<Organization> orgResult = OrgDao.getInstance().getOrg(org);
 		if(orgResult!=null && orgResult.size()>0){
 			return orgResult.get(0);

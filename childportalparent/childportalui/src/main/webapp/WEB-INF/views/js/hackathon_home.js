@@ -86,13 +86,16 @@ function load_enrolled_students(){
 			if (data.status == 200){
 				var obj1 = $.parseJSON(data.responseText);
 				//alert("object length"+obj.length);
-				var obj=obj1.statistic.statPoints;
+				var statistics=obj1.statistic;
 				var datax=[];var i=0;var categoriesx=[];
-				for(var h=0;h<obj.length;h++)
-				{
-					datax[i]=obj[h].count;
-					categoriesx[i]=obj[h].month+"-"+obj[h].year;
-					i++;
+				if(statistics.statPoints!=null){
+					var obj=statistics.statPoints;
+					for(var h=0;h<obj.length;h++)
+					{
+						datax[i]=obj[h].count;
+						categoriesx[i]=obj[h].month+"-"+obj[h].year;
+						i++;
+					}
 				}
 			var chart = new Highcharts.Chart({
 		        chart: {
@@ -158,7 +161,7 @@ function load_ngos(){
 				//alert("object length"+obj.length);
 				for(var h=0;h<obj.length;h++)
 				{
-					var eobj=obj[h];
+					var eobj=obj[h].org;
 				$('#ngos_table').dataTable().fnAddData([eobj.orgCode,eobj.orgName,eobj.address,
 				                                        eobj.district,eobj.state
 					                                       ]);
@@ -178,7 +181,7 @@ function load_schools(){
 	document.getElementById("dropouts").style.display = "none";
 	document.getElementById("ngos").style.display = "none";
 	var call_url="/childportalservices/org/search";
-	var data2='{"org": {"orgType": "school"}}';
+	var data2='{"org": {"orgType": "SCHOOL"}}';
 	$.ajax({
 		type: "PUT",
 		contentType: "application/json",
@@ -195,9 +198,14 @@ function load_schools(){
 				//alert("object length"+obj.length);
 				for(var h=0;h<obj.length;h++)
 				{
-					var eobj=obj[h];
-				$('#school_table').dataTable().fnAddData([eobj.orgCode,eobj.orgName,eobj.address,
-				                                        eobj.district,eobj.state
+					var eobj=obj[h].org;
+					//alert(eobj);
+					//alert(eobj.orgCode+eobj.orgName+eobj.address+eobj.district+eobj.state);
+				$('#school_table').dataTable().fnAddData([eobj.orgCode,
+				                                          eobj.orgName,
+				                                          eobj.address,
+				                                        eobj.district,
+				                                        eobj.state
 					                                       ]);
 				 $('#school_table').dataTable().fnDraw();
 				}
@@ -278,13 +286,16 @@ function load_dropouts(){
 			if (data.status == 200){
 				var obj1 = $.parseJSON(data.responseText);
 				//alert("object length"+obj.length);
-				var obj=obj1.statistic.statPoints;
+				var statistics=obj1.statistic;
 				var datax=[];var i=0;var categoriesx=[];
-				for(var h=0;h<obj.length;h++)
-				{
-					datax[i]=obj[h].count;
-					categoriesx[i]=obj[h].month+"-"+obj[h].year;
-					i++;
+				if(statistics.statPoints!=null){
+					var obj=statistics.statPoints;
+					for(var h=0;h<obj.length;h++)
+					{
+						datax[i]=obj[h].count;
+						categoriesx[i]=obj[h].month+"-"+obj[h].year;
+						i++;
+					}
 				}
 				var chart = new Highcharts.Chart({
 			        chart: {

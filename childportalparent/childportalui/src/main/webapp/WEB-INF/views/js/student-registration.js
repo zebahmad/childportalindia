@@ -35,8 +35,9 @@ $(document).ready(function() {
 			var schyear=document.getElementById("sdt_schyear").value;
 			var createdby=document.getElementById("sdt_createdby").value;
 			var comments=document.getElementById("sdt_comments").value;
+			var admnno=document.getElementById("sdt_admno").value;
 			//alert("School registration");
-			var data2='{"admission": {"aadharNo": "'+aadharid+'","schoolId": "'+schid'","admissionNo": "'+admnno+'","standard": '+std+',"currentStatus": "'+currentstatus+'","schoolingYear": "'+schyear+'","createdBy": "'+createdby+'","comments": "'+comments+'"}}';
+			var data2='{"admission": {"aadharNo": "'+aadharid+'","schoolId": "'+schid+'","admissionNo": "'+admnno+'","standard": '+std+',"currentStatus": "'+currentstatus+'","schoolingYear": "'+schyear+'","createdBy": "'+createdby+'","comments": "'+comments+'"}}';
 			var call_url="/childportalservices/childportalservices/admission";
 			$.ajax({
 				type: "PUT",

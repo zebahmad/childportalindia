@@ -7,12 +7,14 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * @author zahmad
@@ -25,8 +27,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Organization {
 	
 	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "ORG_ID")
-	private String orgId;
+	private Long orgId;
+
+	/*@OneToMany(fetch=FetchType.LAZY, mappedBy="school")	
+	@NotFound(action=NotFoundAction.IGNORE)*/
+	//private Set<ChildAdmission> enrolledChildren;
 
 	@Column(name = "ORG_TYPE")
 	private String orgType;	
@@ -46,10 +54,10 @@ public class Organization {
 	@Column(name = "STATE")
 	private String state;
 	
-	public String getOrgId() {
+	public Long getOrgId() {
 		return orgId;
 	}
-	public void setOrgId(String orgId) {
+	public void setOrgId(Long orgId) {
 		this.orgId = orgId;
 	}
 	public String getOrgType() {

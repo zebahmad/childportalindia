@@ -6,6 +6,7 @@ package com.nbi.childportal.pojos;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +19,11 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  * @author zahmad
@@ -36,13 +40,16 @@ public class ChildAdmission implements Serializable {
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
-	private Long id;
+	@Column(name = "ADMISSION_ID")
+	private Long admissionId;
 
-	@Column(name = "AADHAR_NO")
-	private String aadharNo;
+	@ManyToOne	(targetEntity = User.class, cascade = {CascadeType.ALL})
+	@JoinColumn(name="USER_ID", referencedColumnName="USER_ID")
+	private User child;
 	
-	@ManyToOne	
-	@JoinColumn(name="ORG_ID")
+	@ManyToOne(targetEntity = Organization.class)
+	@JoinColumn(name="SCHOOL_ID", referencedColumnName="ORG_ID")
+	@NotFound(action=NotFoundAction.EXCEPTION)
 	private Organization school;
 	
 	@Column(name = "ADMISSION_NO")
@@ -86,18 +93,17 @@ public class ChildAdmission implements Serializable {
 	
 	
 	public Long getId() {
-		return id;
+		return admissionId;
 	}
 	public void setId(Long id) {
-		this.id = id;
+		this.admissionId = id;
 	}
-	public String getAadharNo() {
-		return aadharNo;
+	public User getChild() {
+		return child;
 	}
-	public void setAadharNo(String aadharNo) {
-		this.aadharNo = aadharNo;
+	public void setChild(User child) {
+		this.child = child;
 	}
-	
 	public Organization getSchool() {
 		return school;
 	}
