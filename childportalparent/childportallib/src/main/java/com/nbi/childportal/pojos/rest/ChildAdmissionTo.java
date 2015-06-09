@@ -4,7 +4,6 @@
 package com.nbi.childportal.pojos.rest;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -17,22 +16,21 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.EnrollmentStatus;
-import com.nbi.childportal.pojos.Organization;
 import com.nbi.childportal.pojos.TimeDateAdapter;
-import com.nbi.childportal.pojos.User;
 
 /**
  * @author zahmad
  *
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="admission")
-public class ChildAdmissionTo implements Serializable {
+public class ChildAdmissionTo extends BaseTo implements Serializable {
 
 	private static final long serialVersionUID = 8791034597240638012L;
 	
 	private Long admissionId;
-	private User child;
-	private Organization school;
+	private UserTo child;
+	private OrganizationTo school;
 	private String admissionNo;
 	private String standard;
 	private String currentStatus;
@@ -45,7 +43,6 @@ public class ChildAdmissionTo implements Serializable {
 	private String auditComments;
 	private String enrolledBy;
 	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	@XmlAccessorType(XmlAccessType.FIELD)
 	private Date enrolmentDate;
 	
 	
@@ -55,16 +52,16 @@ public class ChildAdmissionTo implements Serializable {
 	public void setId(Long id) {
 		this.admissionId = id;
 	}
-	public User getChild() {
+	public UserTo getChildTo() {
 		return child;
 	}
-	public void setChild(User child) {
+	public void setChild(UserTo child) {
 		this.child = child;
 	}
-	public Organization getSchool() {
+	public OrganizationTo getSchoolTo() {
 		return school;
 	}
-	public void setSchool(Organization school) {
+	public void setSchool(OrganizationTo school) {
 		this.school = school;
 	}
 	
@@ -177,10 +174,20 @@ public class ChildAdmissionTo implements Serializable {
 		setFieldValue(childAdmission, "enrolledBy", enrolledBy);
 		setFieldValue(childAdmission, "enrolmentDate", enrolmentDate);
 		
+		setFieldValue(childAdmission, "child", child.getChild());
+		setFieldValue(childAdmission, "school", school.getOrg());
+		
 		return childAdmission;
 	}
 	
-	public static List<ChildAdmissionTo> getChildAdmissionTo(List<ChildAdmission> childAdmissionList) throws Exception{
+	
+	public static ChildAdmissionTo getChildAdmissionTo(ChildAdmission childAdmission) throws Exception{
+		List<ChildAdmission> childAdmissionList = new ArrayList<ChildAdmission>();
+		childAdmissionList.add(childAdmission);
+		return getChildAdmissionToList(childAdmissionList).get(0);
+	}
+	
+	public static List<ChildAdmissionTo> getChildAdmissionToList(List<ChildAdmission> childAdmissionList) throws Exception{
 		if(childAdmissionList==null || childAdmissionList.size()==0){
 			return null;
 		}
@@ -205,22 +212,32 @@ public class ChildAdmissionTo implements Serializable {
 			setFieldValue(childAdmissionTo, "enrolledBy", childAdmission.getEnrolledBy());
 			setFieldValue(childAdmissionTo, "enrolmentDate", childAdmission.getEnrolmentDate());
 			
+			UserTo associatedChild = new UserTo();
+			setFieldValue(associatedChild, "child", childAdmissionTo.getChildTo().getChild());
+			setFieldValue(associatedChild, "org", childAdmissionTo.getSchoolTo().getOrg());
+			
 			result.add(childAdmissionTo);
 		}
 		
 		return result;
 	}
 	
-	
-	private void setFieldValue(ChildAdmission childAdmission, String fieldName, Object value) throws Exception{
-		Field admissionIdField = ChildAdmission.class.getDeclaredField(fieldName);
-		admissionIdField.setAccessible(true);
-		admissionIdField.set(childAdmission, value);
-	}
-	
-	private static void setFieldValue(ChildAdmissionTo childAdmissionTo, String fieldName, Object value) throws Exception{
-		Field admissionIdField = ChildAdmissionTo.class.getDeclaredField(fieldName);
-		admissionIdField.setAccessible(true);
-		admissionIdField.set(childAdmissionTo, value);
+	public static  void getUpdatedChildAdmissionTo(ChildAdmissionTo childAdmissionTo, ChildAdmission childAdmission) throws Exception{
+		setFieldValue(childAdmissionTo, "admissionId", childAdmission.getId());
+		setFieldValue(childAdmissionTo, "admissionNo", childAdmission.getAdmissionNo());
+		setFieldValue(childAdmissionTo, "standard", childAdmission.getStandard());
+		setFieldValue(childAdmissionTo, "currentStatus", childAdmission.getCurrentStatus());
+		setFieldValue(childAdmissionTo, "schoolingYear", childAdmission.getSchoolingYear());
+		setFieldValue(childAdmissionTo, "createdOn", childAdmission.getCreatedOn());
+		setFieldValue(childAdmissionTo, "updatedOn", childAdmission.getUpdatedOn());
+		setFieldValue(childAdmissionTo, "createdBy", childAdmission.getCreatedBy());
+		setFieldValue(childAdmissionTo, "lastUpdatedBy", childAdmission.getLastUpdatedBy());
+		setFieldValue(childAdmissionTo, "comments", childAdmission.getComments());
+		setFieldValue(childAdmissionTo, "auditComments", childAdmission.getAuditComments());
+		setFieldValue(childAdmissionTo, "enrolledBy", childAdmission.getEnrolledBy());
+		setFieldValue(childAdmissionTo, "enrolmentDate", childAdmission.getEnrolmentDate());
+		
+		setFieldValue(childAdmissionTo, "child", UserTo.getUserTo(childAdmission.getChild()));
+		setFieldValue(childAdmissionTo, "school", OrganizationTo.getOrgTo(childAdmission.getSchool()));
 	}
 }
