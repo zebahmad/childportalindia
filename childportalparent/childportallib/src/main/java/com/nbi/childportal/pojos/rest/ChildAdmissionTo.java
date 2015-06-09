@@ -239,5 +239,5 @@ public class ChildAdmissionTo extends BaseTo implements Serializable {
 		
 		setFieldValue(childAdmissionTo, "child", UserTo.getUserTo(childAdmission.getChild()));
 		setFieldValue(childAdmissionTo, "school", OrganizationTo.getOrgTo(childAdmission.getSchool()));
-	
+	}
 }
