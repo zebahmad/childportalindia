@@ -37,10 +37,11 @@ $(document).ready(function() {
 			var dob=document.getElementById("dob").value;
 			var address=document.getElementById("address").value;
 			var district=document.getElementById("district").value;
+			var dobtype=document.getElementById("dobtype").value;
 			var spinner = new Spinner(opts).spin(target);
 			//alert(code+name+address+district+state);
 			var call_url="/childportalservices/user";
-			var data2='{"user":{"aadharNo":"'+user_aadhar+'","firstName":"'+first_name+'","lastName":"'+last_name+'","fatherName":"'+father_name+'","motherName":"'+mother_name+'","gender":"'+gender+'","dob":"'+dob+'","address":"'+address+'","district":"'+district+'"}}';
+			var data2='{"user":{"aadharNo":"'+user_aadhar+'","dob_type":"'+dobtype+'","name":"'+first_name+'","firstName":"'+first_name+'","lastName":"'+last_name+'","fatherName":"'+father_name+'","motherName":"'+mother_name+'","gender":"'+gender+'","dob":"'+dob+'","address":"'+address+'","district":"'+district+'"}}';
 			$.ajax({
 				type: "POST",
 				contentType: "application/json",

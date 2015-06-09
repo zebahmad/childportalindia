@@ -143,6 +143,8 @@
 </div>
     
   <script src="js/jquery.js"></script>
+	<script src="js/spin.js" type="text/javascript"></script>
+    <script src="js/spin.min.js" type="text/javascript"></script>
   <script src="js/jquery.select2/select2.min.js" type="text/javascript"></script>
   <script src="js/jquery.parsley/dist/parsley.js" type="text/javascript"></script>
   <script src="js/bootstrap.slider/js/bootstrap-slider.js" type="text/javascript"></script>

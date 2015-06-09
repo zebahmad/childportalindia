@@ -1,12 +1,4 @@
-/**
- * 
- */
-/**
- * 
- */
-/**
- * 
- */
+
 $(document).ready(function() {
 	$(".step2next").prop("disabled",true);
 		$(document).on('click', '.sdt_submit', function() { 
@@ -38,7 +30,7 @@ $(document).ready(function() {
 			var admnno=document.getElementById("sdt_admno").value;
 			//alert("School registration");
 			var data2='{"admission": {"aadharNo": "'+aadharid+'","schoolId": "'+schid+'","admissionNo": "'+admnno+'","standard": '+std+',"currentStatus": "'+currentstatus+'","schoolingYear": "'+schyear+'","createdBy": "'+createdby+'","comments": "'+comments+'"}}';
-			var call_url="/childportalservices/childportalservices/admission";
+			var call_url="/childportalservices/admission";
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",

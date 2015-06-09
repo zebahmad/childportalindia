@@ -127,17 +127,17 @@
 						</div>
 						<div class="content">
 							<div class="stat-data">
-								<div class="stat-blue">
+								<div class="stat-blue" id="total_admissions">
 									<h2>1,254</h2>
 									<span>Total admissions</span>
 								</div>
 							</div>
 							<div class="stat-data">
-								<div class="stat-number">
+								<div class="stat-number" id="registered_students_last_month">
 									<div><h2>83</h2></div>
 									<div>registered students last month</div>
 								</div>
-								<div class="stat-number">
+								<div class="stat-number" id="registered_students_last_year">
 									<div><h2>57</h2></div>
 									<div>registered students last year</div>
 								</div>
@@ -176,17 +176,17 @@
 						</div>
 						<div class="content">
 							<div class="stat-data">
-								<div class="stat-blue">
+								<div class="stat-blue" id="children_out_of_school">
 									<h2>1,254</h2>
 									<span>Total children out of school</span>
 								</div>
 							</div>
 							<div class="stat-data">
-								<div class="stat-number">
+								<div class="stat-number" id="dropouts_last_month">
 									<div><h2>83</h2></div>
 									<div>dropouts last month</div>
 								</div>
-								<div class="stat-number">
+								<div class="stat-number" id="dropouts_last_year">
 									<div><h2>57</h2></div>
 									<div>dropouts last year</div>
 								</div>
@@ -245,6 +245,8 @@
 	</div>
 
   <script type="text/javascript" src="js/jquery.js"></script>
+	<script src="js/spin.js" type="text/javascript"></script>
+    <script src="js/spin.min.js" type="text/javascript"></script>
   <script type="text/javascript" src="js/jquery.gritter/js/jquery.gritter.js"></script>
 
   <script type="text/javascript" src="js/jquery.nanoscroller/jquery.nanoscroller.js"></script>

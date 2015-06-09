@@ -65,6 +65,9 @@
 
 <script src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/behaviour/general.js"></script>
+	
+	<script src="js/spin.js" type="text/javascript"></script>
+    <script src="js/spin.min.js" type="text/javascript"></script>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

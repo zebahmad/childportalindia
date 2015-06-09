@@ -337,6 +337,8 @@
 </div>
 
   <script src="js/jquery.js"></script>
+	<script src="js/spin.js" type="text/javascript"></script>
+    <script src="js/spin.min.js" type="text/javascript"></script>
   <script src="js/jquery.select2/select2.min.js" type="text/javascript"></script>
   <script src="js/jquery.parsley/dist/parsley.js" type="text/javascript"></script>
   <script src="js/bootstrap.slider/js/bootstrap-slider.js" type="text/javascript"></script>
@@ -348,7 +350,7 @@
 	<script type="text/javascript" src="js/bootstrap.datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="js/behaviour/general.js"></script>
   <script src="js/jquery.ui/jquery-ui.js" type="text/javascript"></script>
-  <script src="js/student-details-update.js" type="text/javascript"></script>
+  <script src="js/student_details_update.js" type="text/javascript"></script>
   <script type="text/javascript"
 		src="js/jquery.gritter/js/jquery.gritter.js"></script>
   <script type="text/javascript">

@@ -60,7 +60,7 @@ $(document).ready(function() {
 			var createdby=document.getElementById("sdt_createdby").value;
 			var comments=document.getElementById("sdt_comments").value;
 			var socialcomments=document.getElementById("sdt_socialcomments").value;
-			var data2='{"admission": {"aadharNo": "'+aadharid+'","schoolId": "'+schid'","admissionNo": "'+admnno+'","standard": '+std+',"currentStatus": "'+currentstatus+'","schoolingYear": "'+schyear+'","createdBy": "'+createdby+'","comments": "'+comments+'","auditComments": "'+socialcomments+'"}}';
+			var data2='{"admission": {"aadharNo": "'+aadharid+'","schoolId": "'+schid+'","admissionNo": "'+admnno+'","standard": '+std+',"currentStatus": "'+currentstatus+'","schoolingYear": "'+schyear+'","createdBy": "'+createdby+'","comments": "'+comments+'","auditComments": "'+socialcomments+'"}}';
 			var call_url="/childportalservices/childportalservices/admission";
 			$.ajax({
 				type: "PUT",

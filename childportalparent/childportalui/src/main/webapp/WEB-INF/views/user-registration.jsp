@@ -128,12 +128,17 @@
             <div class="form-group"> 
               <label>Mother's Name</label> <input type="text" id="mother_name" placeholder="Enter Mother's name" class="form-control">
             </div>
-           
+           <div class="form-group">
+            	<label class="control-label">DOB Type</label><br><br>
+                 <input type="radio" name="dobtype" value="A" class="icheck" id="dobtype" style="display:inline;"> A</label> 
+                 <input type="radio" name="dobtype" value="N" class="icheck" id="dobtype" style="display:inline;">N </label> 
+             	<input type="radio" name="dobtype" value="D" class="icheck" id="dobtype" style="display:inline;">D </label>
+             </div> 
             
             <div class="form-group">
             	<label class="control-label">Gender</label><br><br>
-                 <input type="radio" name="gender" value="male" class="icheck" id="gender" style="display:inline;"> Male</label> 
-                 <input type="radio" name="gender" value="female" class="icheck" id="gender" style="display:inline;"> Female </label> 
+                 <input type="radio" name="gender" value="m" class="icheck" id="gender" style="display:inline;"> Male</label> 
+                 <input type="radio" name="gender" value="f" class="icheck" id="gender" style="display:inline;"> Female </label> 
              </div>  
              <div class="form-group">
                 <label class="control-label"> Date Of Birth </label>
@@ -164,6 +169,8 @@
 </div>
     
   <script src="js/jquery.js"></script>
+	<script src="js/spin.js" type="text/javascript"></script>
+    <script src="js/spin.min.js" type="text/javascript"></script>
   <script src="js/jquery.select2/select2.min.js" type="text/javascript"></script>
   <script src="js/jquery.parsley/dist/parsley.js" type="text/javascript"></script>
   <script src="js/bootstrap.slider/js/bootstrap-slider.js" type="text/javascript"></script>
