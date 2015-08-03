@@ -17,6 +17,7 @@ import org.hibernate.HibernateException;
 
 import com.nbi.childportal.pojos.Organization;
 import com.nbi.childportal.pojos.StatusResponse;
+import com.nbi.childportal.pojos.rest.OrganizationTo;
 import com.nbi.chlidportal.dao.OrgDao;
 
 /**
@@ -32,9 +33,9 @@ public class OrgResource implements IOrgResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public Organization getOrg(@PathParam("orgId") String orgId) throws Exception {
-		Organization org = new Organization();
+		OrganizationTo org = new OrganizationTo();
 		org.setOrgId(Long.parseLong(orgId));
-		List<Organization> orgResult = OrgDao.getInstance().getOrg(org);
+		List<Organization> orgResult = OrgDao.getInstance().getOrg(org.getOrg());
 		if(orgResult!=null && orgResult.size()>0){
 			return orgResult.get(0);
 		}
@@ -45,24 +46,24 @@ public class OrgResource implements IOrgResource {
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public StatusResponse createOrg(Organization org) throws Exception {
-		return saveOrg(org);
+	public StatusResponse createOrg(OrganizationTo org) throws Exception {
+		return saveOrg(org.getOrg());
 	}
 
 	@PUT
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public StatusResponse updateOrg(Organization org) throws Exception {
-		return saveOrg(org);
+	public StatusResponse updateOrg(OrganizationTo org) throws Exception {
+		return saveOrg(org.getOrg());
 	}
 	
 	@PUT
 	@Path("/search")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public List<Organization> searchOrg(Organization org) throws Exception {
-		return OrgDao.getInstance().getOrg(org);
+	public List<Organization> searchOrg(OrganizationTo org) throws Exception {
+		return OrgDao.getInstance().getOrg(org.getOrg());
 	}
 	
 	private StatusResponse saveOrg(Organization org) throws HibernateException, Exception {
