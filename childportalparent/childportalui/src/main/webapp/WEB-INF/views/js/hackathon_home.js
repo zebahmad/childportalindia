@@ -144,7 +144,8 @@ function load_ngos(){
 	document.getElementById("dropouts").style.display = "none";
 	document.getElementById("ngos").style.display = "block";
 	var call_url="/childportalservices/org/search";
-	var data2='{"org": {"orgType": "NGO"}}';
+	var data2='{"orgType": "NGO"}';
+	 $('#ngos_table').dataTable().fnClearTable();
 	$.ajax({
 		type: "PUT",
 		contentType: "application/json",
@@ -161,7 +162,7 @@ function load_ngos(){
 				//alert("object length"+obj.length);
 				for(var h=0;h<obj.length;h++)
 				{
-					var eobj=obj[h].org;
+					var eobj=obj[h];
 				$('#ngos_table').dataTable().fnAddData([eobj.orgCode,eobj.orgName,eobj.address,
 				                                        eobj.district,eobj.state
 					                                       ]);
@@ -181,7 +182,8 @@ function load_schools(){
 	document.getElementById("dropouts").style.display = "none";
 	document.getElementById("ngos").style.display = "none";
 	var call_url="/childportalservices/org/search";
-	var data2='{"org": {"orgType": "SCHOOL"}}';
+	var data2='{"orgType": "SCHOOL"}';
+	$('#school_table').dataTable().fnClearTable();
 	$.ajax({
 		type: "PUT",
 		contentType: "application/json",
@@ -198,7 +200,7 @@ function load_schools(){
 				//alert("object length"+obj.length);
 				for(var h=0;h<obj.length;h++)
 				{
-					var eobj=obj[h].org;
+					var eobj=obj[h];
 					//alert(eobj);
 					//alert(eobj.orgCode+eobj.orgName+eobj.address+eobj.district+eobj.state);
 				$('#school_table').dataTable().fnAddData([eobj.orgCode,

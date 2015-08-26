@@ -32,10 +32,10 @@ public class OrgResource implements IOrgResource {
 	@Path("/{orgId}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Organization getOrg(@PathParam("orgId") String orgId) throws Exception {
+	public OrganizationTo getOrg(@PathParam("orgId") String orgId) throws Exception {
 		OrganizationTo org = new OrganizationTo();
 		org.setOrgId(Long.parseLong(orgId));
-		List<Organization> orgResult = OrgDao.getInstance().getOrg(org.getOrg());
+		List<OrganizationTo> orgResult = OrgDao.getInstance().getOrg(org.getOrg());
 		if(orgResult!=null && orgResult.size()>0){
 			return orgResult.get(0);
 		}
@@ -62,7 +62,7 @@ public class OrgResource implements IOrgResource {
 	@Path("/search")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public List<Organization> searchOrg(OrganizationTo org) throws Exception {
+	public List<OrganizationTo> searchOrg(OrganizationTo org) throws Exception {
 		return OrgDao.getInstance().getOrg(org.getOrg());
 	}
 	

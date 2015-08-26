@@ -3,6 +3,8 @@
  */
 package com.nbi.chlidportal.dao;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -11,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import com.nbi.childportal.pojos.Organization;
+import com.nbi.childportal.pojos.rest.OrganizationTo;
 
 /**
  * @author zahmad
@@ -44,19 +47,35 @@ public class OrgDao {
 		session.close();
 	}
 
-	public List<Organization> getOrg(Organization org) throws HibernateException, Exception{
+	public List<OrganizationTo> getOrg(Organization org) throws HibernateException, Exception{
 		//TODO: Exception handling for db
-		Session session = HibernateSession.getSessionFactory().openSession();
-		session.beginTransaction();
+		Session session = null;
+		List<OrganizationTo> resultTo = new ArrayList<OrganizationTo>();
+		try{
+			session = HibernateSession.getSessionFactory().openSession();
+			session.beginTransaction();
 
-		Criteria criteria = session.createCriteria(Organization.class);
-		criteria = addCriteria(org, criteria);
-		List<Organization> result = criteria.list();
-
-		session.getTransaction().commit();
-		session.close();
-
-		return result;
+			Criteria criteria = session.createCriteria(Organization.class);
+			criteria = addCriteria(org, criteria);
+			List<Organization> result = criteria.list();
+			
+			if(result==null){
+				return null;
+			}else{
+				
+				Iterator<Organization> iter = result.iterator();
+				while(iter.hasNext()){
+					Organization orgResult = iter.next();
+					resultTo.add(OrganizationTo.getOrgTo(orgResult));
+				}
+			}
+		}finally{
+			if(session!=null){
+				session.getTransaction().commit();
+				session.close();
+			}
+		}
+		return resultTo;
 	}
 
 	private Criteria addCriteria(Organization org, Criteria criteria) {
