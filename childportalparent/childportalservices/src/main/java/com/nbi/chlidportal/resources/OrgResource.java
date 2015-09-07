@@ -55,6 +55,11 @@ public class OrgResource implements IOrgResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public StatusResponse updateOrg(OrganizationTo org) throws Exception {
+		if(org.getOrgId()==null){
+			StatusResponse response = new StatusResponse();
+			response.setError("OrgId not specified");
+			return response;
+		}
 		return saveOrg(org.getOrg());
 	}
 	
