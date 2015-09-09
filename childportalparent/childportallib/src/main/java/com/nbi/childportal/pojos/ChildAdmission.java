@@ -21,8 +21,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 /**
  * @author zahmad

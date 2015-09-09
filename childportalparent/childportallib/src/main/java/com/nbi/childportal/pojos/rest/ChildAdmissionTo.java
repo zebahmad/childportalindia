@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.EnrollmentStatus;
+import com.nbi.childportal.pojos.RoleEnum;
 import com.nbi.childportal.pojos.TimeDateAdapter;
 
 /**
@@ -174,7 +175,7 @@ public class ChildAdmissionTo extends BaseTo implements Serializable {
 		setFieldValue(childAdmission, "enrolledBy", enrolledBy);
 		setFieldValue(childAdmission, "enrolmentDate", enrolmentDate);
 		
-		setFieldValue(childAdmission, "child", child.getChild());
+		setFieldValue(childAdmission, "child", child.getUser());
 		setFieldValue(childAdmission, "school", school.getOrg());
 		
 		return childAdmission;
@@ -213,7 +214,7 @@ public class ChildAdmissionTo extends BaseTo implements Serializable {
 			setFieldValue(childAdmissionTo, "enrolmentDate", childAdmission.getEnrolmentDate());
 			
 			UserTo associatedChild = new UserTo();
-			setFieldValue(associatedChild, "child", childAdmissionTo.getChildTo().getChild());
+			setFieldValue(associatedChild, "child", childAdmissionTo.getChildTo().getUser());
 			setFieldValue(associatedChild, "org", childAdmissionTo.getSchoolTo().getOrg());
 			
 			result.add(childAdmissionTo);

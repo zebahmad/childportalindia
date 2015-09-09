@@ -97,6 +97,9 @@ public class OrganizationTo  extends BaseTo implements Serializable {
 		return org;
 	}
 	public static OrganizationTo getOrgTo(Organization school) throws Exception {
+		if(school==null){
+			return null;
+		}
 		OrganizationTo org = new OrganizationTo();
 
 		setFieldValue(org, "orgId", school.getOrgId());

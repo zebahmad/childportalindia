@@ -22,7 +22,7 @@ import org.hibernate.annotations.NotFoundAction;
  *
  */
 @Entity
-@Table( name = "ORGANIZATION" )
+@Table( name = "childportal.ORGANIZATION" )
 public class Organization {
 	
 	@Id

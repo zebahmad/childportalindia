@@ -142,6 +142,9 @@ public class AddressTo  extends BaseTo implements Serializable {
 	}
 
 	public static AddressTo getAddressTo(Address address) throws Exception {
+		if(address==null){
+			return null;
+		}
 		AddressTo addressTo = new AddressTo();
 
 		setFieldValue(addressTo, "addressId", address.getId());

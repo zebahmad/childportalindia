@@ -3,9 +3,9 @@
  */
 package com.nbi.chlidportal.resources;
 
+import com.nbi.childportal.pojos.RoleEnum;
 import com.nbi.childportal.pojos.StatusResponse;
-import com.nbi.childportal.pojos.User;
-import com.nbi.childportal.pojos.UserRole;
+import com.nbi.childportal.pojos.rest.UserRoleTo;
 
 /**
  * @author zahmad
@@ -13,8 +13,8 @@ import com.nbi.childportal.pojos.UserRole;
  */
 public interface IUserRoleResource {
 	
-	public UserRole getUserRole(String userAadhar) throws Exception;
-	public StatusResponse createUserRole(UserRole userRole) throws Exception;
-	public StatusResponse updateUserRole(UserRole userRole) throws Exception;
+	public UserRoleTo getUserRole(RoleEnum userRoleEnum) throws Exception;
+	public StatusResponse createUserRole(UserRoleTo userRole) throws Exception;
+	public StatusResponse updateUserRole(UserRoleTo userRole) throws Exception;
 
 }

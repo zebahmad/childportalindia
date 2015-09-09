@@ -3,12 +3,10 @@
  */
 package com.nbi.childportal.pojos;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -31,9 +29,6 @@ public class Address {
 	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "ADDRESS_ID")
 	private Long addressId;
-	
-	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="address")
-	private User user;
 	
 	@Column(name = "CARE_OF")
 	private String careOf;
@@ -151,13 +146,5 @@ public class Address {
 
 	public void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 }

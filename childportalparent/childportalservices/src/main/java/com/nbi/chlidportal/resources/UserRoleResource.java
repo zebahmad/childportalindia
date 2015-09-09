@@ -15,11 +15,10 @@ import javax.ws.rs.Produces;
 
 import org.hibernate.HibernateException;
 
+import com.nbi.childportal.pojos.RoleEnum;
 import com.nbi.childportal.pojos.StatusResponse;
-import com.nbi.childportal.pojos.User;
-import com.nbi.childportal.pojos.UserRole;
+import com.nbi.childportal.pojos.rest.UserRoleTo;
 import com.nbi.chlidportal.dao.UserRoleDao;
-import com.nbi.chlidportal.dao.UsersDao;
 
 /**
  * @author zahmad
@@ -29,14 +28,14 @@ import com.nbi.chlidportal.dao.UsersDao;
 public class UserRoleResource implements IUserRoleResource{
 
 	@GET
-	@Path("/{userAadhar}")
+	@Path("/{userRole}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public UserRole getUserRole(@PathParam("userAadhar") String userAadhar) throws Exception {
+	public UserRoleTo getUserRole(@PathParam("userRole") RoleEnum userRoleEnum) throws Exception {
 		UserRoleDao userRoleDao = UserRoleDao.getInstance();
-		UserRole user = new UserRole();
-		user.setAadharNo(userAadhar);
-		List<UserRole> userResult = userRoleDao.getUser(user);
+		UserRoleTo userRole = new UserRoleTo();
+		userRole.setRole(userRoleEnum.name());
+		List<UserRoleTo> userResult = userRoleDao.getUser(userRole.getUserRole());
 		if(userResult!=null && userResult.size()>0){
 			return userResult.get(0);
 		}
@@ -47,7 +46,7 @@ public class UserRoleResource implements IUserRoleResource{
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public StatusResponse createUserRole(UserRole userRole) throws Exception {
+	public StatusResponse createUserRole(UserRoleTo userRole) throws Exception {
 		return saveUserRole(userRole);
 	}
 
@@ -55,14 +54,14 @@ public class UserRoleResource implements IUserRoleResource{
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public StatusResponse updateUserRole(UserRole userRole) throws Exception {
+	public StatusResponse updateUserRole(UserRoleTo userRole) throws Exception {
 		return saveUserRole(userRole);
 	}
 	
-	private StatusResponse saveUserRole(UserRole userRole) throws HibernateException, Exception {
+	private StatusResponse saveUserRole(UserRoleTo userRole) throws HibernateException, Exception {
 		StatusResponse response = new StatusResponse();
 		UserRoleDao userRoleDao = UserRoleDao.getInstance();
-		userRoleDao.saveUserRole(userRole);
+		userRoleDao.saveUserRole(userRole.getUserRole());
 		
 		response.setSuccess(true);
 		return response;

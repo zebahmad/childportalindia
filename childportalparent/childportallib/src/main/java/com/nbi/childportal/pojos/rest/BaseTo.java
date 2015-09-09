@@ -9,6 +9,7 @@ import com.nbi.childportal.pojos.Address;
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.Organization;
 import com.nbi.childportal.pojos.User;
+import com.nbi.childportal.pojos.UserRole;
 
 /**
  * @author zahmad
@@ -36,6 +37,18 @@ public class BaseTo {
 
 	protected static void setFieldValue(UserTo user, String fieldName, Object value) throws Exception{
 		Field admissionIdField = UserTo.class.getDeclaredField(fieldName);
+		admissionIdField.setAccessible(true);
+		admissionIdField.set(user, value);
+	}
+	
+	protected static void setFieldValue(UserRole user, String fieldName, Object value) throws Exception{
+		Field admissionIdField = UserRole.class.getDeclaredField(fieldName);
+		admissionIdField.setAccessible(true);
+		admissionIdField.set(user, value);
+	}
+	
+	protected static void setFieldValue(UserRoleTo user, String fieldName, Object value) throws Exception{
+		Field admissionIdField = UserRoleTo.class.getDeclaredField(fieldName);
 		admissionIdField.setAccessible(true);
 		admissionIdField.set(user, value);
 	}
