@@ -79,9 +79,6 @@ public class AdmissionResource
 			child.setAadharNo(aadharNo);
 			childAdmission.setChild(child);
 			childAdmissionList = admissionDao.getChildAdmission(childAdmission.getChildAdmission() );
-			if(childAdmission==null){
-				return null;
-			}
 		} catch (Exception e) {
 			logger.logException(e);
 			throw e;

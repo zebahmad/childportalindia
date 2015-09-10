@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.EnrollmentStatus;
-import com.nbi.childportal.pojos.RoleEnum;
 import com.nbi.childportal.pojos.TimeDateAdapter;
 
 /**
@@ -36,7 +35,9 @@ public class ChildAdmissionTo extends BaseTo implements Serializable {
 	private String standard;
 	private String currentStatus;
 	private String schoolingYear;
+	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Date createdOn;
+	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Date updatedOn;
 	private String createdBy;
 	private String lastUpdatedBy;
@@ -175,8 +176,13 @@ public class ChildAdmissionTo extends BaseTo implements Serializable {
 		setFieldValue(childAdmission, "enrolledBy", enrolledBy);
 		setFieldValue(childAdmission, "enrolmentDate", enrolmentDate);
 		
-		setFieldValue(childAdmission, "child", child.getUser());
-		setFieldValue(childAdmission, "school", school.getOrg());
+		if(child!=null){
+			setFieldValue(childAdmission, "child", (child.getUser()));
+		}
+		
+		if(school!=null){
+			setFieldValue(childAdmission, "school", school.getOrg());
+		}
 		
 		return childAdmission;
 	}
@@ -213,9 +219,12 @@ public class ChildAdmissionTo extends BaseTo implements Serializable {
 			setFieldValue(childAdmissionTo, "enrolledBy", childAdmission.getEnrolledBy());
 			setFieldValue(childAdmissionTo, "enrolmentDate", childAdmission.getEnrolmentDate());
 			
-			UserTo associatedChild = new UserTo();
-			setFieldValue(associatedChild, "child", childAdmissionTo.getChildTo().getUser());
-			setFieldValue(associatedChild, "org", childAdmissionTo.getSchoolTo().getOrg());
+			if(childAdmission.getChild()!=null){
+				setFieldValue(childAdmissionTo, "child", UserTo.getUserTo(childAdmission.getChild()));
+			}
+			if(childAdmission.getSchool()!=null){
+				setFieldValue(childAdmissionTo, "school", OrganizationTo.getOrgTo(childAdmission.getSchool()));
+			}
 			
 			result.add(childAdmissionTo);
 		}

@@ -6,7 +6,6 @@ package com.nbi.childportal.pojos;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,7 +38,7 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "ADMISSION_ID")
 	private Long admissionId;
 
-	@ManyToOne	(targetEntity = User.class, cascade = {CascadeType.ALL})
+	@ManyToOne	(targetEntity = User.class, fetch=FetchType.EAGER)
 	@JoinColumn(name="USER_ID", referencedColumnName="USER_ID")
 	private User child;
 	
