@@ -1,18 +1,16 @@
-delimiter $$
-
 CREATE TABLE `person` (
+  `USER_ID` bigint(20) NOT NULL,
   `AADHAR_NO` varchar(100) NOT NULL,
-  `FIRST_NAME` varchar(50) NOT NULL,
-  `LAST_NAME` varchar(50) NOT NULL,
+  `NAME` varchar(50) NOT NULL,
+  `LOCAL_NAME` varchar(100) DEFAULT NULL,
   `FATHER_NAME` varchar(50) DEFAULT NULL,
   `MOTHER_NAME` varchar(50) DEFAULT NULL,
   `GENDER` varchar(1) NOT NULL,
   `DOB` datetime NOT NULL,
-  `ADDRESS` varchar(100) DEFAULT NULL,
-  `STATE` varchar(45) NOT NULL,
-  `DISTRICT` varchar(30) DEFAULT NULL,
+  `DOB_TYPE` varchar(45) NOT NULL,
+  `ADDRESS_ID` varchar(20) NOT NULL,
   `MOBILE` varchar(20) DEFAULT NULL,
   `EMAIL` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`AADHAR_NO`)
+  PRIMARY KEY (`USER_ID`,`AADHAR_NO`),
+  UNIQUE KEY `ADDRESS_ID_UNIQUE` (`ADDRESS_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
-

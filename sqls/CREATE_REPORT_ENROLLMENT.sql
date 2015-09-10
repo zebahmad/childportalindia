@@ -1,7 +1,5 @@
-delimiter $$
-
 CREATE TABLE `report_enrollment` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `YEAR` int(11) NOT NULL,
   `MONTH` int(11) NOT NULL,
   `DISTRICT` varchar(45) NOT NULL,
@@ -10,4 +8,3 @@ CREATE TABLE `report_enrollment` (
   `ENROLLED_BY` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
-

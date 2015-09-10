@@ -1,9 +1,7 @@
-delimiter $$
-
 CREATE TABLE `admission` (
-  `ID` bigint(20) NOT NULL,
-  `AADHAR_NO` varchar(100) NOT NULL,
-  `SCHOOL_ID` varchar(100) NOT NULL,
+  `ADMISSION_ID` bigint(20) NOT NULL,
+  `USER_ID` bigint(20) NOT NULL,
+  `ORG_ID` bigint(20) NOT NULL,
   `ADMISSION_NO` varchar(20) NOT NULL,
   `STANDARD` varchar(20) NOT NULL,
   `CURRENT_STATUS` varchar(20) NOT NULL,
@@ -16,6 +14,5 @@ CREATE TABLE `admission` (
   `AUDIT_COMMENTS` varchar(1000) NOT NULL,
   `ENROLLED_BY` varchar(45) NOT NULL,
   `ENROLLMENT_DATE` datetime NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ADMISSION_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
-

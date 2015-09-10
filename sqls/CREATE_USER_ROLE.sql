@@ -1,0 +1,5 @@
+CREATE TABLE `user_role` (
+  `USER_ID` bigint(20) NOT NULL,
+  `ROLE_ID` bigint(20) NOT NULL,
+  PRIMARY KEY (`USER_ID`,`ROLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
