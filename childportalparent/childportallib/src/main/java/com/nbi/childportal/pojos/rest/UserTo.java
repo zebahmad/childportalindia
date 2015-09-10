@@ -32,6 +32,7 @@ public class UserTo extends BaseTo implements Serializable {
 	private String aadharNo;
 	private Set<RoleTo> roles = new HashSet<RoleTo>();
 	private String name;
+	private byte[] photo;
 	private String localName;
 	private String fatherName;
 	private String motherName;
@@ -75,6 +76,13 @@ public class UserTo extends BaseTo implements Serializable {
 		this.name = name;
 	}
 	
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 	public String getLocalName() {
 		return localName;
 	}
@@ -157,6 +165,7 @@ public class UserTo extends BaseTo implements Serializable {
 		}
 		setFieldValue(user, "aadharNo", aadharNo);
 		setFieldValue(user, "name", name);
+		setFieldValue(user, "photo", photo);
 		setFieldValue(user, "localName", localName);
 		setFieldValue(user, "fatherName", fatherName);
 		setFieldValue(user, "motherName", motherName);
@@ -193,6 +202,7 @@ public class UserTo extends BaseTo implements Serializable {
 		}
 		setFieldValue(childTo, "aadharNo", child.getAadharNo());
 		setFieldValue(childTo, "name", child.getName());
+		setFieldValue(childTo, "photo", child.getPhoto());
 		setFieldValue(childTo, "localName", child.getLocalName());
 		setFieldValue(childTo, "fatherName", child.getFatherName());
 		setFieldValue(childTo, "motherName", child.getMotherName());

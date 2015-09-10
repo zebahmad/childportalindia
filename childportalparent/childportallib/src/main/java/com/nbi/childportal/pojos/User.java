@@ -61,6 +61,9 @@ public class User {
 	@Column(name = "NAME")	
 	private String name;
 	
+	@Column(name = "PHOTO")	
+	private byte[] photo;
+
 	@Column(name = "LOCAL_NAME")	
 	private String localName;
 	
@@ -122,6 +125,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 	
 	public String getLocalName() {
