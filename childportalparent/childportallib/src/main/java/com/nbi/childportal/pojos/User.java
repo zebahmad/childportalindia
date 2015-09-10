@@ -17,14 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 /**
  * @author zahmad
@@ -43,10 +40,6 @@ public class User {
 	@ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL}, targetEntity = Address.class)	
 	@JoinColumn(name="ADDRESS_ID", referencedColumnName="ADDRESS_ID", insertable=true, updatable=true)
 	private Address address;
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="child")
-	@NotFound(action=NotFoundAction.IGNORE)
-	private Set<ChildAdmission> admission;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})	
 	@JoinTable(name = "USER_ROLE", 
@@ -97,14 +90,6 @@ public class User {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
-	}
-
-	public Set<ChildAdmission> getAdmission() {
-		return admission;
-	}
-
-	public void setAdmission(Set<ChildAdmission> admission) {
-		this.admission = admission;
 	}
 
 	public Set<Role> getRoles() {

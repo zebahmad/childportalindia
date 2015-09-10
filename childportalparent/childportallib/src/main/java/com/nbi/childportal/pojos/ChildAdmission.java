@@ -38,9 +38,9 @@ public class ChildAdmission implements Serializable {
 	@Column(name = "ADMISSION_ID")
 	private Long admissionId;
 
-	@ManyToOne	(targetEntity = User.class, fetch=FetchType.EAGER)
+	@ManyToOne	(targetEntity = Child.class, fetch=FetchType.EAGER)
 	@JoinColumn(name="USER_ID", referencedColumnName="USER_ID")
-	private User child;
+	private Child child;
 	
 	@ManyToOne(targetEntity = Organization.class, fetch=FetchType.EAGER)
 	@JoinColumn(name="ORG_ID", nullable=false)
@@ -92,10 +92,10 @@ public class ChildAdmission implements Serializable {
 	public void setId(Long id) {
 		this.admissionId = id;
 	}
-	public User getChild() {
+	public Child getChild() {
 		return child;
 	}
-	public void setChild(User child) {
+	public void setChild(Child child) {
 		this.child = child;
 	}
 	public Organization getSchool() {
