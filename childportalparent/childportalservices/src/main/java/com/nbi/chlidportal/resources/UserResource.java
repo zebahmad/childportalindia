@@ -3,8 +3,9 @@
  */
 package com.nbi.chlidportal.resources;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -16,8 +17,8 @@ import javax.ws.rs.Produces;
 
 import org.hibernate.HibernateException;
 
-import com.nbi.childportal.pojos.RoleEnum;
 import com.nbi.childportal.pojos.StatusResponse;
+import com.nbi.childportal.pojos.rest.RoleTo;
 import com.nbi.childportal.pojos.rest.UserTo;
 import com.nbi.chlidportal.dao.UsersDao;
 
@@ -29,19 +30,21 @@ import com.nbi.chlidportal.dao.UsersDao;
 public class UserResource implements IUserResource{
 
 	@GET
-	@Path("/{userRole}/{userAadhar}")
+	@Path("/{role}/{userAadhar}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public UserTo getUser(@PathParam("userAadhar") String userAadhar, @PathParam("userRole") RoleEnum userRole) throws Exception {
+	public UserTo getUser(@PathParam("userAadhar") String userAadhar, @PathParam("role") String role) throws Exception {
 		UsersDao userDao = UsersDao.getInstance();
 		UserTo user = new UserTo();
 		user.setAadharNo(userAadhar);
-		List<RoleEnum> userRoles = new ArrayList<RoleEnum>();
-		userRoles.add(userRole);
-		user.setUserRoles(userRoles);
+		RoleTo roleTo = new RoleTo();
+		roleTo.setRole(role);
+		Set<RoleTo> userRoles = new HashSet<RoleTo>();
+		userRoles.add(roleTo);
+		user.setRoles(userRoles);
 		
 		List<UserTo> userResult = userDao.getUser(user.getUser());
-		if(userResult!=null){
+		if(userResult!=null && userResult.size()>0){
 			return userResult.get(0);
 		}else{
 			return null;

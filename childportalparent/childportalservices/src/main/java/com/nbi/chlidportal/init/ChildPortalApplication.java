@@ -10,7 +10,7 @@ import com.nbi.chlidportal.resources.AdmissionResource;
 import com.nbi.chlidportal.resources.DropoutResource;
 import com.nbi.chlidportal.resources.OrgResource;
 import com.nbi.chlidportal.resources.UserResource;
-import com.nbi.chlidportal.resources.UserRoleResource;
+import com.nbi.chlidportal.resources.RoleResource;
 
 @ApplicationPath("")
 public class ChildPortalApplication extends Application
@@ -22,7 +22,7 @@ public class ChildPortalApplication extends Application
         // ADD YOUR RESTFUL RESOURCES HERE
         this.singletons.add(new AdmissionResource());
         this.singletons.add(new UserResource());
-        this.singletons.add(new UserRoleResource());
+        this.singletons.add(new RoleResource());
         this.singletons.add(new OrgResource());
         this.singletons.add(new DropoutResource());
     }

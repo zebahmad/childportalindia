@@ -8,8 +8,8 @@ import java.lang.reflect.Field;
 import com.nbi.childportal.pojos.Address;
 import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.Organization;
+import com.nbi.childportal.pojos.Role;
 import com.nbi.childportal.pojos.User;
-import com.nbi.childportal.pojos.UserRole;
 
 /**
  * @author zahmad
@@ -41,14 +41,14 @@ public class BaseTo {
 		admissionIdField.set(user, value);
 	}
 	
-	protected static void setFieldValue(UserRole user, String fieldName, Object value) throws Exception{
-		Field admissionIdField = UserRole.class.getDeclaredField(fieldName);
+	protected static void setFieldValue(Role user, String fieldName, Object value) throws Exception{
+		Field admissionIdField = Role.class.getDeclaredField(fieldName);
 		admissionIdField.setAccessible(true);
 		admissionIdField.set(user, value);
 	}
 	
-	protected static void setFieldValue(UserRoleTo user, String fieldName, Object value) throws Exception{
-		Field admissionIdField = UserRoleTo.class.getDeclaredField(fieldName);
+	protected static void setFieldValue(RoleTo user, String fieldName, Object value) throws Exception{
+		Field admissionIdField = RoleTo.class.getDeclaredField(fieldName);
 		admissionIdField.setAccessible(true);
 		admissionIdField.set(user, value);
 	}

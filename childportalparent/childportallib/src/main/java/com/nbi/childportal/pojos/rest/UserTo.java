@@ -4,11 +4,9 @@
 package com.nbi.childportal.pojos.rest;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,10 +14,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.nbi.childportal.pojos.RoleEnum;
+import com.nbi.childportal.pojos.Role;
 import com.nbi.childportal.pojos.TimeDateAdapter;
 import com.nbi.childportal.pojos.User;
-import com.nbi.childportal.pojos.UserRole;
 
 /**
  * @author zahmad
@@ -33,7 +30,7 @@ public class UserTo extends BaseTo implements Serializable {
 	private Long userId;
 	private AddressTo address;
 	private String aadharNo;
-	private List<RoleEnum> role;
+	private Set<RoleTo> roles = new HashSet<RoleTo>();
 	private String name;
 	private String localName;
 	private String fatherName;
@@ -62,12 +59,12 @@ public class UserTo extends BaseTo implements Serializable {
 		this.aadharNo = aadharNo;
 	}
 	
-	public List<RoleEnum> getUserRoles() {
-		return role;
+	public Set<RoleTo> getRoles() {
+		return roles;
 	}
 
-	public void setUserRoles(List<RoleEnum> roles) {
-		this.role = roles;
+	public void setRoles(Set<RoleTo> roles) {
+		this.roles = roles;
 	}
 	
 	public String getName() {
@@ -175,33 +172,12 @@ public class UserTo extends BaseTo implements Serializable {
 		}
 		
 		//Set user roles
-		Set<UserRole> userRoleSet = new HashSet<UserRole>();
-		if(role!=null){
-			Iterator<RoleEnum> iter = role.iterator();
+		if(roles!=null){
+			Iterator<RoleTo> iter = roles.iterator();
 			while(iter.hasNext()){
-				UserRole userRole = new UserRole();
-				setFieldValue(userRole, "user", user);
-				RoleEnum roleEnum = iter.next();
-				setFieldValue(userRole, "role", roleEnum.name());
-				userRoleSet.add(userRole);
+				user.getRoles().add(iter.next().getRole());
 			}
-		}else{
-			UserRole userRole = new UserRole();
-			setFieldValue(userRole, "user", user);
-			RoleEnum roleEnum = RoleEnum.child;
-			setFieldValue(userRole, "role", roleEnum.name());
-			userRoleSet.add(userRole);
 		}
-		/*UserRole userRole = new UserRole();
-		if(role!=null){
-			setFieldValue(userRole, "userId", userId);
-			setFieldValue(userRole, "role", role.name());
-		}else{
-			setFieldValue(userRole, "userId", userId);
-			setFieldValue(userRole, "role", RoleEnum.child.name());
-		}*/
-		setFieldValue(user, "userRole", userRoleSet);
-		
 		return user;
 	}
 	
@@ -228,19 +204,11 @@ public class UserTo extends BaseTo implements Serializable {
 		setFieldValue(childTo, "address", AddressTo.getAddressTo(child.getAddress()));
 		setFieldValue(childTo, "email", child.getEmail());
 		
-		List<RoleEnum> roles = new ArrayList<RoleEnum>();
-		if(child.getUserRole()!=null){
-			Set<UserRole> userRoleSet = child.getUserRole();
-			Iterator<UserRole> iter = userRoleSet.iterator();
-			while(iter.hasNext()){
-				UserRole userRole = iter.next();
-				roles.add(RoleEnum.valueOf(userRole.getRole()));
-			}
-			setFieldValue(childTo, "role", roles);
+		Iterator<Role> iter = child.getRoles().iterator();
+		while(iter.hasNext()){
+			Role role = iter.next();
+			childTo.getRoles().add(RoleTo.getRoleTo(role));
 		}
-		/*if(child.getUserRole()!=null){
-			setFieldValue(childTo, "role", RoleEnum.valueOf(child.getUserRole().getRole()));
-		}*/
 		
 		return childTo;
 	}

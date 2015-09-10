@@ -4,6 +4,7 @@
 package com.nbi.childportal.pojos;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,14 +14,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -39,18 +40,20 @@ public class User {
 	@Column(name = "USER_ID")
 	private Long userId;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL}, targetEntity = Address.class)	
+	@ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL}, targetEntity = Address.class)	
 	@JoinColumn(name="ADDRESS_ID", referencedColumnName="ADDRESS_ID", insertable=true, updatable=true)
 	private Address address;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="child")	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="child")
 	@NotFound(action=NotFoundAction.IGNORE)
 	private Set<ChildAdmission> admission;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy="user")	
-	@Fetch(FetchMode.JOIN)
-	@NotFound(action=NotFoundAction.IGNORE)
-	private Set<UserRole> userRole;
+	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})	
+	@JoinTable(name = "USER_ROLE", 
+		joinColumns = { @JoinColumn(name = "USER_ID", referencedColumnName="USER_ID")}, 
+		inverseJoinColumns = {  
+						@JoinColumn(name = "ROLE_ID", referencedColumnName="ROLE_ID")})
+	private Set<Role> roles  = new HashSet<Role>();
 	
 	@Column(name = "AADHAR_NO")
 	private String aadharNo;
@@ -101,14 +104,10 @@ public class User {
 		this.admission = admission;
 	}
 
-	public Set<UserRole> getUserRole() {
-		return userRole;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setUserRole(Set<UserRole> userRole) {
-		this.userRole = userRole;
-	}
-	
 	public String getAadharNo() {
 		return aadharNo;
 	}

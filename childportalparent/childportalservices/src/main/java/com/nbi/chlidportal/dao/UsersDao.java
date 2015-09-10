@@ -6,13 +6,16 @@ package com.nbi.chlidportal.dao;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 
 import com.nbi.childportal.pojos.ChildAdmission;
+import com.nbi.childportal.pojos.Role;
 import com.nbi.childportal.pojos.User;
 import com.nbi.childportal.pojos.rest.UserTo;
 
@@ -40,8 +43,15 @@ public class UsersDao {
 		}
 	}
 
-	public void saveUser(User user) throws HibernateException, Exception{
+	public void saveUser(User user) throws HibernateException, Exception{//FIXME: Need to fix this. This needs to be an atomic transaction
+		List<User> userList = loadUser(user);
+		if(userList!=null && userList.size()>0){
+			User loadedUser = userList.get(0);
+			loadedUser.getRoles().clear();
+		}
+		
 		Session session = HibernateSession.getSessionFactory().openSession();
+		//user.getUserRole().clear();
 		session.beginTransaction();
 		session.saveOrUpdate(user);
 		session.getTransaction().commit();
@@ -49,10 +59,22 @@ public class UsersDao {
 	}
 
 	public List<UserTo> getUser(User user) throws HibernateException, Exception{
-		//TODO: Exception handling for db
-		Session session = null;
 		List<UserTo> resultTo = new ArrayList<UserTo>();
+		List<User> result = loadUser(user);
 		
+		if(result!=null){
+			Iterator<User> iter = result.iterator();
+			while(iter.hasNext()){
+				User orgResult = iter.next();
+				resultTo.add(UserTo.getUserTo(orgResult));
+			}
+		}
+		
+		return resultTo;
+	}
+	
+	private List<User> loadUser(User user){
+		Session session = null;
 		try{
 			session = HibernateSession.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -61,16 +83,7 @@ public class UsersDao {
 			addCriteria(user, criteria);
 			List<User> result = criteria.list();
 			
-			if(result==null){
-				return null;
-			}else{
-				
-				Iterator<User> iter = result.iterator();
-				while(iter.hasNext()){
-					User orgResult = iter.next();
-					resultTo.add(UserTo.getUserTo(orgResult));
-				}
-			}
+			return result;
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
@@ -78,10 +91,11 @@ public class UsersDao {
 			session.close();
 		}
 
-		return resultTo;
+		return null;
 	}
 	
 	private Criteria addCriteria(User user, Criteria criteria) {
+		
 		if(user.getAadharNo()!=null){
 			criteria.add(Restrictions.eq("aadharNo", user.getAadharNo()));
 		}
@@ -91,12 +105,13 @@ public class UsersDao {
 		if(user.getAddress()!=null){
 			criteria.add(Restrictions.eq("address", user.getAddress()));
 		}
-		if(user.getAdmission()!=null){
+/*		if(user.getAdmission()!=null){
 			Iterator<ChildAdmission> iter = user.getAdmission().iterator();
 			while(iter.hasNext()){
 				criteria.add(Restrictions.eq("admission", iter.next()));
 			}
 		}
+		}*/
 		if(user.getName()!=null){
 			criteria.add(Restrictions.eq("name", user.getName()));
 		}
@@ -125,8 +140,25 @@ public class UsersDao {
 			criteria.add(Restrictions.eq("email", user.getEmail()));
 		}
 		
+		
+		addRoleCriteria(user, criteria);
+		
 		return criteria;
 	}
 
-
+	private void addRoleCriteria(User user, Criteria criteria) {
+		if(user.getRoles()!=null && user.getRoles().size()>0){
+			Iterator<Role> iter = user.getRoles().iterator();
+			while(iter.hasNext()){
+				Role role = iter.next();
+				Criteria roleCriteria = criteria.createCriteria("roles");
+				if(role.getRole()!=null && !"".equalsIgnoreCase(role.getRole())){
+					roleCriteria.add(Restrictions.eq("role", role.getRole()));
+				}
+				if(role.getRoleId()!=null && 0!=role.getRoleId()){
+					roleCriteria.add(Restrictions.eq("roleId", role.getRoleId()));
+				}
+			}
+		}
+	}
 }
