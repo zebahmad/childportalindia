@@ -19,8 +19,9 @@ import com.nbi.childportal.pojos.reports.Statistic;
 
 /**
  * @author zahmad
- *
+ * THIS CODE IS NOT TESTED & MAY NOT WORK. THIS FEATURE IS ON HOLD FOR NOW
  */
+@Deprecated
 public class DropoutsDao {
 	
 	private static DropoutsDao singleton;

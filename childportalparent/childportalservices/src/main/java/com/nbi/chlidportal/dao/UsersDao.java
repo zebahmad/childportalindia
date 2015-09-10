@@ -6,15 +6,12 @@ package com.nbi.chlidportal.dao;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 
-import com.nbi.childportal.pojos.ChildAdmission;
 import com.nbi.childportal.pojos.Role;
 import com.nbi.childportal.pojos.User;
 import com.nbi.childportal.pojos.rest.UserTo;
