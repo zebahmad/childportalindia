@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.nbi.childportal.pojos.Role;
 import com.nbi.childportal.pojos.TimeDateAdapter;
 import com.nbi.childportal.pojos.User;
 
@@ -190,37 +189,37 @@ public class UserTo extends BaseTo implements Serializable {
 		return user;
 	}
 	
-	public static UserTo getUserTo(User child) throws Exception {
-		if(child==null){
+	public static UserTo getUserTo(User user) throws Exception {
+		UserTo childTo = new UserTo();
+		return populateUserTo(childTo, user);
+	}
+	
+	public static UserTo populateUserTo(UserTo userTo, User user) throws Exception {
+		if(user==null){
 			return null;
 		}
-		UserTo childTo = new UserTo();
 		
-		setFieldValue(childTo, "userId", child.getUserId());
-		if(childTo.getAddress()!=null){
-			setFieldValue(childTo, "address", AddressTo.getAddressTo(child.getAddress()));
+		setFieldValue(userTo, "userId", user.getUserId());
+		if(userTo.getAddress()!=null){
+			setFieldValue(userTo, "address", AddressTo.getAddressTo(user.getAddress()));
 		}
-		setFieldValue(childTo, "aadharNo", child.getAadharNo());
-		setFieldValue(childTo, "name", child.getName());
-		setFieldValue(childTo, "photo", child.getPhoto());
-		setFieldValue(childTo, "localName", child.getLocalName());
-		setFieldValue(childTo, "fatherName", child.getFatherName());
-		setFieldValue(childTo, "motherName", child.getMotherName());
-		setFieldValue(childTo, "gender", child.getGender());
-		setFieldValue(childTo, "dob", child.getDob());
-		setFieldValue(childTo, "dob_type", child.getDob_type());
-		setFieldValue(childTo, "mobile", child.getMobile());
-		setFieldValue(childTo, "email", child.getEmail());
-		setFieldValue(childTo, "address", AddressTo.getAddressTo(child.getAddress()));
-		setFieldValue(childTo, "email", child.getEmail());
+		setFieldValue(userTo, "aadharNo", user.getAadharNo());
+		setFieldValue(userTo, "name", user.getName());
+		setFieldValue(userTo, "photo", user.getPhoto());
+		setFieldValue(userTo, "localName", user.getLocalName());
+		setFieldValue(userTo, "fatherName", user.getFatherName());
+		setFieldValue(userTo, "motherName", user.getMotherName());
+		setFieldValue(userTo, "gender", user.getGender());
+		setFieldValue(userTo, "dob", user.getDob());
+		setFieldValue(userTo, "dob_type", user.getDob_type());
+		setFieldValue(userTo, "mobile", user.getMobile());
+		setFieldValue(userTo, "email", user.getEmail());
+		setFieldValue(userTo, "address", AddressTo.getAddressTo(user.getAddress()));
+		setFieldValue(userTo, "email", user.getEmail());
 		
-		Iterator<Role> iter = child.getRoles().iterator();
-		while(iter.hasNext()){
-			Role role = iter.next();
-			childTo.getRoles().add(RoleTo.getRoleTo(role));
-		}
+		userTo.getRoles().addAll(RoleTo.getRoleToSet(user.getRoles()));
 		
-		return childTo;
+		return userTo;
 	}
 	
 	

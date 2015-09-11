@@ -4,16 +4,20 @@
 package com.nbi.childportal.pojos.rest.ngo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.nbi.childportal.pojos.Child;
 import com.nbi.childportal.pojos.TimeDateAdapter;
+import com.nbi.childportal.pojos.ngo.ChildHealthReport;
 import com.nbi.childportal.pojos.rest.BaseTo;
+import com.nbi.childportal.pojos.rest.ChildTo;
 
 /**
  * @author zahmad
@@ -26,7 +30,7 @@ public class ChildHealthReportTo  extends BaseTo implements Serializable {
 	private static final long serialVersionUID = -5823695634038994892L;
 
 	private Long healthReportId;
-	private Child child;
+	private ChildTo child;
 	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Date dateOfTest;
 	private String height;
@@ -41,11 +45,11 @@ public class ChildHealthReportTo  extends BaseTo implements Serializable {
 		this.healthReportId = healthReportId;
 	}
 
-	public Child getChild() {
+	public ChildTo getChild() {
 		return child;
 	}
 
-	public void setChild(Child child) {
+	public void setChild(ChildTo child) {
 		this.child = child;
 	}
 
@@ -79,6 +83,31 @@ public class ChildHealthReportTo  extends BaseTo implements Serializable {
 
 	public void setDoctorReviewComment(String doctorReviewComment) {
 		this.doctorReviewComment = doctorReviewComment;
+	}
+
+	public static List<ChildHealthReportTo> getChildHealthReportToList(List<ChildHealthReport> healthReports) throws Exception {
+		if(healthReports==null || healthReports.size()==0) return null;
+		
+		List<ChildHealthReportTo> reportTo = new ArrayList<ChildHealthReportTo>();
+		Iterator<ChildHealthReport> iter = healthReports.iterator();
+		while(iter.hasNext()){
+			reportTo.add(ChildHealthReportTo.getChildHealthReportTo(iter.next()));
+		}
+		return reportTo;
+	}
+
+	public static ChildHealthReportTo getChildHealthReportTo(ChildHealthReport healthReport) throws Exception {
+		if(healthReport==null) return null;
+		
+		ChildHealthReportTo reportTo = new ChildHealthReportTo();
+		reportTo.setChild(ChildTo.getChildTo(healthReport.getChild()));
+		reportTo.setDateOfTest(healthReport.getDateOfTest());
+		reportTo.setDoctorReviewComment(healthReport.getDoctorReviewComment());
+		reportTo.setHealthReportId(healthReport.getHealthReportId());
+		reportTo.setHeight(healthReport.getHeight());
+		reportTo.setWeight(healthReport.getWeight());
+		
+		return reportTo;
 	}
 	
 	

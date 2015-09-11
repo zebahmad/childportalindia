@@ -11,9 +11,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.nbi.childportal.pojos.Child;
 import com.nbi.childportal.pojos.TimeDateAdapter;
+import com.nbi.childportal.pojos.ngo.ChildOverallReport;
 import com.nbi.childportal.pojos.rest.BaseTo;
+import com.nbi.childportal.pojos.rest.ChildTo;
 
 /**
  * @author zahmad
@@ -28,7 +29,7 @@ public class ChildOverallReportTo  extends BaseTo implements Serializable {
 	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Date preparedOn;
 	private String preparedBy;
-	private Child child;
+	private ChildTo child;
 	private ChildAcademicReportTo childAcademics;
 	private ChildHealthReportTo childHealth;
 	private String ngoReportInWords;
@@ -50,11 +51,11 @@ public class ChildOverallReportTo  extends BaseTo implements Serializable {
 		this.preparedBy = preparedBy;
 	}
 
-	public Child getChild() {
+	public ChildTo getChild() {
 		return child;
 	}
 
-	public void setChild(Child child) {
+	public void setChild(ChildTo child) {
 		this.child = child;
 	}
 
@@ -88,6 +89,19 @@ public class ChildOverallReportTo  extends BaseTo implements Serializable {
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
+	}
+
+	public static ChildOverallReportTo getChildOverallReportTo(ChildOverallReport childOverallReport) throws Exception {
+		ChildOverallReportTo reportTo = new ChildOverallReportTo();
+		reportTo.setChild(ChildTo.getChildTo(childOverallReport.getChild()));
+		reportTo.setChildAcademics(ChildAcademicReportTo.getChildAcademicReportTo(childOverallReport.getChildAcademics()));
+		reportTo.setChildHealth(ChildHealthReportTo.getChildHealthReportTo(childOverallReport.getChildHealth()));
+		reportTo.setNgoReportInWords(childOverallReport.getNgoReportInWords());
+		reportTo.setPhoto(childOverallReport.getPhoto());
+		reportTo.setPreparedBy(childOverallReport.getPreparedBy());
+		reportTo.setPreparedOn(childOverallReport.getPreparedOn());
+		
+		return reportTo;
 	}
 	
 }

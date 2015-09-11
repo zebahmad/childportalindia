@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.nbi.childportal.pojos.ngo.Sponsor;
 import com.nbi.childportal.pojos.rest.UserTo;
 
 
@@ -40,6 +41,12 @@ public class SponsorTo extends UserTo{
 		this.sponsorships = sponsorships;
 	}
 	
+	public static SponsorTo getSponsorTo(Sponsor sponsor) throws Exception{
+		SponsorTo sponsorTo = new SponsorTo();
+		populateUserTo(sponsorTo, sponsor);
+		sponsorTo.getSponsorships().addAll(ChildSponsorshipTo.getChildSponsorshipToList(sponsor.getSponsorships()));
+		return sponsorTo;
+	}
 }
 	
 	

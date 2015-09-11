@@ -16,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,7 +37,7 @@ public class User {
 	@Column(name = "USER_ID")
 	private Long userId;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL}, targetEntity = Address.class)	
+	@OneToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL}, targetEntity = Address.class)	
 	@JoinColumn(name="ADDRESS_ID", referencedColumnName="ADDRESS_ID", insertable=true, updatable=true)
 	private Address address;
 	

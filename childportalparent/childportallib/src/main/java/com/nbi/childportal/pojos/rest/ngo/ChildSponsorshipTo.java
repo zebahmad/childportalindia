@@ -4,7 +4,10 @@
 package com.nbi.childportal.pojos.rest.ngo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.nbi.childportal.pojos.TimeDateAdapter;
+import com.nbi.childportal.pojos.ngo.ChildSponsorship;
 import com.nbi.childportal.pojos.rest.BaseTo;
 import com.nbi.childportal.pojos.rest.ChildTo;
 
@@ -27,12 +31,11 @@ public class ChildSponsorshipTo  extends BaseTo implements Serializable {
 	
 	private ChildTo child;
 	private SponsorTo sponsor;
-	private PaymentDetailTo paymentDetail;
+	private List<PaymentDetailTo> paymentDetail;
 	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Date startDate;
 	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Date lapseDate;
-	private Long amountPaid;
 	private SponsorshipTypeEnum sponsorshipType;
 	private SponsorshipPaymentCycleEnum sponsorshipPaymentCycle;
 	private String notesFromSponsor;
@@ -53,12 +56,8 @@ public class ChildSponsorshipTo  extends BaseTo implements Serializable {
 		this.sponsor = sponsor;
 	}
 
-	public PaymentDetailTo getPaymentDetail() {
+	public List<PaymentDetailTo> getPaymentDetail() {
 		return paymentDetail;
-	}
-
-	public void setPaymentDetail(PaymentDetailTo paymentDetail) {
-		this.paymentDetail = paymentDetail;
 	}
 
 	public Date getStartDate() {
@@ -75,14 +74,6 @@ public class ChildSponsorshipTo  extends BaseTo implements Serializable {
 
 	public void setLapseDate(Date lapseDate) {
 		this.lapseDate = lapseDate;
-	}
-
-	public Long getAmountPaid() {
-		return amountPaid;
-	}
-
-	public void setAmountPaid(Long amountPaid) {
-		this.amountPaid = amountPaid;
 	}
 
 	public SponsorshipTypeEnum getSponsorshipType() {
@@ -111,5 +102,26 @@ public class ChildSponsorshipTo  extends BaseTo implements Serializable {
 	}
 	
 	
+	public static ChildSponsorshipTo getChildSponsorshipTo(ChildSponsorship childSponsorship) throws Exception {
+		ChildSponsorshipTo childSponsorshipTo = new ChildSponsorshipTo();
+		childSponsorshipTo.setChild(ChildTo.getChildTo(childSponsorship.getChild()));
+		childSponsorshipTo.setLapseDate(childSponsorship.getLapseDate());
+		childSponsorshipTo.setNotesFromSponsor(childSponsorship.getNotesFromSponsor());
+		
+		childSponsorshipTo.getPaymentDetail().addAll(PaymentDetailTo.getPaymentDetailToSet(childSponsorship.getPaymentDetail()));
+		
+		return childSponsorshipTo;
+	}
+
+	public static List<ChildSponsorshipTo> getChildSponsorshipToList(List<ChildSponsorship> sponsorships) throws Exception {
+		if(sponsorships==null || sponsorships.size()==0) return null;
+		
+		List<ChildSponsorshipTo> childSponsorships = new ArrayList<ChildSponsorshipTo>();
+		Iterator<ChildSponsorship> iter = sponsorships.iterator();
+		while(iter.hasNext()){
+			childSponsorships.add(getChildSponsorshipTo(iter.next()));
+		}
+		return childSponsorships;
+	}
 	
 }

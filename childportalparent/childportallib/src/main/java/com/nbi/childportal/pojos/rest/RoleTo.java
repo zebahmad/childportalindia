@@ -4,6 +4,9 @@
 package com.nbi.childportal.pojos.rest;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -50,5 +53,16 @@ public class RoleTo extends BaseTo implements Serializable {
 		setFieldValue(user, "roleId", userRole.getRoleId());
 		setFieldValue(user, "role", userRole.getRole());
 		return user;
+	}
+	public static Set<RoleTo> getRoleToSet(Set<Role> roles) throws Exception {
+		if(roles==null || roles.size()==0) return null;
+		
+		 Set<RoleTo> roleToSet = new HashSet<RoleTo>();
+		Iterator<Role> iter = roles.iterator();
+		while(iter.hasNext()){
+			Role role = iter.next();
+			roleToSet.add(RoleTo.getRoleTo(role));
+		}
+		return roleToSet;
 	}
 }

@@ -4,7 +4,10 @@
 package com.nbi.childportal.pojos.rest.ngo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -15,6 +18,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.nbi.childportal.pojos.ngo.PaymentDetail;
 import com.nbi.childportal.pojos.rest.BaseTo;
 
 /**
@@ -74,6 +78,26 @@ public class PaymentDetailTo  extends BaseTo implements Serializable {
 	public void setPaymentFor(ChildSponsorshipTo paymentFor) {
 		this.paymentFor = paymentFor;
 	}
+	public static List<PaymentDetailTo> getPaymentDetailToSet(List<PaymentDetail> paymentDetails) throws Exception {
+		if(paymentDetails==null || paymentDetails.size()==0) return null;
 
+		List<PaymentDetailTo> result = new ArrayList<PaymentDetailTo>();
+		Iterator<PaymentDetail> iter = paymentDetails.iterator();
+		while(iter.hasNext()){
+			result.add(PaymentDetailTo.getPaymentDetailTo(iter.next()));
+		}
+		return result;
+	}
+
+
+	public static PaymentDetailTo getPaymentDetailTo(PaymentDetail paymentDetail) throws Exception {
+		PaymentDetailTo paymentDetailTo = new PaymentDetailTo();
+		paymentDetailTo.setAmountPaid(paymentDetail.getAmountPaid());
+		paymentDetailTo.setDateOfPayment(paymentDetail.getDateOfPayment());
+		paymentDetailTo.setPaymentFor(ChildSponsorshipTo.getChildSponsorshipTo(paymentDetail.getPaymentFor()));
+		paymentDetailTo.setPaymentRef(paymentDetail.getPaymentRef());
+		paymentDetailTo.setReceipt(paymentDetail.getReceipt());
+		return paymentDetailTo;
+	}
 	
 }

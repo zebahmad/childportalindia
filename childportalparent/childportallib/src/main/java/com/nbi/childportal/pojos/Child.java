@@ -3,7 +3,7 @@
  */
 package com.nbi.childportal.pojos;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -25,19 +25,38 @@ public class Child extends User{
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="child")
 	@NotFound(action=NotFoundAction.IGNORE)
-	private Set<ChildAdmission> admission;
+	private List<ChildAdmission> admission;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="child")
 	@NotFound(action=NotFoundAction.IGNORE)
-	private Set<ChildAcademicReport> academicReports;
+	private List<ChildAcademicReport> academicReports;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="child")
 	@NotFound(action=NotFoundAction.IGNORE)
-	private Set<ChildHealthReport> healthReports;
+	private List<ChildHealthReport> healthReports;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="child")
 	@NotFound(action=NotFoundAction.IGNORE)
-	private Set<ChildSponsorship> sponsorships;
+	private List<ChildSponsorship> sponsorships;
+
+	public List<ChildAdmission> getAdmission() {
+		return admission;
+	}
+
+	public List<ChildAcademicReport> getAcademicReports() {
+		return academicReports;
+	}
+
+	public List<ChildHealthReport> getHealthReports() {
+		return healthReports;
+	}
+
+	public List<ChildSponsorship> getSponsorships() {
+		return sponsorships;
+	}
+
+	
+	
 }
 	
 	

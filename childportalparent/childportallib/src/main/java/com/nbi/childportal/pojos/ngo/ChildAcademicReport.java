@@ -44,22 +44,22 @@ public class ChildAcademicReport {
 	private Date dateOfTest;
 	
 	@Column(name = "MATH")
-	private String mathScore;
+	private Long mathScore;
 	
 	@Column(name = "ENGLISH")
-	private String englishScore;
+	private Long englishScore;
 	
 	@Column(name = "SCIENCE")
-	private String scienceScore;
+	private Long scienceScore;
 
 	@Column(name = "SOCIAL")
-	private String socialScore;
+	private Long socialScore;
 	
 	@Column(name = "GK")
-	private String gkScore;
+	private Long gkScore;
 	
 	@Column(name = "KANNADA")
-	private String kannadaScore;
+	private Long kannadaScore;
 
 	@Column(name = "TEACHER_COMMENTS")
 	private String commentsByTeacher;
@@ -90,51 +90,51 @@ public class ChildAcademicReport {
 		this.dateOfTest = dateOfTest;
 	}
 
-	public String getMathScore() {
+	public Long getMathScore() {
 		return mathScore;
 	}
 
-	public void setMathScore(String mathScore) {
+	public void setMathScore(Long mathScore) {
 		this.mathScore = mathScore;
 	}
 
-	public String getEnglishScore() {
+	public Long getEnglishScore() {
 		return englishScore;
 	}
 
-	public void setEnglishScore(String englishScore) {
+	public void setEnglishScore(Long englishScore) {
 		this.englishScore = englishScore;
 	}
 
-	public String getScienceScore() {
+	public Long getScienceScore() {
 		return scienceScore;
 	}
 
-	public void setScienceScore(String scienceScore) {
+	public void setScienceScore(Long scienceScore) {
 		this.scienceScore = scienceScore;
 	}
 
-	public String getSocialScore() {
+	public Long getSocialScore() {
 		return socialScore;
 	}
 
-	public void setSocialScore(String socialScore) {
+	public void setSocialScore(Long socialScore) {
 		this.socialScore = socialScore;
 	}
 
-	public String getGkScore() {
+	public Long getGkScore() {
 		return gkScore;
 	}
 
-	public void setGkScore(String gkScore) {
+	public void setGkScore(Long gkScore) {
 		this.gkScore = gkScore;
 	}
 
-	public String getKannadaScore() {
+	public Long getKannadaScore() {
 		return kannadaScore;
 	}
 
-	public void setKannadaScore(String kannadaScore) {
+	public void setKannadaScore(Long kannadaScore) {
 		this.kannadaScore = kannadaScore;
 	}
 

@@ -5,6 +5,7 @@ package com.nbi.childportal.pojos.ngo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,17 +39,17 @@ public class ChildSponsorship implements Serializable {
 	@Column(name = "CHILD_SPONSORSHIP_ID")
 	private String childSponsorshipId;
 
-	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Child.class)	
+	@ManyToOne(fetch=FetchType.EAGER, targetEntity = Child.class)	
 	@JoinColumn(name="CHILD_ID", referencedColumnName="USER_ID")
 	private Child child;
 	
-	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Sponsor.class)	
+	@ManyToOne(fetch=FetchType.EAGER, targetEntity = Sponsor.class)	
 	@JoinColumn(name="SPONSOR_ID", referencedColumnName="USER_ID")
 	private Sponsor sponsor;
 	
-	@OneToOne(fetch=FetchType.LAZY, targetEntity = PaymentDetail.class)	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="paymentFor")
 	@JoinColumn(name="PAYMENT_DETAIL_ID", referencedColumnName="PAYMENT_DETAIL_ID")
-	private PaymentDetail paymentDetail;
+	private List<PaymentDetail> paymentDetail;
 	
 	
 	@Temporal(TemporalType.DATE)
@@ -58,9 +59,6 @@ public class ChildSponsorship implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "LAPSE_DATE")
 	private Date lapseDate;
-	
-	@Column(name = "AMOUNT_PAID")
-	private Long amountPaid;
 	
 	@Column(name = "SPONSORSHIP_TYPE")
 	private String sponsorshipType;
@@ -96,12 +94,8 @@ public class ChildSponsorship implements Serializable {
 		this.sponsor = sponsor;
 	}
 
-	public PaymentDetail getPaymentDetail() {
+	public List<PaymentDetail> getPaymentDetail() {
 		return paymentDetail;
-	}
-
-	public void setPaymentDetail(PaymentDetail paymentDetail) {
-		this.paymentDetail = paymentDetail;
 	}
 
 	public Date getStartDate() {
@@ -118,14 +112,6 @@ public class ChildSponsorship implements Serializable {
 
 	public void setLapseDate(Date lapseDate) {
 		this.lapseDate = lapseDate;
-	}
-
-	public Long getAmountPaid() {
-		return amountPaid;
-	}
-
-	public void setAmountPaid(Long amountPaid) {
-		this.amountPaid = amountPaid;
 	}
 
 	public String getSponsorshipType() {
@@ -152,7 +138,5 @@ public class ChildSponsorship implements Serializable {
 	public void setNotesFromSponsor(String notesFromSponsor) {
 		this.notesFromSponsor = notesFromSponsor;
 	}
-	
-	
-	
+
 }

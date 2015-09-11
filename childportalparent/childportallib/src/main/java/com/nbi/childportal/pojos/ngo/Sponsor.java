@@ -3,7 +3,7 @@
  */
 package com.nbi.childportal.pojos.ngo;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -23,12 +23,12 @@ public class Sponsor extends User{
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="sponsor")
 	@NotFound(action=NotFoundAction.IGNORE)
-	private Set<ChildSponsorship> sponsorships;
+	private List<ChildSponsorship> sponsorships;
 
-	public Set<ChildSponsorship> getSponsorships() {
+	public List<ChildSponsorship> getSponsorships() {
 		return sponsorships;
 	}
-
+	
 }
 	
 	

@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,7 +45,7 @@ public class PaymentDetail {
 	@Column(name = "RECEIPT")
 	private byte[] receipt;
 
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="paymentDetail")
+	@ManyToOne(targetEntity = ChildSponsorship.class, fetch=FetchType.LAZY)
 	private ChildSponsorship paymentFor;
 	
 	
@@ -86,6 +86,5 @@ public class PaymentDetail {
 	public void setPaymentFor(ChildSponsorship paymentFor) {
 		this.paymentFor = paymentFor;
 	}
-
 	
 }

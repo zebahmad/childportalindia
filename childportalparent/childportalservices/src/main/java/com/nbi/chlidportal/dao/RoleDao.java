@@ -74,14 +74,13 @@ public class RoleDao {
 		return resultTo;
 	}
 
-	private Criteria addCriteria(Role user, Criteria criteria) {
+	private void addCriteria(Role user, Criteria criteria) {
 		if(user!=null && user.getRole()!=null){
 			criteria.add(Restrictions.eq("role", user.getRole()));
 		}
 		if(user!=null && user.getRoleId()!=null){
 			criteria.add(Restrictions.eq("role_id", user.getRole()));
 		}
-		return criteria;
 	}
 
 

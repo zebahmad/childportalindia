@@ -25,10 +25,18 @@ import com.nbi.childportal.pojos.rest.ngo.ChildSponsorshipTo;
 public class ChildSponsorshipsResource{
 	
 	@GET
-	@Path("/{aadharNo}/all")
+	@Path("/sponsor/{aadharNo}/all")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public List<ChildSponsorshipTo> getChildSponsorships(@PathParam("aadharNo") String aadharNo){
+	public List<ChildSponsorshipTo> getChildSponsorshipsBySponsor(@PathParam("aadharNo") String aadharNoOfSponsor){
+		return null;
+	}
+	
+	@GET
+	@Path("/child/{aadharNo}/all")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public List<ChildSponsorshipTo> getChildSponsorshipsByChild(@PathParam("aadharNo") String aadharNoOfChild){
 		return null;
 	}
 	
