@@ -157,7 +157,11 @@ public class UserTo extends BaseTo implements Serializable {
 	
 	public User getUser() throws Exception {
 		User user = new User();
-		
+		return populateUser(user);
+	}
+	
+	
+	public User populateUser(User user) throws Exception {
 		setFieldValue(user, "userId", userId);
 		if(address!=null){
 			setFieldValue(user, "address", address.getAddress());

@@ -151,5 +151,20 @@ public class ChildAcademicReportTo  extends BaseTo implements Serializable {
 		
 		return reportTo;
 	}
+
+	public ChildAcademicReport getChildAcademicReport() throws Exception {
+		ChildAcademicReport report = new ChildAcademicReport();
+		report.setAcademicReportId(academicReportId);
+		report.setChild(child.getChild());
+		report.setCommentsByTeacher(commentsByTeacher);
+		report.setDateOfTest(dateOfTest);
+		report.setEnglishScore(englishScore);
+		report.setGkScore(gkScore);
+		report.setKannadaScore(kannadaScore);
+		report.setMathScore(mathScore);
+		report.setScienceScore(scienceScore);
+		report.setSocialScore(socialScore);
+		return report;
+	}
 	
 }

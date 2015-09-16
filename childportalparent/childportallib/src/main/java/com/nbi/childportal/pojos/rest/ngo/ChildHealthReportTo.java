@@ -109,6 +109,18 @@ public class ChildHealthReportTo  extends BaseTo implements Serializable {
 		
 		return reportTo;
 	}
+
+	public ChildHealthReport getChildHealthReport() throws Exception {
+		ChildHealthReport reportTo = new ChildHealthReport();
+		reportTo.setChild(child.getChild());
+		reportTo.setDateOfTest(dateOfTest);
+		reportTo.setDoctorReviewComment(doctorReviewComment);
+		reportTo.setHealthReportId(healthReportId);
+		reportTo.setHeight(height);
+		reportTo.setWeight(weight);
+		
+		return reportTo;
+	}
 	
 	
 	

@@ -14,22 +14,28 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.nbi.childportal.pojos.StatusResponse;
+import com.nbi.childportal.pojos.ngo.Sponsor;
 import com.nbi.childportal.pojos.rest.ngo.ChildSponsorshipTo;
+import com.nbi.childportal.pojos.rest.ngo.SponsorTo;
+import com.nbi.chlidportal.ngo.dao.SponsorDao;
 
 
 /**
  * @author zahmad
  *
  */
-@Path("/childsponsorships")
-public class ChildSponsorshipsResource{
+@Path("/sponsor")
+public class SponsorResource{
 	
 	@GET
-	@Path("/sponsor/{aadharNo}/all")
+	@Path("/aadharNo}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public List<ChildSponsorshipTo> getChildSponsorshipsBySponsor(@PathParam("aadharNo") String aadharNoOfSponsor){
-		return null;
+	public List<ChildSponsorshipTo> getSponsor(@PathParam("aadharNo") String aadharNoOfSponsor){
+		SponsorDao sponsorDao = SponsorDao.getInstance();
+		SponsorTo sponsor = new SponsorTo();
+		sponsor.setAadharNo(aadharNoOfSponsor);
+		sponsorDao.getSponsor(sponsor.getSponsor());
 	}
 	
 	@GET

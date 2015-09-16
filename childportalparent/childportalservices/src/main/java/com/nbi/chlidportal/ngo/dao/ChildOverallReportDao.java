@@ -35,22 +35,22 @@ public class ChildOverallReportDao extends BaseDao<ChildOverallReport, ChildOver
 		}
 	}
 
-	public void saveChildAcademicReport(ChildOverallReport childHealthReport) throws HibernateException, Exception{
-		save(childHealthReport);
+	public void saveChildAcademicReport(ChildOverallReport childOverallReport) throws HibernateException, Exception{
+		save(childOverallReport);
 	}
 
-	public List<ChildOverallReportTo> getSponsor(ChildOverallReport childHealthReport) throws HibernateException, Exception{
-		return getDbObject(childHealthReport);
-	}
-
-	@Override
-	protected ChildOverallReportTo getRestType(ChildOverallReport childHealthReport) throws Exception {
-		return ChildOverallReportTo.getChildOverallReportTo(childHealthReport);
+	public List<ChildOverallReportTo> getOverallReport(ChildOverallReport childOverallReport) throws HibernateException, Exception{
+		return getDbObject(childOverallReport);
 	}
 
 	@Override
-	protected void addCriteria(ChildOverallReport childHealthReport, Criteria criteria) throws Exception {
-		SearchCriteriaUtil.addChildOverallReportCriteria(childHealthReport, criteria);
+	protected ChildOverallReportTo getRestType(ChildOverallReport childOverallReport) throws Exception {
+		return ChildOverallReportTo.getChildOverallReportTo(childOverallReport);
+	}
+
+	@Override
+	protected void addCriteria(ChildOverallReport childOverallReport, Criteria criteria) throws Exception {
+		SearchCriteriaUtil.addChildOverallReportCriteria(childOverallReport, criteria);
 	}
 
 }

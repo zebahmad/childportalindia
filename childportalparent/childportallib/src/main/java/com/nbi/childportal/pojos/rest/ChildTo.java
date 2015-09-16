@@ -43,20 +43,7 @@ public class ChildTo extends UserTo{
 	
 	public static ChildTo getChildTo(Child child) throws Exception {
 		ChildTo childTo = new ChildTo();
-		childTo.setAadharNo(child.getAadharNo());
-		childTo.setAddress(AddressTo.getAddressTo(child.getAddress()));
-		childTo.setDob(child.getDob());
-		childTo.setDob_type(child.getDob_type());
-		childTo.setEmail(child.getEmail());
-		childTo.setFatherName(child.getFatherName());
-		childTo.setGender(child.getGender());
-		childTo.setLocalName(child.getLocalName());
-		childTo.setMobile(child.getMobile());
-		childTo.setMotherName(child.getMotherName());
-		childTo.setName(child.getName());
-		childTo.setPhoto(child.getPhoto());
-		childTo.setRoles(RoleTo.getRoleToSet(child.getRoles()));
-		childTo.setUserId(child.getUserId());
+		populateUserTo(childTo, child);
 		
 		childTo.getAdmission().addAll(ChildAdmissionTo.getChildAdmissionToList(child.getAdmission()));
 		childTo.getAcademicReports().addAll(ChildAcademicReportTo.getChildAcademicReportToList(child.getAcademicReports()));
@@ -64,6 +51,12 @@ public class ChildTo extends UserTo{
 		childTo.getSponsorships().addAll(ChildSponsorshipTo.getChildSponsorshipToList(child.getSponsorships()));
 		
 		return childTo;
+	}
+	public Child getChild() throws Exception {
+		Child child = new Child();
+		populateUser(child);
+		
+		return child;
 	}
 	
 	

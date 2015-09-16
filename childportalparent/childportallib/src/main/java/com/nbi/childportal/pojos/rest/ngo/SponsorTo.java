@@ -47,6 +47,7 @@ public class SponsorTo extends UserTo{
 		sponsorTo.getSponsorships().addAll(ChildSponsorshipTo.getChildSponsorshipToList(sponsor.getSponsorships()));
 		return sponsorTo;
 	}
+
 }
 	
 	

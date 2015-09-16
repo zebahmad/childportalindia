@@ -26,6 +26,7 @@ public class ChildOverallReportTo  extends BaseTo implements Serializable {
 	
 	private static final long serialVersionUID = -1040995214230681058L;
 
+	private Long childOverallReportId;
 	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Date preparedOn;
 	private String preparedBy;
@@ -35,6 +36,15 @@ public class ChildOverallReportTo  extends BaseTo implements Serializable {
 	private String ngoReportInWords;
 	private byte[] photo;
 
+	
+	public Long getChildOverallReportId() {
+		return childOverallReportId;
+	}
+
+	public void setChildOverallReportId(Long childOverallReportId) {
+		this.childOverallReportId = childOverallReportId;
+	}
+	
 	public Date getPreparedOn() {
 		return preparedOn;
 	}
@@ -102,6 +112,19 @@ public class ChildOverallReportTo  extends BaseTo implements Serializable {
 		reportTo.setPreparedOn(childOverallReport.getPreparedOn());
 		
 		return reportTo;
+	}
+
+	public ChildOverallReport getChildOverallReport() throws Exception {
+		ChildOverallReport report = new ChildOverallReport();
+		report.setChild(child.getChild());
+		report.setChildAcademics(childAcademics.getChildAcademicReport());
+		report.setChildHealth(childHealth.getChildHealthReport());
+		report.setNgoReportInWords(ngoReportInWords);
+		report.setPhoto(photo);
+		report.setPreparedBy(preparedBy);
+		report.setPreparedOn(preparedOn);
+		
+		return report;
 	}
 	
 }
